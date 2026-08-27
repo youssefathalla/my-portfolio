@@ -1,8 +1,11 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import { inject, Pipe, PipeTransform } from '@angular/core';
 import { FirestoreTimestamp } from '@shared/utils/date.utils';
+import { LoggerService } from '@core/services/logger/logger.service';
 
 @Pipe({ name: 'timestampDate' })
 export class TimestampDatePipe implements PipeTransform {
+  readonly #logger = inject(LoggerService);
+
   transform(value: unknown): Date | null {
     // Guard against null or undefined values
     if (!value) return null;
@@ -22,7 +25,7 @@ export class TimestampDatePipe implements PipeTransform {
     }
 
     // If it's neither a Timestamp nor a Date, log a warning in development
-    console.warn(
+    this.#logger.warn(
       'TimestampDatePipe received a value that was not a Firestore Timestamp, Date, or valid string/number:',
       value,
     );

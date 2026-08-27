@@ -1,13 +1,4 @@
-import {
-  Component,
-  viewChild,
-  signal,
-  effect,
-  input,
-  output,
-  computed,
-  inject,
-} from "@angular/core";
+import { Component, viewChild, signal, effect, input, output, computed, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatPaginator, MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
@@ -15,18 +6,20 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIconModule } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { TableColumn, FilterOptions, FilterState, ExcelColumnConfig, PaginationServiceInterface } from './tables-type';
+import { TableColumn, FilterOptions, FilterState, ExcelColumnConfig, PaginationServiceInterface } from './table.model';
 import { NgTemplateOutlet } from '@angular/common';
 import { MatChipsModule } from '@angular/material/chips';
 import { LoggerService } from '@core/services/logger/logger.service';
+import { SharedIconModule } from '@shared/ui/mat-icon';
 
 @Component({
-  selector: 'reusable-table',
+  selector: 'app-reusable-table',
+  templateUrl: './reusable-table.component.html',
+  styleUrl: './reusable-table.component.scss',
   imports: [
     MatTableModule,
     MatSortModule,
@@ -34,7 +27,7 @@ import { LoggerService } from '@core/services/logger/logger.service';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule,
+    SharedIconModule,
     MatTooltipModule,
     MatCheckboxModule,
     MatMenuModule,
@@ -43,14 +36,12 @@ import { LoggerService } from '@core/services/logger/logger.service';
     MatChipsModule,
     FormsModule,
   ],
-  templateUrl: './reusable-table.html',
-  styleUrl: './reusable-table.scss',
   host: {
     class: 'flex flex-col flex-1',
   },
 })
 export class ReusableTable<T extends object> {
-  private readonly logger = inject(LoggerService);
+  readonly #logger = inject(LoggerService);
 
   // ===== INPUTS required =====
   readonly data = input.required<T[]>();
@@ -66,7 +57,7 @@ export class ReusableTable<T extends object> {
   readonly hasServerFilters = input<boolean>(false); // Indicates if parent has server-side filters (search, status, type) applied
   // ===== OUTPUTS =====
   readonly exportRequested = output<{ data: T[]; columns: ExcelColumnConfig<T>[]; filename?: string }>();
-  readonly filterChanged = output<{ column: keyof T; value: any | null }>();
+  readonly filterChanged = output<{ column: keyof T; value: unknown }>();
   readonly searchValue = output<string>();
   readonly rowClick = output<T>();
 
@@ -76,12 +67,12 @@ export class ReusableTable<T extends object> {
 
   // ===== STATE SIGNALS =====
 
-  readonly columnFilters = signal<Partial<Record<keyof T, any>>>({});
+  readonly columnFilters = signal<Partial<Record<keyof T, unknown>>>({});
   readonly activeMenuColumn = signal<TableColumn<T> | null>(null);
   readonly filterOptionsCache = signal<Partial<Record<keyof T, FilterOptions[]>>>({});
   readonly filterOptions = signal<FilterOptions[]>([]);
-  readonly dataSource = signal(new MatTableDataSource<T>());
-  readonly serverFilterState = signal<Map<keyof T, any>>(new Map());
+  readonly dataSource = new MatTableDataSource<T>();
+  readonly serverFilterState = signal<Map<keyof T, unknown>>(new Map());
   protected readonly searchTerm = signal('');
 
   // ===== COMPUTED SIGNALS =====
@@ -111,6 +102,7 @@ export class ReusableTable<T extends object> {
 
   // ===== CONSTRUCTOR & EFFECTS =====
   constructor() {
+    this.dataSource.filterPredicate = (row, filter) => this.matchesClientFilter(row, filter);
     this.setupDataSourceEffects();
     this.setupFilterEffects();
     this.setupPaginatorAndSortEffects();
@@ -123,52 +115,17 @@ export class ReusableTable<T extends object> {
 
   getStringKey = String;
 
-  private mouseDownRow: T | null = null;
-  private mouseDownTime = 0;
-
-  onRowMouseDown(event: MouseEvent, row: T): void {
-    // Track mouse down to distinguish clicks from drags
-    if (event.button === 0) {
-      this.mouseDownRow = row;
-      this.mouseDownTime = Date.now();
-    }
-  }
-
   onRowClick(event: MouseEvent, row: T): void {
     // Don't emit if clicking on interactive elements (buttons, icons, menus, etc.)
-    const target = event.target as HTMLElement;
-    const isInteractiveElement = target.closest('button, a, [matMenuTriggerFor], [role="button"], mat-icon, .mat-icon-button, .mat-button');
-
-    if (isInteractiveElement) {
-      // Reset tracking and don't emit
-      this.mouseDownRow = null;
-      this.mouseDownTime = 0;
-      return;
-    }
-
-    // Only emit if it's a real click (not a drag or other interaction)
-    // Check that mouse was pressed and released on the same row within a short time
-    const timeSinceMouseDown = Date.now() - this.mouseDownTime;
-    const isClick = this.mouseDownRow === row &&
-                    event.type === 'click' &&
-                    event.button === 0 &&
-                    timeSinceMouseDown < 300; // Max 300ms between mousedown and click
-
-    if (isClick) {
-      this.rowClick.emit(row);
-    }
-
-    // Reset tracking
-    this.mouseDownRow = null;
-    this.mouseDownTime = 0;
+    // Native (click) already fires only for a matched mousedown/mouseup pair on the
+    // same element, so no manual drag/timing detection is needed here.
+    if (this.isInteractiveTarget(event.target)) return;
+    this.rowClick.emit(row);
   }
 
   onRowKeydown(event: KeyboardEvent, row: T): void {
     // Don't emit if interacting with an interactive element inside the row
-    const target = event.target as HTMLElement;
-    const isInteractiveElement = target.closest('button, a, [matMenuTriggerFor], [role="button"], mat-icon, .mat-icon-button, .mat-button');
-
-    if (isInteractiveElement && target !== event.currentTarget) {
+    if (this.isInteractiveTarget(event.target) && event.target !== event.currentTarget) {
       return;
     }
 
@@ -178,7 +135,13 @@ export class ReusableTable<T extends object> {
     }
   }
 
-  isServerFilterActive(columnKey: keyof T, value: any): boolean {
+  private isInteractiveTarget(target: EventTarget | null): boolean {
+    return !!(target as HTMLElement | null)?.closest(
+      'button, a, [matMenuTriggerFor], [role="button"], mat-icon, .mat-icon-button, .mat-button',
+    );
+  }
+
+  isServerFilterActive(columnKey: keyof T, value: unknown): boolean {
     return this.serverFilterState().get(columnKey) === value;
   }
 
@@ -187,7 +150,8 @@ export class ReusableTable<T extends object> {
   }
 
   trackByFn(index: number, item: T): string | number {
-    return (item as any)?.id ?? index;
+    const withId = item as Partial<Record<'id', string | number>>;
+    return withId.id ?? index;
   }
 
   onMenuOpened(column: TableColumn<T>): void {
@@ -209,28 +173,40 @@ export class ReusableTable<T extends object> {
     return current !== undefined && current !== null && String(current).length > 0;
   }
 
-  applyColumnFilter(value: any): void {
+  applyColumnFilter(value: unknown): void {
     const column = this.activeMenuColumn();
     if (!column) return;
 
-    this.serverFilterState.update((state) => {
-      const newState = new Map(state);
-      newState.set(column.key, value);
-      return newState;
-    });
-    this.filterChanged.emit({ column: column.key, value });
+    if (column.serverFilter) {
+      this.serverFilterState.update((state) => {
+        const newState = new Map(state);
+        newState.set(column.key, value);
+        return newState;
+      });
+      this.filterChanged.emit({ column: column.key, value });
+    } else {
+      this.columnFilters.update((filters) => ({ ...filters, [column.key]: value }));
+    }
   }
 
   clearColumnFilter(): void {
     const column = this.activeMenuColumn();
     if (!column) return;
 
-    this.serverFilterState.update((state) => {
-      const newState = new Map(state);
-      newState.delete(column.key);
-      return newState;
-    });
-    this.filterChanged.emit({ column: column.key, value: null });
+    if (column.serverFilter) {
+      this.serverFilterState.update((state) => {
+        const newState = new Map(state);
+        newState.delete(column.key);
+        return newState;
+      });
+      this.filterChanged.emit({ column: column.key, value: null });
+    } else {
+      this.columnFilters.update((filters) => {
+        const next = { ...filters };
+        delete next[column.key as keyof T];
+        return next;
+      });
+    }
   }
 
   clearAllFilters(): void {
@@ -294,10 +270,10 @@ export class ReusableTable<T extends object> {
   }
 
   exportCurrentData(customColumns?: ExcelColumnConfig<T>[], filename?: string): void {
-    const currentData = this.dataSource().filteredData || this.dataSource().data;
+    const currentData = this.dataSource.filteredData || this.dataSource.data;
 
     if (!currentData || currentData.length === 0) {
-      this.logger.warn('No data to export');
+      this.#logger.warn('No data to export');
       return;
     }
 
@@ -334,14 +310,10 @@ export class ReusableTable<T extends object> {
       const sort = this.sort();
       const service = this.paginationService();
 
-      if (service && paginator) {
-        this.dataSource().sort = sort;
-      } else if (!service && paginator) {
-        this.dataSource().paginator = paginator;
-        this.dataSource().sort = sort;
-      } else {
-        this.dataSource().sort = sort;
-      }
+      this.dataSource.sort = sort;
+      // Only hand client-side pagination to MatTableDataSource; a paginationService
+      // means the parent controls paging (server-side), so the paginator is display-only.
+      this.dataSource.paginator = !service && paginator ? paginator : null;
     });
   }
 
@@ -361,7 +333,7 @@ export class ReusableTable<T extends object> {
   }
 
   private updateDataSource(data: T[]): void {
-    this.dataSource().data = Array.isArray(data) ? data : [];
+    this.dataSource.data = Array.isArray(data) ? data : [];
   }
 
   private updateFilterOptionsCache(data: T[]): void {
@@ -379,7 +351,7 @@ export class ReusableTable<T extends object> {
     this.filterOptionsCache.set(newCache);
   }
 
-  private getUniqueValuesForColumn(data: T[], key: keyof T): any[] {
+  private getUniqueValuesForColumn(data: T[], key: keyof T): unknown[] {
     return [...new Set(data.map((item) => item[key]))];
   }
 
@@ -387,14 +359,28 @@ export class ReusableTable<T extends object> {
     return value.charAt(0).toUpperCase() + value.slice(1).toLowerCase();
   }
 
+  /**
+   * Filter predicate registered on the MatTableDataSource. The `filter` string
+   * carries the serialized FilterState; every active column filter must match
+   * the row's value for the row to remain visible.
+   */
+  private matchesClientFilter(row: T, filter: string): boolean {
+    if (!filter) return true;
+    const { columns } = JSON.parse(filter) as FilterState;
+    return Object.entries(columns).every(([key, value]) => {
+      if (value === undefined || value === null || value === '') return true;
+      return String(row[key as keyof T]) === String(value);
+    });
+  }
+
   private applyFilters(filterState: FilterState): void {
     const hasClientFilters = filterState?.columns && Object.keys(filterState.columns).length > 0;
 
-    // When there are no client-side filters, clear the filter string to avoid MatTableDataSource default filtering
-    // which would otherwise treat a non-empty string as an active filter and hide all rows.
-    this.dataSource().filter = hasClientFilters ? JSON.stringify(filterState) : '';
+    // When there are no client-side filters, clear the filter string so the
+    // filterPredicate short-circuits and shows every row.
+    this.dataSource.filter = hasClientFilters ? JSON.stringify(filterState) : '';
     if (hasClientFilters) {
-      this.dataSource().paginator?.firstPage();
+      this.dataSource.paginator?.firstPage();
     }
   }
 

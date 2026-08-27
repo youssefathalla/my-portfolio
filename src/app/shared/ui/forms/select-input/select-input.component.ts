@@ -2,7 +2,7 @@ import { Component, computed, input } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { FormField } from '@angular/forms/signals';
-import { BaseFormControl } from '../control-base.directive';
+import { BaseFormControl } from '../base-form-control.directive';
 
 @Component({
   selector: 'app-select-input',
@@ -33,7 +33,7 @@ export class SelectInputComponent<T, V = T> extends BaseFormControl<V> {
   readonly labelKey = input<keyof T>(); // If options are objects, which key is the label?
 
   // Translation prefix? If true, treats label as a key.
-  readonly labelPrefix = input(''); // e.g. 'cities.'
+  readonly labelPrefix = input(''); // e.g. 'cities' (no trailing separator — one is added automatically)
 
   protected readonly viewOptions = computed(() => {
     const options = this.options();

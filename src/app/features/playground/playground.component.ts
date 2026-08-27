@@ -15,7 +15,7 @@ import { SnackbarService } from '@core/services/snack-bar/snack-bar.service';
 // Shared UI Components
 import { SharedIconModule, IconSize, IconColor } from '@shared/ui/mat-icon';
 import { StatusBadgeComponent } from '@shared/ui/status-badge/status-badge.component';
-import { StatusConfig } from '@shared/ui/status-badge/status-model';
+import { StatusConfig } from '@shared/ui/status-badge/status.model';
 import { ChipsComponent } from '@shared/ui/chips/chips.component';
 import { BaseCardComponent } from '@shared/ui/cards/base-card/base-card.component';
 import { InfoCardComponent } from '@shared/ui/cards/info-card/info-card.component';
@@ -33,8 +33,8 @@ import {
   ImgPreviewDialogComponent,
   ImgPreviewData,
 } from '@shared/ui/img-preview-dialog/img-preview-dialog.component';
-import { ReusableTable } from '@shared/ui/reusable-table/reusable-table';
-import { TableColumn } from '@shared/ui/reusable-table/tables-type';
+import { ReusableTable } from '@shared/ui/reusable-table/reusable-table.component';
+import { TableColumn } from '@shared/ui/reusable-table/table.model';
 
 // Form Components
 import { TextInputComponent } from '@shared/ui/forms/text-input/text-input.component';

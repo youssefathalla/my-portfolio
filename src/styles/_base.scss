@@ -3,15 +3,6 @@
 :root {
   interpolate-size: allow-keywords;
 
-  --color-on-success: light-dark(#d3e8d2, #394b3b);
-  --color-success: light-dark(#006d33, #00e472);
-
-  --color-warning: light-dark(#626200, #cdcd00);
-  --color-on-warning: light-dark(#e7e4bf, #49482d);
-
-  --color-info: light-dark(#005cbb, #abc7ff);
-  --color-on-info: light-dark(#dae2f9, #3e4759);
-
   //! overrides
   @include mat.progress-bar-overrides(
     (

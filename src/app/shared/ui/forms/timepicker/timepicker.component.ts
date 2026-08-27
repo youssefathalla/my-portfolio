@@ -3,8 +3,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTimepickerModule } from '@angular/material/timepicker';
 import { FormField } from '@angular/forms/signals';
-import { DateInputType } from '../input.models';
-import { BaseFormControl } from '../control-base.directive';
+import { DateInputType } from '../input.model';
+import { BaseFormControl } from '../base-form-control.directive';
 
 @Component({
   selector: 'app-timepicker',

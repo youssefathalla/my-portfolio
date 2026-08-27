@@ -6,7 +6,7 @@ import { defineConfig } from 'eslint/config';
 
 export default defineConfig([
   {
-    ignores: ['.agents/**', '.kiro/**', 'dist/**', 'coverage/**', 'vitest.config.ts'],
+    ignores: ['.agents/**', '.kiro/**', 'dist/**', 'coverage/**'],
   },
   {
     files: ['**/*.ts'],
@@ -40,7 +40,7 @@ export default defineConfig([
       '@angular-eslint/use-component-view-encapsulation': 'warn',
 
       // 5. Types & Global Rules
-      '@typescript-eslint/no-explicit-any': 'off',
+      '@typescript-eslint/no-explicit-any': 'error',
       '@typescript-eslint/no-unused-vars': [
         'error',
         {

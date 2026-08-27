@@ -1,10 +1,12 @@
 /// <reference types="@types/google.maps" />
 import { Service, inject } from '@angular/core';
 import { GoogleMapsLoaderService } from './google-maps-loader.service';
+import { LoggerService } from '@core/services/logger/logger.service';
 
 @Service()
 export class DistanceService {
   readonly #mapsLoader = inject(GoogleMapsLoaderService);
+  readonly #logger = inject(LoggerService);
 
   // Cache to store the promise of the route calculation to avoid redundant API calls
   readonly #cache = new Map<string, Promise<{ distance: number; duration: number } | null>>();
@@ -21,9 +23,17 @@ export class DistanceService {
 
     const routePromise = (async () => {
       await this.#mapsLoader.load();
+      interface RouteMatrixElement {
+        condition?: string;
+        distanceMeters?: number;
+        durationMillis?: number;
+      }
+      interface RouteMatrixResponse {
+        matrix?: { rows?: { items?: RouteMatrixElement[] }[] };
+      }
       const { RouteMatrix } = (await google.maps.importLibrary('routes')) as unknown as {
         RouteMatrix: {
-          computeRouteMatrix: (request: unknown) => Promise<any>;
+          computeRouteMatrix: (request: unknown) => Promise<RouteMatrixResponse>;
         };
       };
       // Confirmed via browser console testing:
@@ -44,12 +54,12 @@ export class DistanceService {
         const element = response?.matrix?.rows?.[0]?.items?.[0];
 
         if (!element) {
-          console.warn(`Routes Matrix: no element returned for "${origin}" → "${destination}"`);
+          this.#logger.warn(`Routes Matrix: no element returned for "${origin}" → "${destination}"`);
           return null;
         }
 
         if (element.condition && element.condition !== 'ROUTE_EXISTS') {
-          console.warn(
+          this.#logger.warn(
             `Routes Matrix: no route between "${origin}" and "${destination}" (${element.condition})`,
           );
           return null;
@@ -63,7 +73,7 @@ export class DistanceService {
           duration: Math.ceil(durationMin),
         };
       } catch (err) {
-        console.error('Failed to compute route matrix:', err);
+        this.#logger.error('Failed to compute route matrix:', err);
         throw err;
       }
     })();

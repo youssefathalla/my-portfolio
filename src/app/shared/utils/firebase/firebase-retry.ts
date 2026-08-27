@@ -24,7 +24,7 @@ const RETRYABLE_AUTH_CODES = ['auth/network-request-failed', 'auth/requires-rece
 export const authRetryConfig = {
   count: 2,
   resetOnSuccess: true,
-  delay: (error: any) => {
+  delay: (error: { code?: string }) => {
     const isRetryable = RETRYABLE_AUTH_CODES.includes(
       error.code as (typeof RETRYABLE_AUTH_CODES)[number],
     );

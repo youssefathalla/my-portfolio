@@ -4,7 +4,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormField } from '@angular/forms/signals';
 import { SharedIconModule } from '@shared/ui/mat-icon';
-import { BaseFormControl } from '../control-base.directive';
+import { BaseFormControl } from '../base-form-control.directive';
 
 @Component({
   selector: 'app-date-input',
@@ -23,7 +23,6 @@ import { BaseFormControl } from '../control-base.directive';
         [min]="min()"
         [max]="max()"
         [placeholder]="placeholder()"
-        (click)="picker.open()"
       />
       <mat-datepicker-toggle matIconSuffix [for]="picker" />
       <mat-datepicker #picker />

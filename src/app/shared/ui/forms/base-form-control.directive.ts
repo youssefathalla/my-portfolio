@@ -1,6 +1,6 @@
 import { Directive, computed, input } from '@angular/core';
 import { FieldTree } from '@angular/forms/signals';
-import { InputAppearance, SubscriptSizing } from './input.models';
+import { InputAppearance, SubscriptSizing } from './input.model';
 
 @Directive()
 export abstract class BaseFormControl<T> {

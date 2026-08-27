@@ -2,9 +2,9 @@ import { Component, input, signal } from '@angular/core';
 import { FormField } from '@angular/forms/signals';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { InputMode } from '../input.models';
+import { InputMode } from '../input.model';
 import { SharedIconModule } from '@shared/ui/mat-icon';
-import { BaseFormControl } from '../control-base.directive';
+import { BaseFormControl } from '../base-form-control.directive';
 import { MatButtonModule } from '@angular/material/button';
 
 @Component({

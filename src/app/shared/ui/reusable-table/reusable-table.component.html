@@ -1,0 +1,188 @@
+<!--* header -->
+@if (showHeaderControls()) {
+  <div class="flex flex-col gap-1.5">
+    <!--* title & subtitle -->
+    <div class="flex flex-wrap gap-4 justify-between items-center mb-1">
+      <div class="flex gap-2 items-center ms-1.5 flex-wrap">
+        @if (headerIcon()) {
+          <mat-icon [name]="headerIcon()!" class="md:block! hidden!" />
+        }
+        <div class="flex flex-col">
+          <h2 class="font-title-lg">{{ headerTitle() }}</h2>
+          <p class="font-body-md">{{ subTitle() }}</p>
+        </div>
+      </div>
+
+      <div class="flex gap-2 items-center me-1.5 flex-wrap">
+        <ng-content select="[tableHeaderActions]" />
+      </div>
+    </div>
+
+    <!--* search -->
+    <mat-form-field class="mb-2 w-full hide-subscript-wrapper">
+      <mat-label>Search</mat-label>
+      <button
+        matPrefix
+        matIconButton
+        matTooltip="Search in Database"
+        (click)="onSearchSubmit()"
+        aria-label="Search in Database"
+      >
+        <mat-icon name="search" />
+      </button>
+      <input
+        matInput
+        id="table-search-input"
+        name="searchTerm"
+        [(ngModel)]="searchTerm"
+        placeholder="Search in Database by name"
+        aria-label="Search in Database by name"
+        (keyup.enter)="onSearchSubmit()"
+      />
+      @if (searchTerm().length > 0) {
+        <button matSuffix matIconButton aria-label="Clear search" (click)="clearSearch()">
+          <mat-icon name="close" />
+        </button>
+      }
+    </mat-form-field>
+  </div>
+}
+
+<!-- !End header -->
+<!--* table + body  max-h-[599px] -->
+<div class="relative grow overflow-auto custom-scrollbar">
+  <!-- Loading Overlay -->
+  @if (isLoading()) {
+    <div class="absolute inset-0 flex justify-center items-center bg-surface z-10">
+      <mat-spinner [diameter]="100" />
+    </div>
+  }
+  <table
+    class="min-w-max! w-full"
+    mat-table
+    recycleRows
+    [trackBy]="trackByFn"
+    [dataSource]="dataSource"
+    matSort
+  >
+    <!-- * Column Headers -->
+    @for (column of columns(); track column.key) {
+      <ng-container [matColumnDef]="getStringKey(column.key)">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          [mat-sort-header]="getStringKey(column.key)"
+          [disabled]="!column.sortable"
+        >
+          {{ column.label }}
+
+          @if (column.hasMenu) {
+            <button
+              class="ms-1 customIcon"
+              matIconButton
+              [matMenuTriggerFor]="columnMenu"
+              (click)="$event.stopPropagation()"
+              (menuOpened)="onMenuOpened(column)"
+            >
+              <mat-icon
+                [name]="isColumnFiltered(column) ? 'filter_list_off' : 'filter_list'"
+                [class.text-primary]="isColumnFiltered(column)"
+              />
+            </button>
+          }
+        </th>
+        <!-- * Column Cells -->
+        <td mat-cell *matCellDef="let element">
+          @if (column.customCellTpl) {
+            <ng-container
+              [ngTemplateOutlet]="column.customCellTpl"
+              [ngTemplateOutletContext]="{ $implicit: element }"
+            />
+          } @else {
+            {{ element[getStringKey(column.key)] }}
+          }
+        </td>
+      </ng-container>
+    }
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns(); sticky: true"></tr>
+    <tr
+      mat-row
+      *matRowDef="let row; columns: displayedColumns()"
+      class="cursor-pointer hover:bg-on-surface/5 focus-visible:outline focus-visible:outline-primary focus-visible:-outline-offset-2"
+      (click)="onRowClick($event, row)"
+      (keydown)="onRowKeydown($event, row)"
+      tabindex="0"
+    ></tr>
+
+    <!-- Row shown when there is no matching data. -->
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="px-2 py-10 text-center" [attr.colspan]="displayedColumns().length">
+        @if (data().length === 0) {
+          @if (hasActiveFilters()) {
+            <div class="flex flex-col items-center justify-center gap-2 p-4">
+              <span class="font-medium">No data found, please clear filters</span>
+              <button matButton="tonal" theme="info" (click)="clearAllFilters()">
+                <mat-icon name="filter_alt_off" />
+                Clear Filters
+              </button>
+            </div>
+          } @else {
+            <ng-content select="[noDataContent]" />
+          }
+        }
+      </td>
+    </tr>
+  </table>
+
+  <!--* filter menu -->
+  <mat-menu #columnMenu="matMenu">
+    <ng-template matMenuContent>
+      <div class="max-h-93.75! overflow-auto custom-scrollbar">
+        <!-- Menu Header -->
+        <div class="px-3 py-2 border-b border-outline-variant">
+          <span class="text-sm">Filter by </span>
+          <span class="font-semibold"> {{ activeMenuColumn()?.label }} </span>
+        </div>
+
+        <!-- Clear Filter Button -->
+        <button mat-menu-item (click)="clearColumnFilter()">
+          <mat-icon name="clear_all" />
+          <span>Clear Filter</span>
+        </button>
+
+        <!-- Dynamic Filter Options -->
+        @if (activeMenuColumn(); as column) {
+          @for (option of filterOptions(); track option.value) {
+            <button
+              mat-menu-item
+              (click)="applyColumnFilter(option.value)"
+              id="clear-filter-button"
+            >
+              @let isActive =
+                column.serverFilter
+                  ? isServerFilterActive(column.key, option.value)
+                  : isClientFilterActive(column.key, option.value);
+              <mat-icon name="check" [class.opacity-0]="!isActive" />
+              <span>{{ option.label }}</span>
+            </button>
+          }
+        }
+      </div>
+    </ng-template>
+  </mat-menu>
+</div>
+
+<!-- !End body -->
+
+<!--* footer -->
+@if (shouldShowFooter()) {
+  <mat-paginator
+    [pageSizeOptions]="[10, 25, 50, 100]"
+    aria-label="Select page of data"
+    showFirstLastButtons
+    class="pt-2"
+    (page)="paginationService() ? onPageChange($event) : null"
+  />
+}

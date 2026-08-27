@@ -16,7 +16,8 @@ export interface ImgPreviewData {
   imports: [MatDialogModule, MatButtonModule, SharedIconModule, MatTooltipModule, NgOptimizedImage],
   templateUrl: './img-preview-dialog.component.html',
   host: {
-    class: 'flex flex-col w-full h-full overflow-hidden rounded-xl  backdrop-blur',
+    class: 'flex flex-col w-full h-full overflow-hidden rounded-xl backdrop-blur',
+    '(keydown)': 'onKeydown($event)',
   },
 })
 export class ImgPreviewDialogComponent {
@@ -47,6 +48,47 @@ export class ImgPreviewDialogComponent {
     event.preventDefault();
     if (event.deltaY < 0) this.zoomIn();
     else this.zoomOut();
+  }
+
+  /** Keyboard equivalents for the mouse-only zoom/pan/rotate gestures. */
+  protected onKeydown(event: KeyboardEvent) {
+    const panStep = 20;
+    switch (event.key) {
+      case '+':
+      case '=':
+        event.preventDefault();
+        this.zoomIn();
+        break;
+      case '-':
+        event.preventDefault();
+        this.zoomOut();
+        break;
+      case 'r':
+      case 'R':
+        event.preventDefault();
+        this.rotate();
+        break;
+      case '0':
+        event.preventDefault();
+        this.reset();
+        break;
+      case 'ArrowUp':
+        event.preventDefault();
+        this.position.update((p) => ({ ...p, y: p.y + panStep }));
+        break;
+      case 'ArrowDown':
+        event.preventDefault();
+        this.position.update((p) => ({ ...p, y: p.y - panStep }));
+        break;
+      case 'ArrowLeft':
+        event.preventDefault();
+        this.position.update((p) => ({ ...p, x: p.x + panStep }));
+        break;
+      case 'ArrowRight':
+        event.preventDefault();
+        this.position.update((p) => ({ ...p, x: p.x - panStep }));
+        break;
+    }
   }
 
   protected startPanning(event: MouseEvent) {

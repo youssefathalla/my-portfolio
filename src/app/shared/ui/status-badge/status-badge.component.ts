@@ -1,7 +1,7 @@
 import { Component, computed, input } from '@angular/core';
 import { SharedIconModule } from '@shared/ui/mat-icon';
 import { TitleCasePipe } from '@angular/common';
-import { StatusConfig } from './status-model';
+import { StatusConfig } from './status.model';
 
 @Component({
   selector: 'app-status-badge',

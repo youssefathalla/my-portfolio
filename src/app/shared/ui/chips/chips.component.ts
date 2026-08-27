@@ -13,7 +13,7 @@ import { IconSize, SharedIconModule } from '../mat-icon';
       [attr.aria-label]="ariaLabel()"
     >
       @for (chip of chips(); track chip) {
-        <li [class]="listClass()">
+        <li [class]="listClass()" role="presentation">
           <button
             type="button"
             class="chip"
@@ -22,9 +22,7 @@ import { IconSize, SharedIconModule } from '../mat-icon';
             [class]="childrenClass()"
             [matRippleColor]="rippleColor"
             [class.selected]="value() === chip"
-            [attr.aria-label]="chip"
             [attr.aria-labelledby]="chip + '-label'"
-            [attr.aria-current]="value() === chip"
             [attr.aria-checked]="value() === chip"
             (click)="value.set(chip)"
           >

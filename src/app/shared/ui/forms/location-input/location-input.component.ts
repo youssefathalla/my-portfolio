@@ -11,8 +11,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatAutocompleteModule, MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { SharedIconModule } from '@shared/ui/mat-icon';
-import { BaseFormControl } from '../control-base.directive';
+import { BaseFormControl } from '../base-form-control.directive';
 import { GoogleMapsLoaderService } from '@core/services/maps/google-maps-loader.service';
+import { LoggerService } from '@core/services/logger/logger.service';
 
 @Component({
   selector: 'app-location-input',
@@ -26,6 +27,7 @@ export class LocationInputComponent extends BaseFormControl<string> {
   readonly placeSelected = output<google.maps.places.PlaceResult>();
   readonly #mapsService = inject(GoogleMapsLoaderService);
   readonly #destroyRef = inject(DestroyRef);
+  readonly #logger = inject(LoggerService);
 
   readonly predictions = signal<google.maps.places.AutocompleteSuggestion[]>([]);
 
@@ -67,7 +69,7 @@ export class LocationInputComponent extends BaseFormControl<string> {
         const { suggestions } = await AutocompleteSuggestion.fetchAutocompleteSuggestions(request);
         this.predictions.set(suggestions ?? []);
       } catch (e) {
-        console.error('Error fetching autocomplete suggestions:', e);
+        this.#logger.error('Error fetching autocomplete suggestions:', e);
         this.predictions.set([]);
       }
     }, 300);
@@ -95,7 +97,7 @@ export class LocationInputComponent extends BaseFormControl<string> {
           } as google.maps.places.PlaceGeometry,
         } as google.maps.places.PlaceResult);
       } catch (error) {
-        console.error('Error fetching place details:', error);
+        this.#logger.error('Error fetching place details:', error);
       }
     }
   }

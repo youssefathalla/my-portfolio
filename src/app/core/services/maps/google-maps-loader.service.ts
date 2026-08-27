@@ -1,7 +1,7 @@
 /// <reference types="@types/google.maps" />
 import { Service, signal, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
-import { environment } from '@env/environment.dev';
+import { environment } from '@env/environment';
 
 @Service()
 export class GoogleMapsLoaderService {

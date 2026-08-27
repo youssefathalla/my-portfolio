@@ -2,7 +2,7 @@ import { CdkTextareaAutosize } from '@angular/cdk/text-field';
 import { Component, input } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { BaseFormControl } from '../control-base.directive';
+import { BaseFormControl } from '../base-form-control.directive';
 import { FormField } from '@angular/forms/signals';
 import { SharedIconModule } from '@shared/ui/mat-icon';
 

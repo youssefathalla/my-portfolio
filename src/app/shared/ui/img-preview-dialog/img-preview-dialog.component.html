@@ -3,14 +3,15 @@
   <h2 mat-dialog-title>
     {{ data.title || 'common.documentPreview' }}
   </h2>
-  <button mat-icon-button mat-dialog-close aria-label="Close image preview">
+  <button matIconButton mat-dialog-close aria-label="Close image preview">
     <mat-icon name="close" />
   </button>
 </div>
 
 <!-- Main Content (Image Area) -->
-<div
+<section
   class="flex overflow-hidden relative flex-1 justify-center items-center w-full bg-transparent cursor-move select-none"
+  aria-label="Image preview area"
   (wheel)="onWheel($event)"
   (mousedown)="startPanning($event)"
   (mousemove)="pan($event)"
@@ -33,28 +34,28 @@
       fill
     />
   </div>
-</div>
+</section>
 
 <!-- Bottom Controls -->
 <div class="flex z-50 justify-center items-center py-6">
   <div class="flex gap-2 items-center px-4 py-2 backdrop-blur-xl rounded-full mat-border-subtle shadow-mat-1">
-    <button mat-icon-button (click)="zoomOut()" [matTooltip]="'common.zoomOut'" aria-label="Zoom out">
+    <button matIconButton (click)="zoomOut()" [matTooltip]="'common.zoomOut'" aria-label="Zoom out">
       <mat-icon name="remove" />
     </button>
 
     <span class="w-12 font-body-sm font-mono" aria-live="polite"> {{ scalePercentage() }}% </span>
 
-    <button mat-icon-button (click)="zoomIn()" [matTooltip]="'common.zoomIn'" aria-label="Zoom in">
+    <button matIconButton (click)="zoomIn()" [matTooltip]="'common.zoomIn'" aria-label="Zoom in">
       <mat-icon name="add" />
     </button>
 
     <div class="mx-2 w-px h-6 mat-border-subtle"></div>
 
-    <button mat-icon-button (click)="rotate()" [matTooltip]="'common.rotate'" aria-label="Rotate image">
+    <button matIconButton (click)="rotate()" [matTooltip]="'common.rotate'" aria-label="Rotate image">
       <mat-icon name="rotate_right" />
     </button>
 
-    <button mat-icon-button (click)="reset()" [matTooltip]="'common.resetView'" aria-label="Reset view">
+    <button matIconButton (click)="reset()" [matTooltip]="'common.resetView'" aria-label="Reset view">
       <mat-icon name="restart_alt" />
     </button>
   </div>

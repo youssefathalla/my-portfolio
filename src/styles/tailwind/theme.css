@@ -18,16 +18,16 @@
   --color-on-tertiary-container: var(--mat-sys-on-tertiary-container);
 
   /*- warning Colors */
-  --color-on-warning: var(--color-on-warning);
-  --color-warning: var(--color-warning);
+  --color-warning: light-dark(#626200, #cdcd00);
+  --color-on-warning: light-dark(#e7e4bf, #49482d);
 
   /*- info Colors */
-  --color-on-info: var(--color-on-info);
-  --color-info: var(--color-info);
+  --color-info: light-dark(#005cbb, #abc7ff);
+  --color-on-info: light-dark(#dae2f9, #3e4759);
 
   /*- success Colors */
-  --color-on-success: var(--color-on-success);
-  --color-success: var(--color-success);
+  --color-success: light-dark(#006d33, #00e472);
+  --color-on-success: light-dark(#d3e8d2, #394b3b);
 
   /*! error */
   --color-error: var(--mat-sys-error);

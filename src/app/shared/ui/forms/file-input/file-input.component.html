@@ -1,6 +1,6 @@
 <div class="flex flex-col gap-1.5 w-full">
   @if (label()) {
-    <label [for]="inputId" class="text-body-sm font-medium text-on-surface">
+    <label [for]="inputId" class="font-body-sm font-medium text-on-surface">
       {{ label() }}
     </label>
   }
@@ -27,7 +27,7 @@
       } @else {
         <div class="flex flex-col items-center justify-center gap-2 p-4 text-center">
           <mat-icon name="description" size="4xl" class="text-primary" />
-          <span class="text-body-sm text-on-surface truncate max-w-[90%]">
+          <span class="font-body-sm text-on-surface truncate max-w-[90%]">
             {{ fileName() || 'File selected' }}
           </span>
         </div>
@@ -39,15 +39,15 @@
       >
         <div class="flex flex-col items-center text-white">
           <mat-icon name="edit" size="lg" />
-          <span class="text-label-sm">Change</span>
+          <span class="font-label-sm">Change</span>
         </div>
       </div>
     } @else {
       <!-- EMPTY STATE -->
       <div class="flex flex-col items-center justify-center gap-2 text-on-surface-variant">
         <mat-icon name="upload_file" size="2xl" />
-        <span class="text-body-sm">Click to upload {{ label() }}</span>
-        <span class="text-label-xs text-outline">
+        <span class="font-body-sm">Click to upload {{ label() }}</span>
+        <span class="font-label-sm text-outline">
           Max size: {{ (maxSizeBytes() / (1024 * 1024)).toFixed(0) }}MB
         </span>
       </div>
@@ -58,7 +58,7 @@
   @if (localError() || showError()) {
     <div class="flex items-center gap-1.5 px-1 animate-slide-down">
       <mat-icon name="error" size="sm" class="text-error" />
-      <span class="text-error text-body-sm">
+      <span class="text-error font-body-sm">
         {{ errorMessage() }}
       </span>
     </div>

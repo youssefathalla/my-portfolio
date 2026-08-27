@@ -34,7 +34,7 @@ export class LangService {
   private initLanguage() {
     if (isPlatformBrowser(this.platformId)) {
       const savedLang = localStorage.getItem('lang') as SupportedLanguage;
-      const supported: SupportedLanguage[] = ['en', 'ar', 'hi'];
+      const supported: SupportedLanguage[] = ['en', 'ar'];
       if (savedLang && supported.includes(savedLang)) {
         this.currentLang.set(savedLang);
       }
