@@ -1,0 +1,48 @@
+name: Jules AI Code Review
+
+on:
+  push:
+    branches: [main, develop]
+    paths-ignore: # Add this to ignore huge non-code files
+      - '**/package-lock.json'
+      - '**/yarn.lock'
+      - '**/node_modules/**'
+      - 'dist/**'
+  pull_request:
+    types: [opened, synchronize, labeled]
+
+# Permissions are critical for Jules to post comments and read your .agent folder
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+
+jobs:
+  jules-review:
+    # Only run on pushes to main/develop, or if the 'jules' label is added to a PR
+    if: github.event_name == 'push' || contains(github.event.pull_request.labels.*.name, 'jules')
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Important for Jules to see history/diffs
+
+      - name: Run Jules Agent
+        # Using the correct repo for the Google Labs Jules Action
+        uses: YousseFathalla/jules-action@main
+        with:
+          jules_api_key: ${{ secrets.JULES_API_KEY }}
+          prompt: |
+            Task: Conduct a Senior Frontend Architect review of the latest changes.
+
+            Context:
+            - This is an Angular 21 project.
+            - Follow all rules in the `./.agent/rules` folder.
+            - Focus on:
+              1. Migration of RxJS to Signals (SignalStore) & modern Angular 22 patterns.
+              2. Clean Code & DRY: Identify code repetition, complex logic, and suggest "smart" refactorings.
+              3. Architectural Integrity: Ensure high-quality, maintainable, and premium code structure.
+
+            If violations are found, provide specific code suggestions or open a 'Fix' task on the Jules dashboard.
