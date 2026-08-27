@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { BaseCardComponent } from '../base-card/base-card.component';
 import { SharedIconModule } from '@shared/ui/mat-icon';
 import { StatusBadgeComponent } from '@shared/ui/status-badge/status-badge.component';
@@ -8,7 +8,6 @@ import { Review } from './review.model';
   selector: 'app-review-card',
   imports: [BaseCardComponent, SharedIconModule, StatusBadgeComponent],
   templateUrl: './review-card.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ReviewCardComponent {
   readonly review = input.required<Review>();

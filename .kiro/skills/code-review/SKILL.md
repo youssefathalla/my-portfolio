@@ -14,8 +14,9 @@ Audit every file against these 5 pillars. If a rule is broken, flag it with the 
 ### 1. 🅰️ Angular & Performance (`angular`)
 
 - [ ] **Strict Standalone**: Are `imports: [...]` used? (No `standalone: true`).
+- [ ] **Services**: Is `@Service()` used from `@angular/core`? (No legacy `@Injectable({ providedIn: 'root' })`).
+- [ ] **Change Detection**: Is `changeDetection: ChangeDetectionStrategy.OnPush` omitted? (It is the default in Angular 22).
 - [ ] **Signals**: Is `input()` / `output()` / `computed()` / `signal()` used for EVERYTHING? (No `@Input`).
-- [ ] **Change Detection**: Is `changeDetection: ChangeDetectionStrategy.OnPush` present?
 - [ ] **Control Flow**: Are `@if`, `@for`, `@let` used? (No `*ngIf`).
 - [ ] **Image LCP**: Is `NgOptimizedImage` used for static images?
 - [ ] **Cleanup**: No `ngOnDestroy`? (Use `DestroyRef` or `takeUntilDestroyed`).

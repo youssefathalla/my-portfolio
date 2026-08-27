@@ -1,9 +1,9 @@
 /// <reference types="@types/google.maps" />
-import { Injectable, signal, PLATFORM_ID, inject } from '@angular/core';
+import { Service, signal, PLATFORM_ID, inject } from '@angular/core';
 import { isPlatformBrowser } from '@angular/common';
 import { environment } from '@env/environment.dev';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class GoogleMapsLoaderService {
   readonly #platformId = inject(PLATFORM_ID);
   readonly #isLoaded = signal(false);

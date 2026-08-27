@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
@@ -10,7 +10,6 @@ import { SupportedLanguage } from "../transloco.config";
   selector: 'app-lang',
   imports: [MatButtonModule, MatMenuModule, MatIconModule, TranslocoPipe],
   templateUrl: './lang.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'inline-block',
   },

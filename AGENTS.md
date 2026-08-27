@@ -7,13 +7,14 @@ Strictly adhere to these architectural directives. Deviation leads to build fail
 
 ### 1. 🅰️ Angular Architecture (Strict)
 
-- **Version**: Angular v21+ (Signal-based, Zoneless).
+- **Version**: Angular v22+ (Signal-based, Zoneless).
 - **Standalone**: **NEVER** use `standalone: true`. It is the default.
+- **Change Detection**: **DO NOT** write `changeDetection: ChangeDetectionStrategy.OnPush`. It is the default.
+- **Services**: Use `@Service()` from `@angular/core` instead of legacy `@Injectable({ providedIn: 'root' })`.
 - **State**: Use `signal()`, `computed()`, and `effect()`. **NO** `Zone.js` reliance.
 - **Control Flow**: `@if`, `@for`, `@switch` only. **NO** `*ngIf`.
 - **Inputs**: `input.required()` or `input()`. **NO** `@Input`.
 - **Performance**:
-  - `changeDetection: ChangeDetectionStrategy.OnPush` (Mandatory).
   - `NgOptimizedImage` (`ngSrc`) for all images. Require `width`/`height` or `fill` for dynamic images.
 
 ### 2. 🛡️ Firebase & Security

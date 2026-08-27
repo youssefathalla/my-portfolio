@@ -1,10 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-base-dialog',
   imports: [MatDialogModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'flex flex-col gap-2 min-w-[400px] max-w-[90vw]',
   },

@@ -1,5 +1,4 @@
 import {
-  ChangeDetectionStrategy,
   Component,
   computed,
   ElementRef,
@@ -18,13 +17,11 @@ import { NgOptimizedImage } from '@angular/common';
 @Component({
   selector: 'app-file-input',
   imports: [MatButtonModule, SharedIconModule, NgOptimizedImage],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './file-input.component.html',
   host: { class: 'block w-full' },
 })
 export class FileInputComponent extends BaseFormControl<File | string | null> {
   // Inputs
-
   readonly previewUrl = input<SafeUrl | string | null | undefined>(null);
   readonly fileName = input<string | null>(null); // Optional: to show name if not an image
   readonly accept = input<string>('image/*');

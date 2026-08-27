@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatTimepickerModule } from '@angular/material/timepicker';
@@ -9,7 +9,6 @@ import { BaseFormControl } from '../control-base.directive';
 @Component({
   selector: 'app-timepicker',
   imports: [MatFormFieldModule, MatInputModule, MatTimepickerModule, FormField],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-form-field [appearance]="appearance()" class="w-full">
       <mat-label>{{ label() }}</mat-label>

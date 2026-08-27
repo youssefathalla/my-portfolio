@@ -1,8 +1,8 @@
-import { Injectable, inject } from '@angular/core';
+import { Service, inject } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { SeoMetadata } from './seo.model';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class SeoService {
   readonly #title = inject(Title);
   readonly #meta = inject(Meta);

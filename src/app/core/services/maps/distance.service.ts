@@ -1,8 +1,8 @@
 /// <reference types="@types/google.maps" />
-import { Injectable, inject } from '@angular/core';
+import { Service, inject } from '@angular/core';
 import { GoogleMapsLoaderService } from './google-maps-loader.service';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class DistanceService {
   readonly #mapsLoader = inject(GoogleMapsLoaderService);
 

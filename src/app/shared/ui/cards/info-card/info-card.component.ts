@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { BaseCardComponent } from '../base-card/base-card.component';
 import { SharedIconModule } from '@shared/ui/mat-icon';
 import { InfoCardData } from './info-card.model';
@@ -6,7 +6,6 @@ import { InfoCardData } from './info-card.model';
 @Component({
   selector: 'app-info-card',
   imports: [BaseCardComponent, SharedIconModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <app-base-card>
       <ng-container card-header>

@@ -1,9 +1,9 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Service } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MatIconRegistry } from '@angular/material/icon';
 import { SVG_ICONS } from '@shared/ui/svg-icon/icons';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class SvgIconService {
   readonly #iconRegistry = inject(MatIconRegistry);
   readonly #domSanitizer = inject(DomSanitizer);

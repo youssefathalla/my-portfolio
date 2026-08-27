@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoaderHeight, LOADER_HEIGHT_CLASSES, LOADER_HEIGHT_CLASSES_PADDED } from './loader.model';
 
 @Component({
   selector: 'app-loader',
   imports: [MatProgressSpinnerModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './loader.component.html',
   host: { '[class]': 'hostClass() + " " + bgClass() + " " + heightClass()' },
 })

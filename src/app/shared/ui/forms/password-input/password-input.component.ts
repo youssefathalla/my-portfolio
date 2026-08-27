@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input, signal } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
 import { FormField } from '@angular/forms/signals';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -11,7 +11,6 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'app-password-input',
   imports: [MatFormFieldModule, MatInputModule, FormField, SharedIconModule, MatButtonModule],
   host: { class: 'block w-full' },
-  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-form-field [appearance]="appearance()" class="w-full">
       <mat-label>{{ label() }}</mat-label>

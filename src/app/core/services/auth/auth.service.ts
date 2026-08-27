@@ -22,7 +22,7 @@
 // import { UserProfileService } from '@core/services/user-profile/user-profile.service';
 // import { AUTH_ERROR_MAPPINGS, DEFAULT_AUTH_ERROR } from './auth.errors';
 
-// @Injectable({ providedIn: 'root' })
+// @Service()
 // export class AuthService {
 //   readonly #auth = inject(Auth);
 //   readonly #functions = inject(Functions);

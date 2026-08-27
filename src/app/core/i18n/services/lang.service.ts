@@ -1,10 +1,10 @@
 import { Direction } from '@angular/cdk/bidi';
 import { isPlatformBrowser } from '@angular/common';
-import { DOCUMENT, effect, inject, Injectable, PLATFORM_ID, signal } from '@angular/core';
+import { DOCUMENT, effect, inject, Service, PLATFORM_ID, signal } from '@angular/core';
 import { TranslocoService } from '@jsverse/transloco';
 import { SupportedLanguage } from '../transloco.config';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class LangService {
   private readonly transloco = inject(TranslocoService);
   private readonly document = inject(DOCUMENT);

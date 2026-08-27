@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { SpacingScale, GAP_SCALE, PADDING_SCALE } from './scale.model';
 
 /**
@@ -16,7 +16,6 @@ import { SpacingScale, GAP_SCALE, PADDING_SCALE } from './scale.model';
 @Component({
   selector: 'app-base-card',
   imports: [],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'base-card' },
   template: `
     <article class="flex flex-col h-full bg-surface-container-low overflow-auto" [class]="classes()">

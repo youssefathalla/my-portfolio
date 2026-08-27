@@ -3,7 +3,6 @@ import {
   inject,
   input,
   output,
-  ChangeDetectionStrategy,
   signal,
   DestroyRef,
 } from '@angular/core';
@@ -19,7 +18,6 @@ import { GoogleMapsLoaderService } from '@core/services/maps/google-maps-loader.
   selector: 'app-location-input',
   imports: [MatFormFieldModule, MatInputModule, FormField, SharedIconModule, MatAutocompleteModule],
   host: { class: 'block w-full' },
-  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './location-input.component.html',
 })
 export class LocationInputComponent extends BaseFormControl<string> {

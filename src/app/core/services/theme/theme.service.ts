@@ -1,5 +1,5 @@
 import {
-  Injectable,
+  Service,
   signal,
   effect,
   inject,
@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { isPlatformBrowser, DOCUMENT } from '@angular/common';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class ThemeService {
   readonly #renderer = inject(RendererFactory2).createRenderer(null, null);
   readonly #platformId = inject(PLATFORM_ID);

@@ -1,11 +1,11 @@
-import { Injectable, isDevMode } from '@angular/core';
+import { Service, isDevMode } from '@angular/core';
 
 /**
  * Centralized logging service.
  * - Logs to console with visual prefixes in Development mode.
  * - Suppressed in Production (can be extended to send logs to external services like Sentry).
  */
-@Injectable({ providedIn: 'root' })
+@Service()
 export class LoggerService {
   readonly #isDev = isDevMode();
 

@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal, ChangeDetectionStrategy } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -15,7 +15,6 @@ export interface ImgPreviewData {
   selector: 'app-img-preview-dialog',
   imports: [MatDialogModule, MatButtonModule, SharedIconModule, MatTooltipModule, NgOptimizedImage],
   templateUrl: './img-preview-dialog.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'flex flex-col w-full h-full overflow-hidden rounded-xl  backdrop-blur',
   },

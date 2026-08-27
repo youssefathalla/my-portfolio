@@ -1,11 +1,10 @@
-import { ChangeDetectionStrategy, Component, input, model } from '@angular/core';
+import { Component, input, model } from '@angular/core';
 import { MatRippleModule } from '@angular/material/core';
 import { IconSize, SharedIconModule } from '../mat-icon';
 
 @Component({
   selector: 'app-chips',
   imports: [MatRippleModule, SharedIconModule],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <ul
       class="elements-center flex-wrap gap-3"

@@ -1,7 +1,7 @@
-import { inject, Injectable } from '@angular/core';
+import { Service, inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
-@Injectable({ providedIn: 'root' })
+@Service()
 export class SnackbarService {
   readonly #snackBar = inject(MatSnackBar);
 

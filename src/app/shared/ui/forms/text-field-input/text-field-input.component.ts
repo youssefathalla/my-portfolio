@@ -1,5 +1,5 @@
 import { CdkTextareaAutosize } from '@angular/cdk/text-field';
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { BaseFormControl } from '../control-base.directive';
@@ -30,7 +30,6 @@ import { SharedIconModule } from '@shared/ui/mat-icon';
       }
     </mat-form-field>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TextFieldInputComponent extends BaseFormControl<string> {
   readonly minRows = input(2);

@@ -2,7 +2,7 @@
 // import { MatDialog } from '@angular/material/dialog';
 // import { firstValueFrom } from 'rxjs';
 
-// @Injectable({ providedIn: 'root' })
+// @Service()
 // export class AuthDialogService {
 //   readonly #dialog = inject(MatDialog);
 

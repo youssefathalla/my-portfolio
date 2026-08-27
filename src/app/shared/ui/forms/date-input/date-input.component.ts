@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -10,7 +10,6 @@ import { BaseFormControl } from '../control-base.directive';
   selector: 'app-date-input',
   imports: [MatFormFieldModule, MatInputModule, MatDatepickerModule, FormField, SharedIconModule],
   host: { class: 'block w-full' },
-  changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
     <mat-form-field [appearance]="appearance()" class="w-full">
       <mat-label>{{ label() }}</mat-label>

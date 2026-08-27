@@ -1,6 +1,5 @@
 import {
   Component,
-  ChangeDetectionStrategy,
   viewChild,
   signal,
   effect,
@@ -26,7 +25,6 @@ import { NgTemplateOutlet } from '@angular/common';
 import { MatChipsModule } from '@angular/material/chips';
 import { LoggerService } from '@core/services/logger/logger.service';
 
-
 @Component({
   selector: 'reusable-table',
   imports: [
@@ -47,7 +45,6 @@ import { LoggerService } from '@core/services/logger/logger.service';
   ],
   templateUrl: './reusable-table.html',
   styleUrl: './reusable-table.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     class: 'flex flex-col flex-1',
   },
@@ -188,7 +185,6 @@ export class ReusableTable<T extends object> {
   isClientFilterActive(columnKey: keyof T, value: unknown): boolean {
     return (this.columnFilters() as Record<keyof T, unknown>)[columnKey] === value;
   }
-
 
   trackByFn(index: number, item: T): string | number {
     return (item as any)?.id ?? index;

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { FormField } from '@angular/forms/signals';
@@ -7,7 +7,6 @@ import { BaseFormControl } from '../control-base.directive';
 @Component({
   selector: 'app-select-input',
   imports: [MatFormFieldModule, MatSelectModule, FormField],
-  changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'block w-full' },
   template: `
     <mat-form-field [appearance]="appearance()" class="w-full">
