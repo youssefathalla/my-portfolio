@@ -1,10 +1,10 @@
 import { Component, signal } from '@angular/core';
-import { ColorComponent } from '@layout/color/color.component';
+import { PlaygroundComponent } from '@layout/playground/playground.component';
 
 @Component({
   selector: 'app-root',
-  imports: [ColorComponent],
-  templateUrl: './app.html',
+  imports: [PlaygroundComponent],
+  template: '<app-playground />',
   styleUrl: './app.scss',
 })
 export class App {

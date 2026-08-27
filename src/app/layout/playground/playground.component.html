@@ -1,0 +1,1361 @@
+<div class="min-h-screen bg-surface text-on-surface flex flex-col">
+  <!-- Top Hero Header / Toolbar -->
+  <header
+    class="sticky top-0 z-50 bg-surface/90 backdrop-blur-md border-b border-outline-variant px-6 py-4"
+  >
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <!-- Title & Badges -->
+      <div class="flex items-center gap-4">
+        <div
+          class="p-2 rounded-corner-sm bg-primary text-on-primary shadow-mat-1 flex items-center justify-center"
+        >
+          <mat-icon name="dashboard_customize" size="3xl" iconColor="primary" class="text-white!" />
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <h1 class="font-headline-sm text-on-surface">Design System & Component Playground</h1>
+            <span
+              class="px-2 py-0.5 text-xs font-semibold rounded-full bg-primary/10 text-primary border border-primary/20"
+            >
+              Angular v22 Zoneless
+            </span>
+          </div>
+          <p class="font-body-sm text-on-surface-variant">
+            Live catalog of Material 3 design tokens, semantic utilities, and custom @shared UI
+            components.
+          </p>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="flex items-center gap-3">
+        <!-- Light / Dark Theme Switcher -->
+        <button
+          matButton="outlined"
+          (click)="themeService.toggleTheme()"
+          [matTooltip]="isDarkMode() ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+          class="flex items-center gap-2"
+        >
+          <mat-icon
+            [name]="isDarkMode() ? 'light_mode' : 'dark_mode'"
+            [iconColor]="isDarkMode() ? 'warning' : 'primary'"
+            size="xl"
+          />
+          <span>{{ isDarkMode() ? 'Dark Mode' : 'Light Mode' }}</span>
+        </button>
+
+        <button
+          matButton="filled"
+          (click)="triggerSnackbar('success')"
+          class="flex items-center gap-2"
+        >
+          <mat-icon name="notifications" size="xl" />
+          <span>Test Toast</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation Tabs / Category Pills -->
+    <div class="max-w-7xl mx-auto mt-4 flex items-center gap-2 overflow-x-auto pb-1 text-sm">
+      @for (
+        tab of [
+          { id: 'all', label: 'All Components', icon: 'grid_view' },
+          { id: 'colors', label: 'Colors & Tokens', icon: 'palette' },
+          { id: 'typography', label: 'Typography', icon: 'text_fields' },
+          { id: 'buttons', label: 'Buttons & Checkboxes', icon: 'smart_button' },
+          { id: 'icons', label: 'Iconography', icon: 'stars' },
+          { id: 'badges', label: 'Badges & Chips', icon: 'label' },
+          { id: 'forms', label: 'Signal Forms', icon: 'edit_document' },
+          { id: 'cards', label: 'Cards & Surfaces', icon: 'style' },
+          { id: 'tables', label: 'Data Table', icon: 'table_chart' },
+          { id: 'dialogs', label: 'Dialogs & Toasts', icon: 'chat_bubble' },
+          { id: 'loaders', label: 'Loaders', icon: 'progress_activity' },
+          { id: 'branding', label: 'Branding', icon: 'diamond' },
+        ];
+        track tab.id
+      ) {
+        <button
+          type="button"
+          (click)="selectTab($any(tab.id))"
+          class="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full whitespace-nowrap cursor-pointer transition-all duration-200"
+          [class.bg-primary]="activeTab() === tab.id"
+          [class.text-on-primary]="activeTab() === tab.id"
+          [class.shadow-mat-1]="activeTab() === tab.id"
+          [class.bg-surface-container-high]="activeTab() !== tab.id"
+          [class.text-on-surface-variant]="activeTab() !== tab.id"
+          [class.hover:bg-surface-container-highest]="activeTab() !== tab.id"
+        >
+          <mat-icon [name]="tab.icon" size="sm" />
+          <span>{{ tab.label }}</span>
+        </button>
+      }
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="max-w-7xl w-full mx-auto p-6 md:p-8 flex flex-col gap-12">
+    <!-- ========================================================================= -->
+    <!-- SECTION 1: Colors & Design Tokens -->
+    <!-- ========================================================================= -->
+    @if (activeTab() === 'all' || activeTab() === 'colors') {
+      <section id="colors" class="flex flex-col gap-6">
+        <div class="flex items-center justify-between border-b border-outline-variant pb-3">
+          <div class="flex items-center gap-3">
+            <mat-icon name="palette" size="3xl" iconColor="primary" />
+            <div>
+              <h2 class="font-headline-sm">Color System & Tokens</h2>
+              <p class="font-body-sm text-on-surface-variant">
+                Click on any color swatch to copy its Tailwind utility class
+              </p>
+            </div>
+          </div>
+          <span
+            class="text-xs px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-mono"
+          >
+            Tailwind v4 + M3 Variables
+          </span>
+        </div>
+
+        <!-- Primary & Brand Colors -->
+        <div class="flex flex-col gap-3">
+          <h3 class="font-title-md text-primary flex items-center gap-2">
+            <mat-icon name="circle" size="sm" iconColor="primary" type="fill" />
+            Brand & Primary Palettes
+          </h3>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+            <button
+              type="button"
+              (click)="copyToken('bg-primary text-on-primary', 'Primary')"
+              class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-primary text-on-primary shadow-mat-1 hover:scale-105 transition-transform"
+            >
+              <span class="font-label-md font-semibold">Primary</span>
+              <span class="font-body-xs opacity-80 font-mono">bg-primary</span>
+            </button>
+            <button
+              type="button"
+              (click)="
+                copyToken('bg-primary-container text-on-primary-container', 'Primary Container')
+              "
+              class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-primary-container text-on-primary-container shadow-mat-1 hover:scale-105 transition-transform"
+            >
+              <span class="font-label-md font-semibold">Primary Container</span>
+              <span class="font-body-xs opacity-80 font-mono">bg-primary-container</span>
+            </button>
+            <button
+              type="button"
+              (click)="copyToken('bg-secondary text-on-secondary', 'Secondary')"
+              class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-secondary text-on-secondary shadow-mat-1 hover:scale-105 transition-transform"
+            >
+              <span class="font-label-md font-semibold">Secondary</span>
+              <span class="font-body-xs opacity-80 font-mono">bg-secondary</span>
+            </button>
+            <button
+              type="button"
+              (click)="
+                copyToken(
+                  'bg-secondary-container text-on-secondary-container',
+                  'Secondary Container'
+                )
+              "
+              class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-secondary-container text-on-secondary-container shadow-mat-1 hover:scale-105 transition-transform"
+            >
+              <span class="font-label-md font-semibold">Secondary Container</span>
+              <span class="font-body-xs opacity-80 font-mono">bg-secondary-container</span>
+            </button>
+            <button
+              type="button"
+              (click)="copyToken('bg-tertiary text-on-tertiary', 'Tertiary')"
+              class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-tertiary text-on-tertiary shadow-mat-1 hover:scale-105 transition-transform"
+            >
+              <span class="font-label-md font-semibold">Tertiary</span>
+              <span class="font-body-xs opacity-80 font-mono">bg-tertiary</span>
+            </button>
+            <button
+              type="button"
+              (click)="
+                copyToken('bg-tertiary-container text-on-tertiary-container', 'Tertiary Container')
+              "
+              class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-tertiary-container text-on-tertiary-container shadow-mat-1 hover:scale-105 transition-transform"
+            >
+              <span class="font-label-md font-semibold">Tertiary Container</span>
+              <span class="font-body-xs opacity-80 font-mono">bg-tertiary-container</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Semantic Status Colors -->
+        <div class="flex flex-col gap-3">
+          <h3 class="font-title-md text-on-surface flex items-center gap-2">
+            <mat-icon name="notifications_active" size="sm" iconColor="secondary" />
+            Semantic Status Palettes
+          </h3>
+          <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-3">
+            <button
+              type="button"
+              (click)="copyToken('bg-success text-on-success', 'Success')"
+              class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-success text-on-success shadow-mat-1 hover:scale-105 transition-transform"
+            >
+              <span class="font-label-md font-semibold">Success</span>
+              <span class="font-body-xs opacity-80 font-mono">bg-success</span>
+            </button>
+            <button
+              type="button"
+              theme="success"
+              (click)="
+                copyToken(
+                  'theme=\'success\' bg-(--mat-sys-secondary-container)',
+                  'Success Container'
+                )
+              "
+              class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-(--mat-sys-secondary-container) text-(--mat-sys-on-secondary-container) shadow-mat-1 hover:scale-105 transition-transform"
+            >
+              <span class="font-label-md font-semibold">Success Ctr</span>
+              <span class="font-body-xs opacity-80 font-mono">theme="success"</span>
+            </button>
+            <button
+              type="button"
+              (click)="copyToken('bg-warning text-on-warning', 'Warning')"
+              class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-warning text-on-warning shadow-mat-1 hover:scale-105 transition-transform"
+            >
+              <span class="font-label-md font-semibold">Warning</span>
+              <span class="font-body-xs opacity-80 font-mono">bg-warning</span>
+            </button>
+            <button
+              type="button"
+              theme="warning"
+              (click)="
+                copyToken(
+                  'theme=\'warning\' bg-(--mat-sys-secondary-container)',
+                  'Warning Container'
+                )
+              "
+              class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-(--mat-sys-secondary-container) text-(--mat-sys-on-secondary-container) shadow-mat-1 hover:scale-105 transition-transform"
+            >
+              <span class="font-label-md font-semibold">Warning Ctr</span>
+              <span class="font-body-xs opacity-80 font-mono">theme="warning"</span>
+            </button>
+            <button
+              type="button"
+              (click)="copyToken('bg-info text-on-info', 'Info')"
+              class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-info text-on-info shadow-mat-1 hover:scale-105 transition-transform"
+            >
+              <span class="font-label-md font-semibold">Info</span>
+              <span class="font-body-xs opacity-80 font-mono">bg-info</span>
+            </button>
+            <button
+              type="button"
+              theme="info"
+              (click)="
+                copyToken('theme=\'info\' bg-(--mat-sys-secondary-container)', 'Info Container')
+              "
+              class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-(--mat-sys-secondary-container) text-(--mat-sys-on-secondary-container) shadow-mat-1 hover:scale-105 transition-transform"
+            >
+              <span class="font-label-md font-semibold">Info Ctr</span>
+              <span class="font-body-xs opacity-80 font-mono">theme="info"</span>
+            </button>
+            <button
+              type="button"
+              (click)="copyToken('bg-error text-on-error', 'Error')"
+              class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-error text-on-error shadow-mat-1 hover:scale-105 transition-transform"
+            >
+              <span class="font-label-md font-semibold">Error</span>
+              <span class="font-body-xs opacity-80 font-mono">bg-error</span>
+            </button>
+            <button
+              type="button"
+              (click)="copyToken('bg-error-container text-on-error-container', 'Error Container')"
+              class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-error-container text-on-error-container shadow-mat-1 hover:scale-105 transition-transform"
+            >
+              <span class="font-label-md font-semibold">Error Ctr</span>
+              <span class="font-body-xs opacity-80 font-mono">bg-error-container</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Surfaces & Containers -->
+        <div class="flex flex-col gap-3">
+          <h3 class="font-title-md text-on-surface flex items-center gap-2">
+            <mat-icon name="layers" size="sm" iconColor="tertiary" />
+            Surface & Container Hierarchy
+          </h3>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+            <button
+              type="button"
+              (click)="copyToken('bg-surface text-on-surface', 'Surface')"
+              class="h-24 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-surface text-on-surface border border-outline-variant shadow-mat-1 hover:scale-105 transition-transform"
+            >
+              <span class="font-label-md font-semibold">Surface</span>
+              <span class="font-body-xs opacity-70 font-mono">bg-surface</span>
+            </button>
+            <button
+              type="button"
+              (click)="copyToken('bg-surface-container-lowest', 'Surface Container Lowest')"
+              class="h-24 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-surface-container-lowest text-on-surface border border-outline-variant shadow-mat-1 hover:scale-105 transition-transform"
+            >
+              <span class="font-label-md font-semibold">Container Lowest</span>
+              <span class="font-body-xs opacity-70 font-mono">bg-surface-container-lowest</span>
+            </button>
+            <button
+              type="button"
+              (click)="copyToken('bg-surface-container-low', 'Surface Container Low')"
+              class="h-24 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-surface-container-low text-on-surface border border-outline-variant shadow-mat-1 hover:scale-105 transition-transform"
+            >
+              <span class="font-label-md font-semibold">Container Low</span>
+              <span class="font-body-xs opacity-70 font-mono">bg-surface-container-low</span>
+            </button>
+            <button
+              type="button"
+              (click)="copyToken('bg-surface-container', 'Surface Container')"
+              class="h-24 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-surface-container text-on-surface border border-outline-variant shadow-mat-1 hover:scale-105 transition-transform"
+            >
+              <span class="font-label-md font-semibold">Container</span>
+              <span class="font-body-xs opacity-70 font-mono">bg-surface-container</span>
+            </button>
+            <button
+              type="button"
+              (click)="copyToken('bg-surface-container-high', 'Surface Container High')"
+              class="h-24 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-surface-container-high text-on-surface border border-outline-variant shadow-mat-1 hover:scale-105 transition-transform"
+            >
+              <span class="font-label-md font-semibold">Container High</span>
+              <span class="font-body-xs opacity-70 font-mono">bg-surface-container-high</span>
+            </button>
+            <button
+              type="button"
+              (click)="copyToken('bg-surface-container-highest', 'Surface Container Highest')"
+              class="h-24 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-surface-container-highest text-on-surface border border-outline-variant shadow-mat-1 hover:scale-105 transition-transform"
+            >
+              <span class="font-label-md font-semibold">Container Highest</span>
+              <span class="font-body-xs opacity-70 font-mono">bg-surface-container-highest</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Outlines & Neutrals -->
+        <div class="flex flex-col gap-3">
+          <h3 class="font-title-md text-on-surface flex items-center gap-2">
+            <mat-icon name="border_style" size="sm" iconColor="secondary" />
+            Outlines, Neutrals & Inverses
+          </h3>
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+            <button
+              type="button"
+              (click)="copyToken('border-outline', 'Outline')"
+              class="h-20 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-surface text-on-surface border-2 border-outline shadow-mat-1 hover:scale-105 transition-transform"
+            >
+              <span class="font-label-md font-semibold">Outline Border</span>
+              <span class="font-body-xs opacity-70 font-mono">border-outline</span>
+            </button>
+            <button
+              type="button"
+              (click)="copyToken('border-outline-variant', 'Outline Variant')"
+              class="h-20 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-surface text-on-surface border-2 border-outline-variant shadow-mat-1 hover:scale-105 transition-transform"
+            >
+              <span class="font-label-md font-semibold">Outline Variant</span>
+              <span class="font-body-xs opacity-70 font-mono">border-outline-variant</span>
+            </button>
+            <button
+              type="button"
+              (click)="copyToken('bg-neutral-variant20 text-white', 'Neutral Variant 20')"
+              class="h-20 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-neutral-variant20 text-white shadow-mat-1 hover:scale-105 transition-transform"
+            >
+              <span class="font-label-md font-semibold">Neutral Variant 20</span>
+              <span class="font-body-xs opacity-70 font-mono">bg-neutral-variant20</span>
+            </button>
+            <button
+              type="button"
+              (click)="copyToken('bg-inverse-surface text-inverse-on-surface', 'Inverse Surface')"
+              class="h-20 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-inverse-surface text-inverse-on-surface shadow-mat-1 hover:scale-105 transition-transform"
+            >
+              <span class="font-label-md font-semibold">Inverse Surface</span>
+              <span class="font-body-xs opacity-70 font-mono">bg-inverse-surface</span>
+            </button>
+          </div>
+        </div>
+      </section>
+    }
+
+    <!-- ========================================================================= -->
+    <!-- SECTION 2: Semantic Typography -->
+    <!-- ========================================================================= -->
+    @if (activeTab() === 'all' || activeTab() === 'typography') {
+      <section id="typography" class="flex flex-col gap-6">
+        <div class="flex items-center justify-between border-b border-outline-variant pb-3">
+          <div class="flex items-center gap-3">
+            <mat-icon name="text_fields" size="3xl" iconColor="primary" />
+            <div>
+              <h2 class="font-headline-sm">Semantic Typography</h2>
+              <p class="font-body-sm text-on-surface-variant">
+                Strict M3 Typography scale classes mapped to Google Sans Flex
+              </p>
+            </div>
+          </div>
+          <span
+            class="text-xs px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-mono"
+          >
+            No generic text-3xl / font-bold
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Display Scale -->
+          <div
+            class="bg-surface-container-low p-6 rounded-corner-xs border border-outline-variant flex flex-col gap-4"
+          >
+            <span class="font-label-md text-primary font-semibold">DISPLAY SCALES</span>
+            <div class="flex flex-col gap-3">
+              <div class="border-b border-outline-variant/40 pb-2">
+                <div class="font-display-lg text-on-surface">Display Large</div>
+                <span class="font-body-xs text-on-surface-variant font-mono">.font-display-lg</span>
+              </div>
+              <div class="border-b border-outline-variant/40 pb-2">
+                <div class="font-display-md text-on-surface">Display Medium</div>
+                <span class="font-body-xs text-on-surface-variant font-mono">.font-display-md</span>
+              </div>
+              <div>
+                <div class="font-display-sm text-on-surface">Display Small</div>
+                <span class="font-body-xs text-on-surface-variant font-mono">.font-display-sm</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Headline Scale -->
+          <div
+            class="bg-surface-container-low p-6 rounded-corner-xs border border-outline-variant flex flex-col gap-4"
+          >
+            <span class="font-label-md text-primary font-semibold">HEADLINE SCALES</span>
+            <div class="flex flex-col gap-3">
+              <div class="border-b border-outline-variant/40 pb-2">
+                <div class="font-headline-lg text-on-surface">Headline Large</div>
+                <span class="font-body-xs text-on-surface-variant font-mono"
+                  >.font-headline-lg</span
+                >
+              </div>
+              <div class="border-b border-outline-variant/40 pb-2">
+                <div class="font-headline-md text-on-surface">Headline Medium</div>
+                <span class="font-body-xs text-on-surface-variant font-mono"
+                  >.font-headline-md</span
+                >
+              </div>
+              <div>
+                <div class="font-headline-sm text-on-surface">Headline Small</div>
+                <span class="font-body-xs text-on-surface-variant font-mono"
+                  >.font-headline-sm</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Title Scale -->
+          <div
+            class="bg-surface-container-low p-6 rounded-corner-xs border border-outline-variant flex flex-col gap-4"
+          >
+            <span class="font-label-md text-primary font-semibold">TITLE SCALES</span>
+            <div class="flex flex-col gap-3">
+              <div class="border-b border-outline-variant/40 pb-2">
+                <div class="font-title-lg text-on-surface">Title Large - Section Header</div>
+                <span class="font-body-xs text-on-surface-variant font-mono">.font-title-lg</span>
+              </div>
+              <div class="border-b border-outline-variant/40 pb-2">
+                <div class="font-title-md text-on-surface">Title Medium - Card Header</div>
+                <span class="font-body-xs text-on-surface-variant font-mono">.font-title-md</span>
+              </div>
+              <div>
+                <div class="font-title-sm text-on-surface">Title Small - Subsection Header</div>
+                <span class="font-body-xs text-on-surface-variant font-mono">.font-title-sm</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Body & Label Scale -->
+          <div
+            class="bg-surface-container-low p-6 rounded-corner-xs border border-outline-variant flex flex-col gap-4"
+          >
+            <span class="font-label-md text-primary font-semibold">BODY & LABEL SCALES</span>
+            <div class="flex flex-col gap-3">
+              <div class="border-b border-outline-variant/40 pb-2">
+                <p class="font-body-lg text-on-surface">
+                  Body Large: The quick brown fox jumps over the lazy dog.
+                </p>
+                <span class="font-body-xs text-on-surface-variant font-mono">.font-body-lg</span>
+              </div>
+              <div class="border-b border-outline-variant/40 pb-2">
+                <p class="font-body-md text-on-surface-variant">
+                  Body Medium: Default body text for paragraphs and forms.
+                </p>
+                <span class="font-body-xs text-on-surface-variant font-mono">.font-body-md</span>
+              </div>
+              <div>
+                <span class="font-label-lg text-primary">Label Large (Buttons)</span> •
+                <span class="font-label-md text-on-surface">Label Medium</span> •
+                <span class="font-label-sm text-on-surface-variant">Label Small</span>
+                <div class="font-body-xs text-on-surface-variant font-mono mt-1">
+                  .font-label-lg / md / sm
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    }
+
+    <!-- ========================================================================= -->
+    <!-- SECTION 3: Buttons & Checkboxes -->
+    <!-- ========================================================================= -->
+    @if (activeTab() === 'all' || activeTab() === 'buttons') {
+      <section id="buttons" class="flex flex-col gap-6">
+        <div class="flex items-center justify-between border-b border-outline-variant pb-3">
+          <div class="flex items-center gap-3">
+            <mat-icon name="smart_button" size="3xl" iconColor="primary" />
+            <div>
+              <h2 class="font-headline-sm">Buttons & Checkboxes</h2>
+              <p class="font-body-sm text-on-surface-variant">
+                Material 3 attribute syntax with semantic theme directives
+              </p>
+            </div>
+          </div>
+          <span
+            class="text-xs px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-mono"
+          >
+            matButton="filled | outlined | tonal | elevated | text"
+          </span>
+        </div>
+
+        <!-- Button Variants Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Filled Buttons -->
+          <div
+            class="bg-surface-container-low p-5 rounded-corner-xs border border-outline-variant flex flex-col gap-3"
+          >
+            <span class="font-title-sm text-primary">Filled (matButton="filled")</span>
+            <button matButton="filled" class="flex items-center justify-center gap-2">
+              <mat-icon name="send" />
+              <span>Primary Action</span>
+            </button>
+            <button matButton="filled" theme="info" class="flex items-center justify-center gap-2">
+              <mat-icon name="info" />
+              <span>Info Variant</span>
+            </button>
+            <button
+              matButton="filled"
+              theme="warning"
+              class="flex items-center justify-center gap-2"
+            >
+              <mat-icon name="warning" />
+              <span>Warning Variant</span>
+            </button>
+            <button
+              matButton="filled"
+              theme="success"
+              class="flex items-center justify-center gap-2"
+            >
+              <mat-icon name="check_circle" />
+              <span>Success Variant</span>
+            </button>
+            <button
+              matButton="filled"
+              class="bg-error! text-on-error! flex items-center justify-center gap-2"
+            >
+              <mat-icon name="delete" />
+              <span>Danger / Error</span>
+            </button>
+          </div>
+
+          <!-- Outlined Buttons -->
+          <div
+            class="bg-surface-container-low p-5 rounded-corner-xs border border-outline-variant flex flex-col gap-3"
+          >
+            <span class="font-title-sm text-primary">Outlined (matButton="outlined")</span>
+            <button matButton="outlined" class="flex items-center justify-center gap-2">
+              <mat-icon name="edit" />
+              <span>Default Outlined</span>
+            </button>
+            <button
+              matButton="outlined"
+              theme="info"
+              class="flex items-center justify-center gap-2"
+            >
+              <mat-icon name="info" />
+              <span>Info Outlined</span>
+            </button>
+            <button
+              matButton="outlined"
+              theme="warning"
+              class="flex items-center justify-center gap-2"
+            >
+              <mat-icon name="warning" />
+              <span>Warning Outlined</span>
+            </button>
+            <button
+              matButton="outlined"
+              theme="success"
+              class="flex items-center justify-center gap-2"
+            >
+              <mat-icon name="check_circle" />
+              <span>Success Outlined</span>
+            </button>
+            <button
+              matButton="outlined"
+              class="text-error! border-error! flex items-center justify-center gap-2"
+            >
+              <mat-icon name="cancel" />
+              <span>Error Outlined</span>
+            </button>
+          </div>
+
+          <!-- Tonal Buttons -->
+          <div
+            class="bg-surface-container-low p-5 rounded-corner-xs border border-outline-variant flex flex-col gap-3"
+          >
+            <span class="font-title-sm text-primary">Tonal (matButton="tonal")</span>
+            <button matButton="tonal" class="flex items-center justify-center gap-2">
+              <mat-icon name="bookmark" />
+              <span>Default Tonal</span>
+            </button>
+            <button matButton="tonal" theme="info" class="flex items-center justify-center gap-2">
+              <mat-icon name="info" />
+              <span>Info Tonal</span>
+            </button>
+            <button
+              matButton="tonal"
+              theme="warning"
+              class="flex items-center justify-center gap-2"
+            >
+              <mat-icon name="warning" />
+              <span>Warning Tonal</span>
+            </button>
+            <button
+              matButton="tonal"
+              theme="success"
+              class="flex items-center justify-center gap-2"
+            >
+              <mat-icon name="check_circle" />
+              <span>Success Tonal</span>
+            </button>
+            <button matButton="tonal" disabled class="flex items-center justify-center gap-2">
+              <mat-icon name="block" />
+              <span>Disabled State</span>
+            </button>
+          </div>
+
+          <!-- Elevated & Text & Icon Buttons -->
+          <div
+            class="bg-surface-container-low p-5 rounded-corner-xs border border-outline-variant flex flex-col gap-3"
+          >
+            <span class="font-title-sm text-primary">Elevated, Text & Icons</span>
+            <button matButton="elevated" class="flex items-center justify-center gap-2">
+              <mat-icon name="cloud_upload" />
+              <span>Elevated Button</span>
+            </button>
+            <button matButton="text" class="flex items-center justify-center gap-2">
+              <mat-icon name="open_in_new" />
+              <span>Text / Flat Action</span>
+            </button>
+
+            <!-- Icon Buttons Row -->
+            <div class="flex items-center justify-around pt-2 border-t border-outline-variant">
+              <button matIconButton aria-label="Favorite">
+                <mat-icon name="favorite" iconColor="primary" size="2xl" type="fill" />
+              </button>
+              <button matIconButton aria-label="Share">
+                <mat-icon name="share" iconColor="secondary" size="2xl" />
+              </button>
+              <button matIconButton aria-label="Settings">
+                <mat-icon name="settings" iconColor="info" size="2xl" />
+              </button>
+              <button matIconButton aria-label="Delete">
+                <mat-icon name="delete" iconColor="error" size="2xl" />
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Checkboxes Row -->
+        <div
+          class="bg-surface-container-low p-6 rounded-corner-xs border border-outline-variant flex flex-col gap-3"
+        >
+          <span class="font-title-sm text-primary">Checkboxes (mat-checkbox)</span>
+          <div class="flex flex-wrap items-center gap-6">
+            <mat-checkbox checked>Primary Default</mat-checkbox>
+            <mat-checkbox checked theme="info">Info Theme</mat-checkbox>
+            <mat-checkbox checked theme="warning">Warning Theme</mat-checkbox>
+            <mat-checkbox checked theme="success">Success Theme</mat-checkbox>
+            <mat-checkbox [indeterminate]="true">Indeterminate</mat-checkbox>
+            <mat-checkbox disabled [checked]="true">Disabled Checked</mat-checkbox>
+          </div>
+        </div>
+      </section>
+    }
+
+    <!-- ========================================================================= -->
+    <!-- SECTION 4: Iconography Lab -->
+    <!-- ========================================================================= -->
+    @if (activeTab() === 'all' || activeTab() === 'icons') {
+      <section id="icons" class="flex flex-col gap-6">
+        <div class="flex items-center justify-between border-b border-outline-variant pb-3">
+          <div class="flex items-center gap-3">
+            <mat-icon name="stars" size="3xl" iconColor="primary" />
+            <div>
+              <h2 class="font-headline-sm">Iconography (MatIconDirective)</h2>
+              <p class="font-body-sm text-on-surface-variant">
+                Material Symbols Outlined with strict sizes, weights, and color tokens
+              </p>
+            </div>
+          </div>
+          <span
+            class="text-xs px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-mono"
+          >
+            &lt;mat-icon name="..." [iconColor]="..." size="..." /&gt;
+          </span>
+        </div>
+
+        <!-- Interactive Icon Tester -->
+        <div
+          class="bg-surface-container-low p-6 rounded-corner-xs border border-outline-variant flex flex-col md:flex-row gap-6 items-center"
+        >
+          <div class="flex-1 flex flex-col gap-4 w-full">
+            <span class="font-title-sm text-primary">Live Icon Tester</span>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label
+                  for="custom-icon-name"
+                  class="font-label-sm text-on-surface-variant block mb-1"
+                  >Icon Name (Material Symbol):</label
+                >
+                <input
+                  id="custom-icon-name"
+                  type="text"
+                  [ngModel]="customIconName()"
+                  (ngModelChange)="customIconName.set($event)"
+                  placeholder="e.g. rocket_launch, terminal, bolt"
+                  class="w-full px-3 py-2 rounded-corner-xs bg-surface border border-outline-variant text-on-surface font-mono text-sm focus:border-primary outline-none"
+                />
+              </div>
+              <div>
+                <label
+                  for="custom-icon-color"
+                  class="font-label-sm text-on-surface-variant block mb-1"
+                  >Color Token:</label
+                >
+                <select
+                  id="custom-icon-color"
+                  [ngModel]="customIconColor()"
+                  (ngModelChange)="customIconColor.set($event)"
+                  class="w-full px-3 py-2 rounded-corner-xs bg-surface border border-outline-variant text-on-surface text-sm focus:border-primary outline-none"
+                >
+                  <option value="primary">Primary</option>
+                  <option value="secondary">Secondary</option>
+                  <option value="tertiary">Tertiary</option>
+                  <option value="success">Success</option>
+                  <option value="warning">Warning</option>
+                  <option value="error">Error</option>
+                  <option value="info">Info</option>
+                </select>
+              </div>
+            </div>
+            <div class="flex items-center gap-4">
+              <button
+                matButton="outlined"
+                (click)="customIconType.set(customIconType() === 'fill' ? 'outline' : 'fill')"
+                class="flex items-center gap-2"
+              >
+                <mat-icon name="contrast" size="sm" />
+                <span>Style: {{ customIconType() === 'fill' ? 'Solid Fill' : 'Outline' }}</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Preview Card -->
+          <div
+            class="bg-surface p-6 rounded-corner-md border border-primary/30 flex flex-col items-center justify-center min-w-50 shadow-mat-2"
+          >
+            <mat-icon
+              [name]="customIconName()"
+              [iconColor]="customIconColor()"
+              [type]="customIconType()"
+              size="7xl"
+            />
+            <span class="mt-3 font-mono font-bold text-sm text-on-surface">{{
+              customIconName()
+            }}</span>
+            <span class="font-mono text-xs text-on-surface-variant"
+              >iconColor="{{ customIconColor() }}"</span
+            >
+          </div>
+        </div>
+
+        <!-- Icon Sizes Scale -->
+        <div
+          class="bg-surface-container-low p-6 rounded-corner-xs border border-outline-variant flex flex-col gap-4"
+        >
+          <span class="font-title-sm text-primary">T-Shirt Sizing Scale</span>
+          <div class="flex flex-wrap items-end gap-6 overflow-x-auto py-2">
+            <div class="flex flex-col items-center gap-2">
+              <mat-icon name="star" size="xs" iconColor="primary" />
+              <span class="font-body-xs font-mono">xs (12px)</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <mat-icon name="star" size="sm" iconColor="primary" />
+              <span class="font-body-xs font-mono">sm (14px)</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <mat-icon name="star" size="base" iconColor="primary" />
+              <span class="font-body-xs font-mono">base (16px)</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <mat-icon name="star" size="lg" iconColor="primary" />
+              <span class="font-body-xs font-mono">lg (18px)</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <mat-icon name="star" size="xl" iconColor="primary" />
+              <span class="font-body-xs font-mono">xl (20px)</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <mat-icon name="star" size="2xl" iconColor="primary" />
+              <span class="font-body-xs font-mono font-bold text-primary">2xl (Default)</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <mat-icon name="star" size="3xl" iconColor="primary" />
+              <span class="font-body-xs font-mono">3xl (30px)</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <mat-icon name="star" size="4xl" iconColor="primary" />
+              <span class="font-body-xs font-mono">4xl (36px)</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <mat-icon name="star" size="5xl" iconColor="primary" />
+              <span class="font-body-xs font-mono">5xl (48px)</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <mat-icon name="star" size="6xl" iconColor="primary" />
+              <span class="font-body-xs font-mono">6xl (60px)</span>
+            </div>
+            <div class="flex flex-col items-center gap-2">
+              <mat-icon name="star" size="7xl" iconColor="primary" />
+              <span class="font-body-xs font-mono">7xl (72px)</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    }
+
+    <!-- ========================================================================= -->
+    <!-- SECTION 5: Badges & Chips -->
+    <!-- ========================================================================= -->
+    @if (activeTab() === 'all' || activeTab() === 'badges') {
+      <section id="badges" class="flex flex-col gap-6">
+        <div class="flex items-center justify-between border-b border-outline-variant pb-3">
+          <div class="flex items-center gap-3">
+            <mat-icon name="label" size="3xl" iconColor="primary" />
+            <div>
+              <h2 class="font-headline-sm">Status Badges & Chips</h2>
+              <p class="font-body-sm text-on-surface-variant">
+                Config-driven status indicators and interactive chip radio filters
+              </p>
+            </div>
+          </div>
+          <span
+            class="text-xs px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-mono"
+          >
+            &lt;app-status-badge&gt; & &lt;app-chips&gt;
+          </span>
+        </div>
+
+        <!-- Status Badges Gallery -->
+        <div
+          class="bg-surface-container-low p-6 rounded-corner-xs border border-outline-variant flex flex-col gap-4"
+        >
+          <div class="flex items-center justify-between">
+            <span class="font-title-sm text-primary">Configuration-Driven Status Badges</span>
+            <span class="font-body-xs text-on-surface-variant"
+              >Automatic coloring & icon binding via StatusConfig</span
+            >
+          </div>
+          <div class="flex flex-wrap items-center gap-3">
+            <app-status-badge value="high" [statusConfig]="statusConfig" />
+            <app-status-badge value="medium" [statusConfig]="statusConfig" />
+            <app-status-badge value="low" [statusConfig]="statusConfig" />
+            <app-status-badge value="critical" [statusConfig]="statusConfig" />
+            <app-status-badge value="normal" [statusConfig]="statusConfig" />
+            <app-status-badge value="active" [statusConfig]="statusConfig" />
+            <app-status-badge value="pending" [statusConfig]="statusConfig" />
+            <app-status-badge value="rejected" [statusConfig]="statusConfig" />
+            <app-status-badge value="completed" [statusConfig]="statusConfig" />
+          </div>
+        </div>
+
+        <!-- Interactive Chips Component -->
+        <div
+          class="bg-surface-container-low p-6 rounded-corner-xs border border-outline-variant flex flex-col gap-4"
+        >
+          <div class="flex items-center justify-between">
+            <span class="font-title-sm text-primary">Interactive Chips Group</span>
+            <div class="flex items-center gap-2">
+              <span class="font-body-xs text-on-surface-variant">Active Filter:</span>
+              <span
+                class="px-2 py-0.5 rounded bg-primary text-on-primary font-mono text-xs font-semibold"
+              >
+                {{ selectedChip() }}
+              </span>
+            </div>
+          </div>
+
+          <app-chips
+            [chips]="availableChips()"
+            [(value)]="selectedChip"
+            ariaLabel="Service category selection"
+          />
+        </div>
+      </section>
+    }
+
+    <!-- ========================================================================= -->
+    <!-- SECTION 6: Reactive Signal Forms & Custom Inputs -->
+    <!-- ========================================================================= -->
+    @if (activeTab() === 'all' || activeTab() === 'forms') {
+      <section id="forms" class="flex flex-col gap-6">
+        <div class="flex items-center justify-between border-b border-outline-variant pb-3">
+          <div class="flex items-center gap-3">
+            <mat-icon name="edit_document" size="3xl" iconColor="primary" />
+            <div>
+              <h2 class="font-headline-sm">Reactive Signal Forms</h2>
+              <p class="font-body-sm text-on-surface-variant">
+                Full suite of custom form controls bound to Angular v22 &#64;angular/forms/signals
+              </p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2">
+            <button matButton="outlined" (click)="resetForm()">Clear Form</button>
+            <button matButton="filled" (click)="prefillForm()">Fill Sample Data</button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          <!-- Live Form Controls Card -->
+          <div
+            class="lg:col-span-2 bg-surface-container-low p-6 rounded-corner-xs border border-outline-variant flex flex-col gap-4"
+          >
+            <span class="font-title-md text-primary mb-2">Interactive Custom Input Components</span>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <!-- Text Input -->
+              <app-text-input
+                [formField]="demoForm.fullName"
+                label="Full Name"
+                icon="person"
+                placeholder="Enter user full name"
+              />
+
+              <!-- Email Input with Suffix Action -->
+              <app-text-input
+                [formField]="demoForm.email"
+                label="Email Address"
+                type="email"
+                icon="mail"
+                placeholder="name@company.com"
+              />
+
+              <!-- Password Input with Toggle -->
+              <app-password-input
+                [formField]="demoForm.password"
+                label="Account Password"
+                icon="lock"
+                placeholder="Enter password"
+              />
+
+              <!-- Select Input -->
+              <app-select-input
+                [formField]="demoForm.role"
+                [options]="roleOptions"
+                labelKey="label"
+                valueKey="value"
+                label="User Role"
+              />
+
+              <!-- Date Picker Input -->
+              <app-date-input
+                [formField]="demoForm.preferredDate"
+                label="Scheduled Deployment Date"
+                icon="calendar_today"
+              />
+
+              <!-- Time Picker Input -->
+              <app-timepicker [formField]="demoForm.preferredTime" label="Deployment Time" />
+            </div>
+
+            <!-- Textarea Field Input -->
+            <app-text-field-input
+              [formField]="demoForm.bio"
+              label="Professional Summary / Bio"
+              icon="notes"
+              [minRows]="3"
+              placeholder="Describe user experience or project goals"
+            />
+
+            <!-- File Upload Input -->
+            <app-file-input
+              [formField]="demoForm.file"
+              label="Upload Profile Document / Avatar"
+              accept="image/*"
+            />
+          </div>
+
+          <!-- Live Signal Model State Inspector -->
+          <div
+            class="bg-surface-container-high p-6 rounded-corner-xs border border-outline-variant flex flex-col gap-3"
+          >
+            <div class="flex items-center justify-between">
+              <span class="font-title-sm text-primary flex items-center gap-1.5">
+                <mat-icon name="data_object" size="sm" iconColor="primary" />
+                Live Signal Model
+              </span>
+              <span class="text-xs px-2 py-0.5 rounded bg-primary/20 text-primary font-mono">
+                Reactive
+              </span>
+            </div>
+            <p class="font-body-xs text-on-surface-variant">
+              Values automatically synchronize via Angular 22 Signal Forms:
+            </p>
+            <pre
+              class="flex-1 p-4 rounded bg-neutral10 text-emerald-400 font-mono text-xs overflow-auto max-h-120 shadow-inner"
+              >{{ formModel() | json }}
+            </pre>
+          </div>
+        </div>
+      </section>
+    }
+
+    <!-- ========================================================================= -->
+    <!-- SECTION 7: Cards & Surfaces -->
+    <!-- ========================================================================= -->
+    @if (activeTab() === 'all' || activeTab() === 'cards') {
+      <section id="cards" class="flex flex-col gap-6">
+        <div class="flex items-center justify-between border-b border-outline-variant pb-3">
+          <div class="flex items-center gap-3">
+            <mat-icon name="style" size="3xl" iconColor="primary" />
+            <div>
+              <h2 class="font-headline-sm">Cards & Surface Containers</h2>
+              <p class="font-body-sm text-on-surface-variant">
+                Composition-driven base cards, feature info cards, and customer review cards
+              </p>
+            </div>
+          </div>
+          <span
+            class="text-xs px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-mono"
+          >
+            &lt;app-base-card&gt; | &lt;app-info-card&gt; | &lt;app-review-card&gt;
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Base Card with Slot Projection -->
+          <app-base-card gap="4" padding="6">
+            <ng-container card-header>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                  <div class="bg-circle">
+                    <mat-icon name="layers" iconColor="primary" size="2xl" />
+                  </div>
+                  <h3 class="font-title-md">Base Card Container</h3>
+                </div>
+                <span class="px-2 py-0.5 text-xs rounded bg-surface-container-highest font-mono"
+                  >Projected</span
+                >
+              </div>
+            </ng-container>
+
+            <ng-container card-content>
+              <p class="font-body-md text-on-surface-variant">
+                BaseCard provides slot-based content projection with strict spacing scales for
+                header, content, and footer.
+              </p>
+            </ng-container>
+
+            <ng-container card-footer>
+              <div class="flex justify-end gap-2 pt-2 border-t border-outline-variant/40">
+                <button matButton="text">Details</button>
+                <button matButton="filled">Action</button>
+              </div>
+            </ng-container>
+          </app-base-card>
+
+          <!-- Info Card (Feature List) -->
+          <app-info-card [infoCard]="infoCardFeature" />
+
+          <!-- Review Card (Testimonial with Stars) -->
+          <app-review-card [review]="sampleReview" />
+        </div>
+      </section>
+    }
+
+    <!-- ========================================================================= -->
+    <!-- SECTION 8: Data Table (ReusableTable) -->
+    <!-- ========================================================================= -->
+    @if (activeTab() === 'all' || activeTab() === 'tables') {
+      <section id="tables" class="flex flex-col gap-6">
+        <div class="flex items-center justify-between border-b border-outline-variant pb-3">
+          <div class="flex items-center gap-3">
+            <mat-icon name="table_chart" size="3xl" iconColor="primary" />
+            <div>
+              <h2 class="font-headline-sm">Reusable Data Table</h2>
+              <p class="font-body-sm text-on-surface-variant">
+                Full-featured data grid with sorting, pagination, search filtering, and custom cell
+                templates
+              </p>
+            </div>
+          </div>
+          <span
+            class="text-xs px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-mono"
+          >
+            &lt;reusable-table&gt;
+          </span>
+        </div>
+
+        <div
+          class="bg-surface-container-low p-6 rounded-corner-xs border border-outline-variant overflow-hidden"
+        >
+          <reusable-table
+            [data]="tableUsers()"
+            [columns]="tableColumns"
+            headerTitle="User Management"
+            headerIcon="people"
+            subTitle="Active system users and team members"
+          />
+        </div>
+      </section>
+    }
+
+    <!-- ========================================================================= -->
+    <!-- SECTION 9: Dialogs, Modals & Snackbars -->
+    <!-- ========================================================================= -->
+    @if (activeTab() === 'all' || activeTab() === 'dialogs') {
+      <section id="dialogs" class="flex flex-col gap-6">
+        <div class="flex items-center justify-between border-b border-outline-variant pb-3">
+          <div class="flex items-center gap-3">
+            <mat-icon name="chat_bubble" size="3xl" iconColor="primary" />
+            <div>
+              <h2 class="font-headline-sm">Dialogs & Snackbars</h2>
+              <p class="font-body-sm text-on-surface-variant">
+                Interactive Material Dialogs and thematic feedback Snackbars
+              </p>
+            </div>
+          </div>
+          <span
+            class="text-xs px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-mono"
+          >
+            SnackbarService & MatDialog
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Dialog Launchers Card -->
+          <div
+            class="bg-surface-container-low p-6 rounded-corner-xs border border-outline-variant flex flex-col gap-4"
+          >
+            <span class="font-title-md text-primary">Modal Dialogs</span>
+            <p class="font-body-sm text-on-surface-variant">
+              Launch pre-built accessible dialogs with custom header/body projections or image
+              pan/zoom capabilities:
+            </p>
+            <div class="flex flex-wrap gap-4 pt-2">
+              <button
+                matButton="filled"
+                (click)="openConfirmModal()"
+                class="flex items-center gap-2"
+              >
+                <mat-icon name="help_outline" />
+                <span>Open Confirmation Dialog</span>
+              </button>
+              <button
+                matButton="outlined"
+                (click)="openImagePreviewModal()"
+                class="flex items-center gap-2"
+              >
+                <mat-icon name="zoom_in" />
+                <span>Open Image Zoom & Pan Modal</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Snackbar Triggers Card -->
+          <div
+            class="bg-surface-container-low p-6 rounded-corner-xs border border-outline-variant flex flex-col gap-4"
+          >
+            <span class="font-title-md text-primary">Thematic Snackbars (Toasts)</span>
+            <p class="font-body-sm text-on-surface-variant">
+              Trigger instant toast notifications styled with custom Material 3 color palettes:
+            </p>
+            <div class="flex flex-wrap gap-3 pt-2">
+              <button
+                matButton="filled"
+                theme="success"
+                (click)="triggerSnackbar('success')"
+                class="flex items-center gap-2"
+              >
+                <mat-icon name="check_circle" />
+                <span>Success Toast</span>
+              </button>
+              <button
+                matButton="filled"
+                theme="warning"
+                (click)="triggerSnackbar('warning')"
+                class="flex items-center gap-2"
+              >
+                <mat-icon name="warning" />
+                <span>Warning Toast</span>
+              </button>
+              <button
+                matButton="filled"
+                theme="info"
+                (click)="triggerSnackbar('info')"
+                class="flex items-center gap-2"
+              >
+                <mat-icon name="info" />
+                <span>Info Toast</span>
+              </button>
+              <button
+                matButton="filled"
+                class="bg-error! text-on-error! flex items-center gap-2"
+                (click)="triggerSnackbar('error')"
+              >
+                <mat-icon name="error" />
+                <span>Error Toast</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    }
+
+    <!-- ========================================================================= -->
+    <!-- SECTION 10: Loaders & Overlays -->
+    <!-- ========================================================================= -->
+    @if (activeTab() === 'all' || activeTab() === 'loaders') {
+      <section id="loaders" class="flex flex-col gap-6">
+        <div class="flex items-center justify-between border-b border-outline-variant pb-3">
+          <div class="flex items-center gap-3">
+            <mat-icon name="progress_activity" size="3xl" iconColor="primary" />
+            <div>
+              <h2 class="font-headline-sm">Loaders & Overlays</h2>
+              <p class="font-body-sm text-on-surface-variant">
+                Accessible loading spinners with configurable diameter, height, and messaging
+              </p>
+            </div>
+          </div>
+          <span
+            class="text-xs px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-mono"
+          >
+            &lt;app-loader&gt;
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Controls -->
+          <div
+            class="bg-surface-container-low p-6 rounded-corner-xs border border-outline-variant flex flex-col gap-4"
+          >
+            <span class="font-title-sm text-primary">Loader Configuration</span>
+
+            <div>
+              <label for="loader-diameter" class="font-label-sm text-on-surface-variant block mb-1"
+                >Spinner Diameter ({{ loaderDiameter() }}px):</label
+              >
+              <input
+                id="loader-diameter"
+                type="range"
+                min="30"
+                max="120"
+                step="10"
+                [ngModel]="loaderDiameter()"
+                (ngModelChange)="loaderDiameter.set($event)"
+                class="w-full cursor-pointer accent-primary"
+              />
+            </div>
+
+            <div>
+              <label for="loader-height" class="font-label-sm text-on-surface-variant block mb-1"
+                >Height Scale:</label
+              >
+              <select
+                id="loader-height"
+                [ngModel]="loaderHeight()"
+                (ngModelChange)="loaderHeight.set($event)"
+                class="w-full px-3 py-2 rounded-corner-xs bg-surface border border-outline-variant text-on-surface text-sm focus:border-primary outline-none"
+              >
+                <option value="10">Height 10 (100px)</option>
+                <option value="20">Height 20 (200px)</option>
+                <option value="30">Height 30 (300px)</option>
+                <option value="40">Height 40 (400px)</option>
+                <option value="60">Height 60 (600px)</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="loader-message" class="font-label-sm text-on-surface-variant block mb-1"
+                >Loading Message:</label
+              >
+              <input
+                id="loader-message"
+                type="text"
+                [ngModel]="loaderMessage()"
+                (ngModelChange)="loaderMessage.set($event)"
+                class="w-full px-3 py-2 rounded-corner-xs bg-surface border border-outline-variant text-on-surface text-sm focus:border-primary outline-none"
+              />
+            </div>
+          </div>
+
+          <!-- Live Loader Preview -->
+          <div
+            class="md:col-span-2 bg-surface-container-low p-6 rounded-corner-xs border border-outline-variant flex flex-col items-center justify-center overflow-hidden"
+          >
+            <app-loader
+              [diameter]="loaderDiameter()"
+              [message]="loaderMessage()"
+              [minHeight]="loaderHeight()"
+              [sectionSpace]="loaderSectionSpace()"
+            />
+          </div>
+        </div>
+      </section>
+    }
+
+    <!-- ========================================================================= -->
+    <!-- SECTION 11: Branding & Logo -->
+    <!-- ========================================================================= -->
+    @if (activeTab() === 'all' || activeTab() === 'branding') {
+      <section id="branding" class="flex flex-col gap-6 mb-12">
+        <div class="flex items-center justify-between border-b border-outline-variant pb-3">
+          <div class="flex items-center gap-3">
+            <mat-icon name="diamond" size="3xl" iconColor="primary" />
+            <div>
+              <h2 class="font-headline-sm">Branding & Logo</h2>
+              <p class="font-body-sm text-on-surface-variant">
+                Theme-adaptive logo component for navigation headers and splash screens
+              </p>
+            </div>
+          </div>
+          <span
+            class="text-xs px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-mono"
+          >
+            &lt;app-logo&gt;
+          </span>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div
+            class="bg-surface-container-low p-8 rounded-corner-xs border border-outline-variant flex flex-col items-center justify-center gap-4"
+          >
+            <span class="font-label-md text-on-surface-variant">Standard Container Mode</span>
+            <app-logo />
+          </div>
+
+          <div
+            class="bg-primary/10 p-8 rounded-corner-xs border border-primary/20 flex flex-col items-center justify-center gap-4"
+          >
+            <span class="font-label-md text-primary">Branded Background Mode</span>
+            <app-logo />
+          </div>
+        </div>
+      </section>
+    }
+  </main>
+</div>

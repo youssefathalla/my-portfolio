@@ -8,12 +8,13 @@ describe('ReusableTable', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReusableTable<any>]
-    })
-    .compileComponents();
+      imports: [ReusableTable],
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(ReusableTable<any>);
+    fixture = TestBed.createComponent(ReusableTable);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('data', []);
+    fixture.componentRef.setInput('columns', []);
     fixture.detectChanges();
   });
 
