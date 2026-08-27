@@ -1,0 +1,8 @@
+@import 'tailwindcss';
+@import './styles/tailwind/theme';
+@import './styles/tailwind/components-base';
+@import './styles/tailwind/components/spacing';
+@import './styles/tailwind/components/images';
+@import './styles/tailwind/components/overlays';
+@import './styles/tailwind/components/status';
+@import './styles/tailwind/utils-base';

@@ -1,0 +1,8 @@
+@use '@angular/material' as mat;
+
+:root {
+  @include mat.list-overrides((
+    active-indicator-shape: var(--mat-sys-corner-extra-small),
+    list-item-two-line-container-height: 70px
+  ));
+}

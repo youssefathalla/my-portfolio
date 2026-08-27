@@ -1,0 +1,56 @@
+@use '@angular/material' as mat;
+
+@mixin status-variant($background, $foreground) {
+  color: $foreground;
+  background-color: color-mix(in srgb, $background calc(var(--bg-opacity, 100) * 1%), transparent);
+  border-color: var(--mat-sys-outline-variant);
+}
+
+[theme="success"] {
+  @include mat.theme((
+    color: mat.$spring-green-palette,
+  ));
+}
+
+[theme="warning"] {
+  @include mat.theme((
+    color: mat.$yellow-palette,
+  ));
+}
+
+[theme="info"] {
+  @include mat.theme((
+    color: mat.$azure-palette,
+  ));
+}
+[theme="error"] {
+  @include mat.theme((
+    color: mat.$red-palette,
+  ));
+}
+
+
+//! Status Colors
+[status='primary'] {
+  @include status-variant(var(--color-primary), var(--color-on-primary));
+}
+
+[status='green'] {
+  @include status-variant(var(--color-success), var(--color-on-success));
+}
+
+[status='yellow'] {
+  @include status-variant(var(--color-warning), var(--color-on-warning));
+}
+
+[status='blue'] {
+  @include status-variant(var(--color-info), var(--color-on-info));
+}
+
+[status='red'] {
+  @include status-variant(var(--mat-sys-error), var(--mat-sys-on-error));
+}
+
+[status='gray'] {
+  @include status-variant(var(--mat-sys-surface-variant), var(--mat-sys-on-surface-variant));
+}

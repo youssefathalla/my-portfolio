@@ -1,0 +1,52 @@
+import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
+import { FormField } from '@angular/forms/signals';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { InputMode } from '../input.models';
+import { SharedIconModule } from '@shared/ui/mat-icon';
+import { BaseFormControl } from '../control-base.directive';
+
+@Component({
+  selector: 'app-text-input',
+  imports: [MatFormFieldModule, MatInputModule, MatButtonModule, FormField, SharedIconModule],
+  host: { class: 'block w-full' },
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `
+    <mat-form-field [appearance]="appearance()" [subscriptSizing]="subscriptSizing()" class="w-full">
+      <mat-label>{{ label() }}</mat-label>
+      @if (prefixIcon()) {
+        <button matIconButton matPrefix (click)="prefixAction.emit()" type="button">
+          <mat-icon [name]="prefixIcon()!" />
+        </button>
+      }
+      @if (icon()) {
+        <mat-icon matPrefix [name]="icon()!" />
+      }
+      <input
+        matInput
+        [formField]="formField()"
+        [type]="type()"
+        [inputMode]="inputMode()"
+        [placeholder]="placeholder()"
+      />
+      @if (suffixIcon()) {
+        <button matIconButton matSuffix (click)="suffixAction.emit()" type="button">
+          <mat-icon [name]="suffixIcon()!" />
+        </button>
+      }
+      @if (showError()) {
+        <mat-error>{{ errorMessage() }}</mat-error>
+      }
+    </mat-form-field>
+  `,
+})
+export class TextInputComponent extends BaseFormControl<string | number> {
+  readonly type = input<string>('text');
+  readonly inputMode = input<InputMode>('text');
+  readonly icon = input<string | null>(null);
+  readonly prefixIcon = input<string | null>(null);
+  readonly prefixAction = output<void>();
+  readonly suffixIcon = input<string | null>(null);
+  readonly suffixAction = output<void>();
+}

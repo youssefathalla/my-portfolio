@@ -1,0 +1,21 @@
+/*! LAYOUT & ALIGNMENT UTILITIES */
+
+@utility elements-center {
+  @apply flex justify-center items-center;
+}
+
+@utility elements-start {
+  @apply flex justify-start items-center;
+}
+
+@utility elements-end {
+  @apply flex justify-end items-center;
+}
+
+@utility elements-between {
+  @apply flex justify-between items-center;
+}
+
+@utility form-space {
+  @apply flex flex-col gap-4 pt-4;
+}

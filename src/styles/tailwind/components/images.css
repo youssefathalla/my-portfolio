@@ -1,0 +1,8 @@
+@layer components {
+  .image-mask {
+    @apply mask-[linear-gradient(to_bottom,transparent,black_2%,black_70%,transparent),linear-gradient(to_right,transparent,black_15%,black_85%,transparent)] mask-intersect;
+  }
+  .hero-image {
+    @apply relative! h-100! object-cover;
+  }
+}

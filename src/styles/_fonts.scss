@@ -1,0 +1,42 @@
+// google sans flex
+@font-face {
+  font-family: 'Google Sans Flex';
+  src: url('/fonts/google-sans-flex.woff2') format('woff2');
+  font-weight: 400 800;
+  font-display: swap;
+  font-style: normal;
+}
+
+// material symbols (Modern Outlined) - Our NEW standard
+@font-face {
+  font-family: 'Material Symbols Outlined';
+  font-style: normal;
+  font-weight: 400 600;
+  src: url('/fonts/material-symbols-outlined.woff2') format('woff2');
+  font-display: block;
+}
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined', monospace;
+  font-feature-settings: 'liga';
+  font-variation-settings:
+    'GRAD' -25,
+    'opsz' 48;
+  font-weight: normal;
+  font-style: normal;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 1em;
+  min-inline-size: 1em;
+  block-size: 1em;
+  overflow: hidden;
+  letter-spacing: normal;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+}

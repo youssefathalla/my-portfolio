@@ -1,0 +1,29 @@
+<app-base-card>
+  <ng-container card-header>
+    <div class="flex justify-between w-full">
+      <div class="flex gap-4">
+        <div class="bg-circle">{{ initials() }}</div>
+        <div class="flex flex-col justify-center">
+          <h3 class="flex items-center gap-1 font-title-sm text-on-surface">
+            {{ review().firstName }} {{ review().lastName }}
+          </h3>
+          <div class="flex items-center gap-2 mt-1">
+            <div class="flex leading-none">
+              @for (star of starsArray(); track star) {
+                <mat-icon name="star" iconColor="warning" type="fill" size="xs" />
+              }
+            </div>
+            <span class="font-body-xs text-on-surface-variant/70">{{ review().date }}</span>
+          </div>
+        </div>
+      </div>
+      <mat-icon name="format_quote" class="text-outline-variant opacity-30" size="2xl" />
+    </div>
+  </ng-container>
+  <ng-container card-content>
+    <app-status-badge [value]="review().serviceType" class="max-w-60" />
+  </ng-container>
+  <ng-container card-sub-content>
+    <p class="font-body-sm text-on-surface-variant leading-relaxed">{{ review().description }}</p>
+  </ng-container>
+</app-base-card>

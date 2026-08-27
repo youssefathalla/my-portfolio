@@ -10,7 +10,24 @@
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "none",
+          "type": "component"
+        },
+        "@schematics/angular:service": {
+          "flat": false,
+          "type": "service"
+        },
+        "@schematics/angular:directive": {
+          "type": "directive",
+          "flat": false
+        },
+        "@schematics/angular:pipe": {
+          "flat": false,
+          "typeSeparator": "."
+        },
+        "@schematics/angular:guard": {
+          "flat": false,
+          "typeSeparator": "."
         }
       },
       "root": "",
@@ -29,9 +46,10 @@
                 "input": "public"
               }
             ],
-            "styles": [
-              "src/styles.scss"
-            ]
+            "styles": ["src/tailwind.css", "src/styles.scss"],
+            "stylePreprocessorOptions": {
+              "includePaths": ["src/styles"]
+            }
           },
           "configurations": {
             "production": {
@@ -70,7 +88,10 @@
           "defaultConfiguration": "development"
         },
         "test": {
-          "builder": "@angular/build:unit-test"
+          "builder": "@angular/build:unit-test",
+          "options": {
+            "providersFile": "src/test-providers.ts"
+          }
         }
       }
     }

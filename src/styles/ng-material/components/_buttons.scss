@@ -1,0 +1,42 @@
+@use '@angular/material' as mat;
+
+:root {
+  //* Global Button Shape (M3)
+  @include mat.button-overrides((
+    filled-container-shape: 4px,
+    outlined-container-shape: 4px,
+    protected-container-shape: 4px, // elevated
+    text-container-shape: 4px,
+    tonal-container-shape: 4px
+  ));
+    @include mat.fab-overrides((
+    extended-container-shape: 4px,
+  ));
+}
+
+/* Target the label ONLY when the button contains a spinner */
+button:has(mat-spinner) .mdc-button__label,
+button.twoIcons .mdc-button__label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  @include mat.progress-spinner-overrides((
+      active-indicator-color: var(--mat-sys-primary),
+  ));
+}
+
+.mat-mdc-form-field-icon-suffix {
+  padding-inline-end: 0.5rem !important;
+}
+.mat-mdc-form-field-icon-prefix {
+  padding-inline-start: 0.5rem !important;
+}
+
+//-Table buttons
+.table-btn {
+  @include mat.button-overrides((
+    tonal-container-height: 34px,
+    tonal-label-text-size: 12px,
+  ));
+}

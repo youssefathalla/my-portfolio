@@ -1,0 +1,21 @@
+@use '@angular/material' as mat;
+
+:root {
+  @include mat.dialog-overrides((
+    container-shape: var(--mat-sys-corner-extra-small),
+  ));
+}
+
+// Login Dialog Overrides
+// Opaque backdrop to hide the broken/incomplete page behind the dialog
+.login-dialog-backdrop {
+  background-color: rgba(0, 0, 0, 0.85) !important;
+  backdrop-filter: blur(8px);
+}
+
+// Category Dialog Overrides
+.cat-dialog {
+  @include mat.dialog-overrides((
+    container-color: var(--mat-sys-surface-container-high),
+  ));
+}

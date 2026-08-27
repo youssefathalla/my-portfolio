@@ -1,0 +1,17 @@
+@use "@angular/material" as mat;
+
+.side-nav {
+  @include mat.expansion-overrides((
+    container-background-color: var(--mat-sys-surface),
+  ));
+}
+.accordion {
+  @include mat.expansion-overrides((
+    container-background-color: var(--mat-sys-surface-container-low),
+    header-text-color: var(--mat-sys-primary),
+  ));
+}
+
+@include mat.checkbox-overrides((
+  label-text-size: 18px,
+));

@@ -1,0 +1,42 @@
+@use '@angular/material' as mat;
+
+@include mat.table-overrides((
+  header-headline-color: var(--mat-sys-primary),
+));
+
+.dashboard-table {
+  border-collapse: separate;
+  
+  thead {
+    background-color: var(--mat-sys-secondary-container) !important;
+    color: var(--mat-sys-on-secondary-container) !important;
+  }
+
+  .mat-mdc-header-cell {
+    font-weight: 600 !important;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    color: inherit !important;
+    border-bottom: 1px solid var(--mat-sys-outline-variant);
+  }
+
+  .mat-mdc-cell {
+    font-size: 0.875rem;
+    transition: color 0.2s ease;
+  }
+
+  .mat-mdc-row {
+    transition: background-color 0.2s ease;
+    
+    &:hover {
+      background-color: var(--mat-sys-surface-container-high) !important;
+      
+      .mat-mdc-cell {
+        color: var(--mat-sys-primary);
+      }
+    }
+  }
+}
+
+

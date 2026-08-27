@@ -1,0 +1,7 @@
+@use '@angular/material' as mat;
+
+mat-stepper {
+  .mat-horizontal-content-container {
+    padding-top: 1rem;
+  }
+}

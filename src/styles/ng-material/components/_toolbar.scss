@@ -1,0 +1,20 @@
+@use '@angular/material' as mat;
+
+$handset-portrait: '(max-width: 599.98px) and (orientation: portrait)';
+$handset-landscape: '(max-width: 959.98px) and (orientation: landscape)';
+
+//* toolbar
+.toolbar-header {
+  --mat-sys-title-large-font-size: 0.75rem !important;
+  --mat-sys-title-large-font-weight: 500 !important;
+}
+.toolbar-sub-header {
+  --mat-sys-title-large-font-size: 1rem !important;
+  --mat-sys-title-large-font-weight: 400 !important;
+}
+
+@media #{$handset-portrait}, #{$handset-landscape} {
+:root {
+    @include mat.toolbar-overrides((title-text-size: 1.125rem,title-text-weight: 450));
+  }
+}

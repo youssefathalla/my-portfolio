@@ -1,0 +1,14 @@
+@layer components {
+  .container-content {
+    @apply flex flex-col flex-1 px-4 lg:py-[2.5cqw] py-[5cqw] max-w-7xl mx-auto w-full;
+  }
+
+  .hero-space {
+    @apply md:pb-[2.5cqw] md:pt-[0.5cqw] py-[5cqw];
+  }
+
+  .section-space {
+    @apply md:py-[2.5cqw] py-[5cqw];
+  }
+
+}

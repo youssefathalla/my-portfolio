@@ -1,0 +1,8 @@
+@use '@angular/material' as mat;
+
+//* Cards
+.stats-card {
+  @include mat.card-overrides((
+    elevated-container-color: var(--mat-sys-primary-container),
+  ));
+}

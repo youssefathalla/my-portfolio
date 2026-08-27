@@ -1,0 +1,48 @@
+@use '@angular/material' as mat;
+
+:root {
+  interpolate-size: allow-keywords;
+
+  --color-on-success: light-dark(#d3e8d2, #394b3b);
+  --color-success: light-dark(#006d33, #00e472);
+
+  --color-warning: light-dark(#626200, #cdcd00);
+  --color-on-warning: light-dark(#e7e4bf, #49482d);
+
+  --color-info: light-dark(#005cbb, #abc7ff);
+  --color-on-info: light-dark(#dae2f9, #3e4759);
+
+  //! overrides
+  @include mat.progress-bar-overrides(
+    (
+      track-height: 10px,
+      active-indicator-height: 8px,
+      track-shape: 12px,
+    )
+  );
+  .mdc-linear-progress__bar-inner {
+    border-radius: 12px;
+  }
+}
+body {
+  height: 100%;
+  margin: 0;
+  font: var(--mat-sys-body-medium);
+  background-color: var(--mat-sys-surface);
+  color: var(--mat-sys-on-surface);
+}
+
+// Global UI Fixes (Scrollbars, etc.)
+* {
+  &::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+  }
+  &::-webkit-scrollbar-track {
+    background: var(--mat-sys-secondary-container);
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--mat-sys-primary);
+    border-radius: var(--mat-sys-corner-small);
+  }
+}

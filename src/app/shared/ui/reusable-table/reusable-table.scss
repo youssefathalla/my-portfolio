@@ -1,0 +1,55 @@
+@use '@angular/material' as mat;
+
+:host {
+  --row-bg-color: var(--mat-sys-surface-variant);
+  --row-bg-color-hover: var(--mat-sys-surface-container);
+  --row-bg-color-header: var(--mat-sys-secondary-container);
+
+  // .mat-column-name {
+  //   height: 52px;
+  // }
+
+  ::ng-deep {
+    .mat-mdc-header-cell {
+      background-color: var(--row-bg-color-header) !important;
+    }
+
+    .mat-mdc-row:nth-child(even) {
+      background-color: var(--row-bg-color-hover);
+    }
+
+    .mat-mdc-row:hover {
+      transition: background 200ms;
+      background-color: var(--row-bg-color);
+    }
+
+    .mat-mdc-paginator-page-size {
+      margin-right: none;
+    }
+
+    #clear-filter-button {
+      span.mat-mdc-menu-item-text {
+        display: flex;
+        align-items: center;
+      }
+    }
+    .mat-mdc-menu-content {
+      max-height: 300px;
+    }
+
+    .hide-subscript-wrapper {
+      & .mat-mdc-form-field-subscript-wrapper {
+        display: none;
+      }
+    }
+    .mat-mdc-paginator-container {
+      align-items: end !important;
+    }
+    @include mat.button-overrides(
+      (
+        tonal-container-height: 34px,
+        tonal-label-text-size: 12px,
+      )
+    );
+  }
+}

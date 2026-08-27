@@ -1,0 +1,22 @@
+@use '@angular/material' as mat;
+
+$handset-portrait: '(max-width: 599.98px) and (orientation: portrait)';
+$handset-landscape: '(max-width: 959.98px) and (orientation: landscape)';
+
+:root {
+  //* sidenav
+  @include mat.sidenav-overrides((
+    container-shape: 0,
+    container-width: 20rem,
+    container-background-color: var(--mat-sys-primary-container),
+    container-text-color: var(--mat-sys-on-primary-container),
+  ));
+}
+
+@media #{$handset-portrait}, #{$handset-landscape} {
+  :root {
+    @include mat.sidenav-overrides((
+      container-width: min(100%, 360px),
+    ));
+  }
+}
