@@ -1,5 +1,6 @@
 export type PlaygroundTab =
   | 'all'
+  | 'gemini-ai'
   | 'colors'
   | 'typography'
   | 'buttons'
@@ -20,6 +21,7 @@ export interface TabItem {
 
 export const PLAYGROUND_TABS: readonly TabItem[] = [
   { id: 'all', label: 'All Components', icon: 'grid_view' },
+  { id: 'gemini-ai', label: 'Gemini AI Hub', icon: 'psychology' },
   { id: 'colors', label: 'Colors & Tokens', icon: 'palette' },
   { id: 'typography', label: 'Typography', icon: 'text_fields' },
   { id: 'buttons', label: 'Buttons & Checkboxes', icon: 'smart_button' },

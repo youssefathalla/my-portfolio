@@ -13,12 +13,14 @@ import {
   DialogsTabComponent,
   LoadersTabComponent,
   BrandingTabComponent,
+  GeminiAiTabComponent,
 } from './components';
 
 @Component({
   selector: 'app-playground',
   imports: [
     PlaygroundHeaderComponent,
+    GeminiAiTabComponent,
     ColorsTabComponent,
     TypographyTabComponent,
     ButtonsTabComponent,
@@ -34,5 +36,5 @@ import {
   templateUrl: './playground.component.html',
 })
 export class PlaygroundComponent {
-  protected readonly activeTab = signal<PlaygroundTab>('all');
+  protected readonly activeTab = signal<PlaygroundTab>('gemini-ai');
 }
