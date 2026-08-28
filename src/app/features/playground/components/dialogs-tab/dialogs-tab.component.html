@@ -1,0 +1,94 @@
+<section id="dialogs" class="flex flex-col gap-6">
+  <div class="flex flex-col items-start gap-3 border-b border-outline-variant pb-4 px-3">
+    <mat-icon name="chat_bubble" size="3xl" iconColor="primary" />
+    <div class="flex flex-col gap-1">
+      <h2 class="font-headline-sm">Dialogs & Snackbars</h2>
+      <p class="font-body-sm text-on-surface-variant">
+        Interactive Material Dialogs and thematic feedback Snackbars
+      </p>
+    </div>
+    <span
+      class="text-xs px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-mono"
+    >
+      SnackbarService & MatDialog
+    </span>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Dialog Launchers Card -->
+    <div
+      class="bg-surface-container-low p-6 rounded-corner-xs border border-outline-variant flex flex-col gap-4"
+    >
+      <span class="font-title-md text-primary">Modal Dialogs</span>
+      <p class="font-body-sm text-on-surface-variant">
+        Launch pre-built accessible dialogs with custom header/body projections or image
+        pan/zoom capabilities:
+      </p>
+      <div class="flex flex-wrap gap-4 pt-2">
+        <button
+          matButton="filled"
+          (click)="openConfirmModal()"
+          class="flex items-center gap-2"
+        >
+          <mat-icon name="help_outline" />
+          <span>Open Confirmation Dialog</span>
+        </button>
+        <button
+          matButton="outlined"
+          (click)="openImagePreviewModal()"
+          class="flex items-center gap-2"
+        >
+          <mat-icon name="zoom_in" />
+          <span>Open Image Zoom & Pan Modal</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Snackbar Triggers Card -->
+    <div
+      class="bg-surface-container-low p-6 rounded-corner-xs border border-outline-variant flex flex-col gap-4"
+    >
+      <span class="font-title-md text-primary">Thematic Snackbars (Toasts)</span>
+      <p class="font-body-sm text-on-surface-variant">
+        Trigger instant toast notifications styled with custom Material 3 color palettes:
+      </p>
+      <div class="flex flex-wrap gap-3 pt-2">
+        <button
+          matButton="filled"
+          theme="success"
+          (click)="triggerSnackbar('success')"
+          class="flex items-center gap-2"
+        >
+          <mat-icon name="check_circle" />
+          <span>Success Toast</span>
+        </button>
+        <button
+          matButton="filled"
+          theme="warning"
+          (click)="triggerSnackbar('warning')"
+          class="flex items-center gap-2"
+        >
+          <mat-icon name="warning" />
+          <span>Warning Toast</span>
+        </button>
+        <button
+          matButton="filled"
+          theme="info"
+          (click)="triggerSnackbar('info')"
+          class="flex items-center gap-2"
+        >
+          <mat-icon name="info" />
+          <span>Info Toast</span>
+        </button>
+        <button
+          matButton="filled"
+          class="bg-error! text-on-error! flex items-center gap-2"
+          (click)="triggerSnackbar('error')"
+        >
+          <mat-icon name="error" />
+          <span>Error Toast</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

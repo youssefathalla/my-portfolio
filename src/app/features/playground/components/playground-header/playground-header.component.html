@@ -1,0 +1,76 @@
+<header class="sticky top-0 z-50 bg-surface/90 backdrop-blur-md px-4 sm:px-6 pt-4">
+  <div class="max-w-9xl mx-auto flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+    <!-- Title & Badges -->
+    <div class="flex items-start sm:items-center gap-3 sm:gap-4 w-full md:w-auto">
+      <div
+        class="p-2 rounded-corner-sm flex items-center justify-center transition-all duration-300 shadow-mat-1 shrink-0 mt-1 sm:mt-0"
+        [class.bg-primary]="!isDarkMode()"
+        [class.text-on-primary]="!isDarkMode()"
+        [class.bg-primary-container]="isDarkMode()"
+        [class.text-on-primary-container]="isDarkMode()"
+      >
+        <mat-icon name="dashboard_customize" size="3xl" />
+      </div>
+      <div class="flex flex-col gap-1 min-w-0">
+        <div class="flex flex-wrap items-center gap-2">
+          <h1 class="font-headline-sm text-on-surface">Design System & Component Playground</h1>
+          <span
+            class="px-2 py-0.5 text-xs font-semibold rounded-full bg-primary/10 text-primary border border-primary/20 whitespace-nowrap"
+          >
+            Angular v22 Zoneless
+          </span>
+        </div>
+        <p class="font-body-sm text-on-surface-variant">
+          Live catalog of Material 3 design tokens, semantic utilities, and custom &#64;shared UI
+          components.
+        </p>
+      </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="flex items-center gap-3 w-full sm:w-auto">
+      <!-- Light / Dark Theme Switcher -->
+      <button
+        matButton="outlined"
+        (click)="themeService.toggleTheme()"
+        [matTooltip]="isDarkMode() ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+        class="flex-1 sm:flex-initial flex items-center justify-center gap-2"
+      >
+        <mat-icon
+          [name]="isDarkMode() ? 'light_mode' : 'dark_mode'"
+          [iconColor]="isDarkMode() ? 'warning' : 'primary'"
+          size="xl"
+        />
+        <span>{{ isDarkMode() ? 'Light Mode' : 'Dark Mode' }}</span>
+      </button>
+
+      <button matButton="filled" (click)="triggerToast()" class="flex-1 sm:flex-initial flex items-center justify-center gap-2">
+        <mat-icon name="notifications" size="xl" />
+        <span>Test Toast</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Navigation Tabs / Category Pills -->
+  <div
+    appHorizontalScroll
+    class="max-w-9xl mx-auto p-1 mt-4 flex items-center gap-3 overflow-x-auto select-none pb-2.5"
+  >
+    @for (tab of tabs; track tab.id) {
+      <button
+        type="button"
+        (click)="selectTab(tab.id)"
+        class="flex items-center gap-2 px-4 py-2 font-medium rounded-full whitespace-nowrap cursor-pointer transition-all duration-200 shrink-0"
+        [class.bg-primary]="activeTab() === tab.id"
+        [class.text-on-primary]="activeTab() === tab.id"
+        [class.shadow-mat-1]="activeTab() === tab.id"
+        [class.bg-surface-container-high]="activeTab() !== tab.id"
+        [class.text-on-surface-variant]="activeTab() !== tab.id"
+        [class.hover:bg-surface-container-highest]="activeTab() !== tab.id"
+      >
+        <mat-icon [name]="tab.icon" size="sm" />
+        <span>{{ tab.label }}</span>
+      </button>
+    }
+  </div>
+</header>

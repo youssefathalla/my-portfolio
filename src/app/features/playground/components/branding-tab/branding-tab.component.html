@@ -1,0 +1,32 @@
+<section id="branding" class="flex flex-col gap-6 mb-12">
+  <div class="flex flex-col items-start gap-3 border-b border-outline-variant pb-4 px-3">
+    <mat-icon name="diamond" size="3xl" iconColor="primary" />
+    <div class="flex flex-col gap-1">
+      <h2 class="font-headline-sm">Branding & Logo</h2>
+      <p class="font-body-sm text-on-surface-variant">
+        Theme-adaptive logo component for navigation headers and splash screens
+      </p>
+    </div>
+    <span
+      class="text-xs px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-mono"
+    >
+      &lt;app-logo&gt;
+    </span>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div
+      class="bg-surface-container-low p-8 rounded-corner-xs border border-outline-variant flex flex-col items-center justify-center gap-4"
+    >
+      <span class="font-label-md text-on-surface-variant">Standard Container Mode</span>
+      <app-logo />
+    </div>
+
+    <div
+      class="bg-primary/10 p-8 rounded-corner-xs border border-primary/20 flex flex-col items-center justify-center gap-4"
+    >
+      <span class="font-label-md text-primary">Branded Background Mode</span>
+      <app-logo />
+    </div>
+  </div>
+</section>

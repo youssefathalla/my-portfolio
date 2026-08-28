@@ -1,0 +1,259 @@
+<section id="colors" class="flex flex-col gap-6">
+  <div class="flex flex-col items-start gap-3 border-b border-outline-variant pb-4 px-3">
+    <mat-icon name="palette" size="3xl" iconColor="primary" />
+    <div class="flex flex-col gap-1">
+      <h2 class="font-headline-sm">Color System & Tokens</h2>
+      <p class="font-body-sm text-on-surface-variant">
+        Click on any color swatch to copy its Tailwind utility class
+      </p>
+    </div>
+    <span
+      class="text-xs px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-mono"
+    >
+      Tailwind v4 + M3 Variables
+    </span>
+  </div>
+
+  <!-- Primary & Brand Colors -->
+  <div class="flex flex-col gap-3">
+    <h3 class="font-title-md text-primary flex items-center gap-2">
+      <mat-icon name="circle" size="sm" iconColor="primary" type="fill" />
+      Brand & Primary Palettes
+    </h3>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+      <button
+        type="button"
+        (click)="copyToken('bg-primary text-on-primary', 'Primary')"
+        class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-primary text-on-primary shadow-mat-1 hover:scale-105 transition-transform"
+      >
+        <span class="font-label-md font-semibold">Primary</span>
+        <span class="font-body-xs opacity-80 font-mono">bg-primary</span>
+      </button>
+      <button
+        type="button"
+        (click)="copyToken('bg-primary-container text-on-primary-container', 'Primary Container')"
+        class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-primary-container text-on-primary-container shadow-mat-1 hover:scale-105 transition-transform"
+      >
+        <span class="font-label-md font-semibold">Primary Container</span>
+        <span class="font-body-xs opacity-80 font-mono">bg-primary-container</span>
+      </button>
+      <button
+        type="button"
+        (click)="copyToken('bg-secondary text-on-secondary', 'Secondary')"
+        class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-secondary text-on-secondary shadow-mat-1 hover:scale-105 transition-transform"
+      >
+        <span class="font-label-md font-semibold">Secondary</span>
+        <span class="font-body-xs opacity-80 font-mono">bg-secondary</span>
+      </button>
+      <button
+        type="button"
+        (click)="
+          copyToken('bg-secondary-container text-on-secondary-container', 'Secondary Container')
+        "
+        class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-secondary-container text-on-secondary-container shadow-mat-1 hover:scale-105 transition-transform"
+      >
+        <span class="font-label-md font-semibold">Secondary Container</span>
+        <span class="font-body-xs opacity-80 font-mono">bg-secondary-container</span>
+      </button>
+      <button
+        type="button"
+        (click)="copyToken('bg-tertiary text-on-tertiary', 'Tertiary')"
+        class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-tertiary text-on-tertiary shadow-mat-1 hover:scale-105 transition-transform"
+      >
+        <span class="font-label-md font-semibold">Tertiary</span>
+        <span class="font-body-xs opacity-80 font-mono">bg-tertiary</span>
+      </button>
+      <button
+        type="button"
+        (click)="
+          copyToken('bg-tertiary-container text-on-tertiary-container', 'Tertiary Container')
+        "
+        class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-tertiary-container text-on-tertiary-container shadow-mat-1 hover:scale-105 transition-transform"
+      >
+        <span class="font-label-md font-semibold">Tertiary Container</span>
+        <span class="font-body-xs opacity-80 font-mono">bg-tertiary-container</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Semantic Status Colors -->
+  <div class="flex flex-col gap-3">
+    <h3 class="font-title-md text-on-surface flex items-center gap-2">
+      <mat-icon name="notifications_active" size="sm" iconColor="secondary" />
+      Semantic Status Palettes
+    </h3>
+    <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-8 gap-3">
+      <button
+        type="button"
+        (click)="copyToken('bg-success text-on-success', 'Success')"
+        class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-success text-on-success shadow-mat-1 hover:scale-105 transition-transform"
+      >
+        <span class="font-label-md font-semibold">Success</span>
+        <span class="font-body-xs opacity-80 font-mono">bg-success</span>
+      </button>
+      <button
+        type="button"
+        theme="success"
+        (click)="
+          copyToken('theme=\'success\' bg-(--mat-sys-secondary-container)', 'Success Container')
+        "
+        class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-(--mat-sys-secondary-container) text-(--mat-sys-on-secondary-container) shadow-mat-1 hover:scale-105 transition-transform"
+      >
+        <span class="font-label-md font-semibold">Success Ctr</span>
+        <span class="font-body-xs opacity-80 font-mono">theme="success"</span>
+      </button>
+      <button
+        type="button"
+        (click)="copyToken('bg-warning text-on-warning', 'Warning')"
+        class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-warning text-on-warning shadow-mat-1 hover:scale-105 transition-transform"
+      >
+        <span class="font-label-md font-semibold">Warning</span>
+        <span class="font-body-xs opacity-80 font-mono">bg-warning</span>
+      </button>
+      <button
+        type="button"
+        theme="warning"
+        (click)="
+          copyToken('theme=\'warning\' bg-(--mat-sys-secondary-container)', 'Warning Container')
+        "
+        class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-(--mat-sys-secondary-container) text-(--mat-sys-on-secondary-container) shadow-mat-1 hover:scale-105 transition-transform"
+      >
+        <span class="font-label-md font-semibold">Warning Ctr</span>
+        <span class="font-body-xs opacity-80 font-mono">theme="warning"</span>
+      </button>
+      <button
+        type="button"
+        (click)="copyToken('bg-info text-on-info', 'Info')"
+        class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-info text-on-info shadow-mat-1 hover:scale-105 transition-transform"
+      >
+        <span class="font-label-md font-semibold">Info</span>
+        <span class="font-body-xs opacity-80 font-mono">bg-info</span>
+      </button>
+      <button
+        type="button"
+        theme="info"
+        (click)="copyToken('theme=\'info\' bg-(--mat-sys-secondary-container)', 'Info Container')"
+        class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-(--mat-sys-secondary-container) text-(--mat-sys-on-secondary-container) shadow-mat-1 hover:scale-105 transition-transform"
+      >
+        <span class="font-label-md font-semibold">Info Ctr</span>
+        <span class="font-body-xs opacity-80 font-mono">theme="info"</span>
+      </button>
+      <button
+        type="button"
+        (click)="copyToken('bg-error text-on-error', 'Error')"
+        class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-error text-on-error shadow-mat-1 hover:scale-105 transition-transform"
+      >
+        <span class="font-label-md font-semibold">Error</span>
+        <span class="font-body-xs opacity-80 font-mono">bg-error</span>
+      </button>
+      <button
+        type="button"
+        (click)="copyToken('bg-error-container text-on-error-container', 'Error Container')"
+        class="h-28 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-error-container text-on-error-container shadow-mat-1 hover:scale-105 transition-transform"
+      >
+        <span class="font-label-md font-semibold">Error Ctr</span>
+        <span class="font-body-xs opacity-80 font-mono">bg-error-container</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Surfaces & Containers -->
+  <div class="flex flex-col gap-3">
+    <h3 class="font-title-md text-on-surface flex items-center gap-2">
+      <mat-icon name="layers" size="sm" iconColor="tertiary" />
+      Surface & Container Hierarchy
+    </h3>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3">
+      <button
+        type="button"
+        (click)="copyToken('bg-surface text-on-surface', 'Surface')"
+        class="h-24 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-surface text-on-surface border border-outline-variant shadow-mat-1 hover:scale-105 transition-transform"
+      >
+        <span class="font-label-md font-semibold">Surface</span>
+        <span class="font-body-xs opacity-70 font-mono">bg-surface</span>
+      </button>
+      <button
+        type="button"
+        (click)="copyToken('bg-surface-container-lowest', 'Surface Container Lowest')"
+        class="h-24 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-surface-container-lowest text-on-surface border border-outline-variant shadow-mat-1 hover:scale-105 transition-transform"
+      >
+        <span class="font-label-md font-semibold">Container Lowest</span>
+        <span class="font-body-xs opacity-70 font-mono">bg-surface-container-lowest</span>
+      </button>
+      <button
+        type="button"
+        (click)="copyToken('bg-surface-container-low', 'Surface Container Low')"
+        class="h-24 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-surface-container-low text-on-surface border border-outline-variant shadow-mat-1 hover:scale-105 transition-transform"
+      >
+        <span class="font-label-md font-semibold">Container Low</span>
+        <span class="font-body-xs opacity-70 font-mono">bg-surface-container-low</span>
+      </button>
+      <button
+        type="button"
+        (click)="copyToken('bg-surface-container', 'Surface Container')"
+        class="h-24 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-surface-container text-on-surface border border-outline-variant shadow-mat-1 hover:scale-105 transition-transform"
+      >
+        <span class="font-label-md font-semibold">Container</span>
+        <span class="font-body-xs opacity-70 font-mono">bg-surface-container</span>
+      </button>
+      <button
+        type="button"
+        (click)="copyToken('bg-surface-container-high', 'Surface Container High')"
+        class="h-24 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-surface-container-high text-on-surface border border-outline-variant shadow-mat-1 hover:scale-105 transition-transform"
+      >
+        <span class="font-label-md font-semibold">Container High</span>
+        <span class="font-body-xs opacity-70 font-mono">bg-surface-container-high</span>
+      </button>
+      <button
+        type="button"
+        (click)="copyToken('bg-surface-container-highest', 'Surface Container Highest')"
+        class="h-24 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-surface-container-highest text-on-surface border border-outline-variant shadow-mat-1 hover:scale-105 transition-transform"
+      >
+        <span class="font-label-md font-semibold">Container Highest</span>
+        <span class="font-body-xs opacity-70 font-mono">bg-surface-container-highest</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Outlines & Neutrals -->
+  <div class="flex flex-col gap-3">
+    <h3 class="font-title-md text-on-surface flex items-center gap-2">
+      <mat-icon name="border_style" size="sm" iconColor="secondary" />
+      Outlines, Neutrals & Inverses
+    </h3>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <button
+        type="button"
+        (click)="copyToken('border-outline', 'Outline')"
+        class="h-20 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-surface text-on-surface border-2 border-outline shadow-mat-1 hover:scale-105 transition-transform"
+      >
+        <span class="font-label-md font-semibold">Outline Border</span>
+        <span class="font-body-xs opacity-70 font-mono">border-outline</span>
+      </button>
+      <button
+        type="button"
+        (click)="copyToken('border-outline-variant', 'Outline Variant')"
+        class="h-20 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-surface text-on-surface border-2 border-outline-variant shadow-mat-1 hover:scale-105 transition-transform"
+      >
+        <span class="font-label-md font-semibold">Outline Variant</span>
+        <span class="font-body-xs opacity-70 font-mono">border-outline-variant</span>
+      </button>
+      <button
+        type="button"
+        (click)="copyToken('bg-neutral-variant20 text-white', 'Neutral Variant 20')"
+        class="h-20 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-neutral-variant20 text-white shadow-mat-1 hover:scale-105 transition-transform"
+      >
+        <span class="font-label-md font-semibold">Neutral Variant 20</span>
+        <span class="font-body-xs opacity-70 font-mono">bg-neutral-variant20</span>
+      </button>
+      <button
+        type="button"
+        (click)="copyToken('bg-inverse-surface text-inverse-on-surface', 'Inverse Surface')"
+        class="h-20 rounded-corner-xs p-3 flex flex-col justify-between text-left cursor-pointer bg-inverse-surface text-inverse-on-surface shadow-mat-1 hover:scale-105 transition-transform"
+      >
+        <span class="font-label-md font-semibold">Inverse Surface</span>
+        <span class="font-body-xs opacity-70 font-mono">bg-inverse-surface</span>
+      </button>
+    </div>
+  </div>
+</section>

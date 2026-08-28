@@ -36,7 +36,9 @@ export class ImgPreviewDialogComponent {
 
   protected zoomIn = () => this.scale.update((s) => Math.min(s + 0.25, 4));
   protected zoomOut = () => this.scale.update((s) => Math.max(s - 0.25, 0.5));
-  protected rotate = () => this.rotation.update((r) => r + 90);
+  protected rotateCw = () => this.rotation.update((r) => r + 90);
+  protected rotateCcw = () => this.rotation.update((r) => r - 90);
+  protected rotate = this.rotateCw;
   protected stopPanning = () => this.panning.set(false);
   protected reset = () => {
     this.scale.set(1);
@@ -66,7 +68,12 @@ export class ImgPreviewDialogComponent {
       case 'r':
       case 'R':
         event.preventDefault();
-        this.rotate();
+        this.rotateCw();
+        break;
+      case 'l':
+      case 'L':
+        event.preventDefault();
+        this.rotateCcw();
         break;
       case '0':
         event.preventDefault();

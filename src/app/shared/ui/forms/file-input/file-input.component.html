@@ -14,45 +14,56 @@
     (change)="onFileChange($event)"
   />
 
-  <button matButton="outlined" type="button" [class.border-error]="showError()" (click)="triggerUpload()">
+  <div
+    class="border border-dashed border-outline-variant hover:border-primary rounded-corner-xs p-5 flex flex-col items-center justify-center gap-2.5 bg-surface-container-low transition-colors"
+    [class.border-error]="showError()"
+  >
     @if (hasFile()) {
       <!-- PREVIEW STATE -->
       @if (isImage()) {
-        <img
-          [ngSrc]="previewUrl() || ''"
-          class="absolute inset-0 object-cover"
-          [alt]="label() || 'File preview'"
-          fill
-        />
+        <div
+          class="relative w-24 h-24 rounded-corner-xs overflow-hidden border border-outline-variant shadow-mat-1"
+        >
+          <img
+            [ngSrc]="previewUrl() || ''"
+            class="object-cover"
+            [alt]="label() || 'File preview'"
+            fill
+          />
+        </div>
       } @else {
-        <div class="flex flex-col items-center justify-center gap-2 p-4 text-center">
-          <mat-icon name="description" size="4xl" class="text-primary" />
-          <span class="font-body-sm text-on-surface truncate max-w-[90%]">
-            {{ fileName() || 'File selected' }}
-          </span>
+        <div class="flex items-center gap-2 text-on-surface">
+          <mat-icon name="description" size="2xl" iconColor="primary" />
+          <span class="font-body-sm truncate max-w-50">{{
+            fileName() || 'File selected'
+          }}</span>
         </div>
       }
-
-      <!-- OVERLAY ACTIONS -->
-      <div
-        class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity elements-center gap-2"
+      <button
+        matButton="outlined"
+        type="button"
+        (click)="triggerUpload()"
+        class="flex items-center gap-2"
       >
-        <div class="flex flex-col items-center text-white">
-          <mat-icon name="edit" size="lg" />
-          <span class="font-label-sm">Change</span>
-        </div>
-      </div>
+        <mat-icon name="edit" size="sm" />
+        <span>Change File</span>
+      </button>
     } @else {
-      <!-- EMPTY STATE -->
-      <div class="flex flex-col items-center justify-center gap-2 text-on-surface-variant">
-        <mat-icon name="upload_file" size="2xl" />
-        <span class="font-body-sm">Click to upload {{ label() }}</span>
-        <span class="font-label-sm text-outline">
-          Max size: {{ (maxSizeBytes() / (1024 * 1024)).toFixed(0) }}MB
-        </span>
-      </div>
+      <!-- EMPTY STATE: Centered normal button with label and max size -->
+      <button
+        matButton="outlined"
+        type="button"
+        (click)="triggerUpload()"
+        class="flex items-center gap-2"
+      >
+        <mat-icon name="upload_file" size="lg" />
+        <span>Choose File</span>
+      </button>
+      <span class="font-label-sm text-on-surface-variant">
+        Max size: {{ (maxSizeBytes() / (1024 * 1024)).toFixed(0) }}MB
+      </span>
     }
-  </button>
+  </div>
 
   <!-- Error Message -->
   @if (localError() || showError()) {

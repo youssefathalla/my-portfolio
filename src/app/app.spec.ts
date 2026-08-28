@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 import { provideNativeDateAdapter } from '@angular/material/core';
-import { RouterTestingHarness } from '@angular/router/testing';
 import { provideRouter } from '@angular/router';
 import { App } from './app';
 import { routes } from './app.routes';
@@ -19,10 +18,9 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render the routed playground page at the root path', async () => {
-    const harness = await RouterTestingHarness.create();
-    await harness.navigateByUrl('/');
-    await harness.fixture.whenStable();
-    expect(harness.routeNativeElement?.textContent).toContain('Design System & Component Playground');
+  it('should render the playground in the app template', () => {
+    const fixture = TestBed.createComponent(App);
+    fixture.detectChanges();
+    expect(fixture.nativeElement.textContent).toContain('Design System & Component Playground');
   });
 });

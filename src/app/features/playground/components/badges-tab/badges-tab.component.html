@@ -1,0 +1,62 @@
+<section id="badges" class="flex flex-col gap-6">
+  <div class="flex flex-col items-start gap-3 border-b border-outline-variant pb-4 px-3">
+    <mat-icon name="label" size="3xl" iconColor="primary" />
+    <div class="flex flex-col gap-1">
+      <h2 class="font-headline-sm">Status Badges & Chips</h2>
+      <p class="font-body-sm text-on-surface-variant">
+        Config-driven status indicators and interactive chip radio filters
+      </p>
+    </div>
+    <span
+      class="text-xs px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-mono"
+    >
+      &lt;app-status-badge&gt; & &lt;app-chips&gt;
+    </span>
+  </div>
+
+  <!-- Status Badges Gallery -->
+  <div
+    class="bg-surface-container-low p-6 rounded-corner-xs border border-outline-variant flex flex-col gap-4"
+  >
+    <div class="flex items-center justify-between">
+      <span class="font-title-sm text-primary">Configuration-Driven Status Badges</span>
+      <span class="font-body-xs text-on-surface-variant"
+        >Automatic coloring & icon binding via StatusConfig</span
+      >
+    </div>
+    <div class="flex flex-wrap items-center gap-3">
+      <app-status-badge value="high" [statusConfig]="statusConfig" />
+      <app-status-badge value="medium" [statusConfig]="statusConfig" />
+      <app-status-badge value="low" [statusConfig]="statusConfig" />
+      <app-status-badge value="critical" [statusConfig]="statusConfig" />
+      <app-status-badge value="normal" [statusConfig]="statusConfig" />
+      <app-status-badge value="active" [statusConfig]="statusConfig" />
+      <app-status-badge value="pending" [statusConfig]="statusConfig" />
+      <app-status-badge value="rejected" [statusConfig]="statusConfig" />
+      <app-status-badge value="completed" [statusConfig]="statusConfig" />
+    </div>
+  </div>
+
+  <!-- Interactive Chips Component -->
+  <div
+    class="bg-surface-container-low p-6 rounded-corner-xs border border-outline-variant flex flex-col gap-4"
+  >
+    <div class="flex items-center justify-between">
+      <span class="font-title-sm text-primary">Interactive Chips Group</span>
+      <div class="flex items-center gap-2">
+        <span class="font-body-xs text-on-surface-variant">Active Filter:</span>
+        <span
+          class="px-2 py-0.5 rounded bg-primary text-on-primary font-mono text-xs font-semibold"
+        >
+          {{ selectedChip() }}
+        </span>
+      </div>
+    </div>
+
+    <app-chips
+      [chips]="availableChips()"
+      [(value)]="selectedChip"
+      ariaLabel="Service category selection"
+    />
+  </div>
+</section>

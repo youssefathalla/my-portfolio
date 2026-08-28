@@ -1,0 +1,55 @@
+<section id="cards" class="flex flex-col gap-6">
+  <div class="flex flex-col items-start gap-3 border-b border-outline-variant pb-4 px-3">
+    <mat-icon name="style" size="3xl" iconColor="primary" />
+    <div class="flex flex-col gap-1">
+      <h2 class="font-headline-sm">Cards & Surface Containers</h2>
+      <p class="font-body-sm text-on-surface-variant">
+        Composition-driven base cards, feature info cards, and customer review cards
+      </p>
+    </div>
+    <span
+      class="text-xs px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-mono"
+    >
+      &lt;app-base-card&gt; | &lt;app-info-card&gt; | &lt;app-review-card&gt;
+    </span>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- Base Card with Slot Projection -->
+    <app-base-card gap="4" padding="6">
+      <ng-container card-header>
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <div class="bg-circle">
+              <mat-icon name="layers" iconColor="primary" size="2xl" />
+            </div>
+            <h3 class="font-title-md">Base Card Container</h3>
+          </div>
+          <span class="px-2 py-0.5 text-xs rounded bg-surface-container-highest font-mono"
+            >Projected</span
+          >
+        </div>
+      </ng-container>
+
+      <ng-container card-content>
+        <p class="font-body-md text-on-surface-variant">
+          BaseCard provides slot-based content projection with strict spacing scales for
+          header, content, and footer.
+        </p>
+      </ng-container>
+
+      <ng-container card-footer>
+        <div class="flex justify-end gap-2 pt-2 border-t border-outline-variant/40">
+          <button matButton="text">Details</button>
+          <button matButton="filled">Action</button>
+        </div>
+      </ng-container>
+    </app-base-card>
+
+    <!-- Info Card (Feature List) -->
+    <app-info-card [infoCard]="infoCardFeature" />
+
+    <!-- Review Card (Testimonial with Stars) -->
+    <app-review-card [review]="sampleReview" />
+  </div>
+</section>

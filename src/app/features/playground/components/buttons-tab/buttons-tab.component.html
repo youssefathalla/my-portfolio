@@ -1,0 +1,152 @@
+<section id="buttons" class="flex flex-col gap-6">
+  <div class="flex flex-col items-start gap-3 border-b border-outline-variant pb-4 px-3">
+    <mat-icon name="smart_button" size="3xl" iconColor="primary" />
+    <div class="flex flex-col gap-1">
+      <h2 class="font-headline-sm">Buttons & Checkboxes</h2>
+      <p class="font-body-sm text-on-surface-variant">
+        Material 3 attribute syntax with semantic theme directives
+      </p>
+    </div>
+    <span
+      class="text-xs px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-mono"
+    >
+      matButton="filled | outlined | tonal | elevated | text"
+    </span>
+  </div>
+
+  <!-- Button Variants Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+    <!-- Filled Buttons -->
+    <div
+      class="bg-surface-container-low p-5 rounded-corner-xs border border-outline-variant flex flex-col gap-3"
+    >
+      <span class="font-title-sm text-primary">Filled (matButton="filled")</span>
+      <button matButton="filled" class="flex items-center justify-center gap-2">
+        <mat-icon name="send" />
+        <span>Primary Action</span>
+      </button>
+      <button matButton="filled" theme="info" class="flex items-center justify-center gap-2">
+        <mat-icon name="info" />
+        <span>Info Variant</span>
+      </button>
+      <button matButton="filled" theme="warning" class="flex items-center justify-center gap-2">
+        <mat-icon name="warning" />
+        <span>Warning Variant</span>
+      </button>
+      <button matButton="filled" theme="success" class="flex items-center justify-center gap-2">
+        <mat-icon name="check_circle" />
+        <span>Success Variant</span>
+      </button>
+      <button
+        matButton="filled"
+        class="bg-error! text-on-error! flex items-center justify-center gap-2"
+      >
+        <mat-icon name="delete" />
+        <span>Danger / Error</span>
+      </button>
+    </div>
+
+    <!-- Outlined Buttons -->
+    <div
+      class="bg-surface-container-low p-5 rounded-corner-xs border border-outline-variant flex flex-col gap-3"
+    >
+      <span class="font-title-sm text-primary">Outlined (matButton="outlined")</span>
+      <button matButton="outlined" class="flex items-center justify-center gap-2">
+        <mat-icon name="edit" />
+        <span>Default Outlined</span>
+      </button>
+      <button matButton="outlined" theme="info" class="flex items-center justify-center gap-2">
+        <mat-icon name="info" />
+        <span>Info Outlined</span>
+      </button>
+      <button matButton="outlined" theme="warning" class="flex items-center justify-center gap-2">
+        <mat-icon name="warning" />
+        <span>Warning Outlined</span>
+      </button>
+      <button matButton="outlined" theme="success" class="flex items-center justify-center gap-2">
+        <mat-icon name="check_circle" />
+        <span>Success Outlined</span>
+      </button>
+      <button
+        matButton="outlined"
+        class="text-error! border-error! flex items-center justify-center gap-2"
+      >
+        <mat-icon name="cancel" />
+        <span>Error Outlined</span>
+      </button>
+    </div>
+
+    <!-- Tonal Buttons -->
+    <div
+      class="bg-surface-container-low p-5 rounded-corner-xs border border-outline-variant flex flex-col gap-3"
+    >
+      <span class="font-title-sm text-primary">Tonal (matButton="tonal")</span>
+      <button matButton="tonal" class="flex items-center justify-center gap-2">
+        <mat-icon name="bookmark" />
+        <span>Default Tonal</span>
+      </button>
+      <button matButton="tonal" theme="info" class="flex items-center justify-center gap-2">
+        <mat-icon name="info" />
+        <span>Info Tonal</span>
+      </button>
+      <button matButton="tonal" theme="warning" class="flex items-center justify-center gap-2">
+        <mat-icon name="warning" />
+        <span>Warning Tonal</span>
+      </button>
+      <button matButton="tonal" theme="success" class="flex items-center justify-center gap-2">
+        <mat-icon name="check_circle" />
+        <span>Success Tonal</span>
+      </button>
+      <button matButton="tonal" disabled class="flex items-center justify-center gap-2">
+        <mat-icon name="block" />
+        <span>Disabled State</span>
+      </button>
+    </div>
+
+    <!-- Elevated & Text & Icon Buttons -->
+    <div
+      class="bg-surface-container-low p-5 rounded-corner-xs border border-outline-variant flex flex-col gap-3"
+    >
+      <span class="font-title-sm text-primary">Elevated, Text & Icons</span>
+      <button matButton="elevated" class="flex items-center justify-center gap-2">
+        <mat-icon name="cloud_upload" />
+        <span>Elevated Button</span>
+      </button>
+      <button matButton="text" class="flex items-center justify-center gap-2">
+        <mat-icon name="open_in_new" />
+        <span>Text / Flat Action</span>
+      </button>
+
+      <!-- Icon Buttons Row -->
+      <div class="flex items-center justify-around pt-2 border-t border-outline-variant">
+        <button matIconButton aria-label="Favorite">
+          <mat-icon name="favorite" iconColor="primary" size="2xl" type="fill" />
+        </button>
+        <button matIconButton aria-label="Share">
+          <mat-icon name="share" iconColor="secondary" size="2xl" />
+        </button>
+        <button matIconButton aria-label="Settings">
+          <mat-icon name="settings" iconColor="info" size="2xl" />
+        </button>
+        <button matIconButton aria-label="Delete">
+          <mat-icon name="delete" iconColor="error" size="2xl" />
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkboxes Row -->
+  <div
+    class="bg-surface-container-low p-6 rounded-corner-xs border border-outline-variant flex flex-col gap-3"
+  >
+    <span class="font-title-sm text-primary">Checkboxes (mat-checkbox)</span>
+    <div class="flex flex-wrap items-center gap-6">
+      <mat-checkbox checked>Primary Default</mat-checkbox>
+      <mat-checkbox checked theme="info">Info Theme</mat-checkbox>
+      <mat-checkbox checked theme="warning">Warning Theme</mat-checkbox>
+      <mat-checkbox checked theme="success">Success Theme</mat-checkbox>
+      <mat-checkbox [indeterminate]="true">Indeterminate</mat-checkbox>
+      <mat-checkbox disabled [checked]="true">Disabled Checked</mat-checkbox>
+    </div>
+  </div>
+</section>

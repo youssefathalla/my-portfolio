@@ -13,7 +13,7 @@ import { StatusConfig } from './status.model';
   },
   template: `
     @if (visualConfig().icon; as iconName) {
-      <mat-icon [name]="iconName" size="lg" weight="600" />
+      <mat-icon [name]="iconName" size="base" weight="700" />
     }
     @if (visualConfig().label; as labelText) {
       <span>{{ labelText }}</span>

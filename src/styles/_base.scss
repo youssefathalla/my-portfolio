@@ -26,8 +26,8 @@ body {
 // Global UI Fixes (Scrollbars, etc.)
 * {
   &::-webkit-scrollbar {
-    height: 8px;
-    width: 8px;
+    height: 6px;
+    width: 6px;
   }
   &::-webkit-scrollbar-track {
     background: var(--mat-sys-secondary-container);

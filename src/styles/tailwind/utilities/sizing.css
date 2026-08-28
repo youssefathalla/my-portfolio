@@ -1,5 +1,17 @@
 /*! SIZING UTILITIES */
 
+/* Direct Viewport Percent Heights */
+@utility dvh-10 { min-height: 10dvh; }
+@utility dvh-20 { min-height: 20dvh; }
+@utility dvh-30 { min-height: 30dvh; }
+@utility dvh-40 { min-height: 40dvh; }
+@utility dvh-50 { min-height: 50dvh; }
+@utility dvh-60 { min-height: 60dvh; }
+@utility dvh-70 { min-height: 70dvh; }
+@utility dvh-80 { min-height: 80dvh; }
+@utility dvh-90 { min-height: 90dvh; }
+@utility dvh-full { min-height: 100dvh; }
+
 /* Page Calculated Heights (Accounts for Header, Footer and Section Space) */
 /* Mobile: -64px (Header) - 10cqw (Paddings) */
 /* Desktop: -128px (Header) - 4.5cqw (Paddings) */

@@ -1,0 +1,112 @@
+<section id="forms" class="flex flex-col gap-6">
+  <div class="flex flex-col items-start gap-3 border-b border-outline-variant pb-4 px-3">
+    <mat-icon name="edit_document" size="3xl" iconColor="primary" />
+    <div class="flex flex-col gap-1">
+      <h2 class="font-headline-sm">Reactive Signal Forms</h2>
+      <p class="font-body-sm text-on-surface-variant">
+        Full suite of custom form controls bound to Angular v22 &#64;angular/forms/signals
+      </p>
+    </div>
+    <div class="flex flex-wrap items-center gap-2">
+      <button matButton="outlined" (click)="resetForm()">Clear Form</button>
+      <button matButton="filled" (click)="prefillForm()">Fill Sample Data</button>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+    <!-- Live Form Controls Card -->
+    <div
+      class="lg:col-span-2 bg-surface-container-low p-6 rounded-corner-xs border border-outline-variant flex flex-col gap-4"
+    >
+      <span class="font-title-md text-primary mb-2">Interactive Custom Input Components</span>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <!-- Text Input -->
+        <app-text-input
+          [formField]="demoForm.fullName"
+          label="Full Name"
+          icon="person"
+          placeholder="Enter user full name"
+        />
+
+        <!-- Email Input with Suffix Action -->
+        <app-text-input
+          [formField]="demoForm.email"
+          label="Email Address"
+          type="email"
+          icon="mail"
+          placeholder="name@company.com"
+        />
+
+        <!-- Password Input with Toggle -->
+        <app-password-input
+          [formField]="demoForm.password"
+          label="Account Password"
+          icon="lock"
+          placeholder="Enter password"
+        />
+
+        <!-- Select Input -->
+        <app-select-input
+          [formField]="demoForm.role"
+          [options]="roleOptions"
+          labelKey="label"
+          valueKey="value"
+          label="User Role"
+        />
+
+        <!-- Date Picker Input -->
+        <app-date-input
+          [formField]="demoForm.preferredDate"
+          label="Scheduled Deployment Date"
+          icon="calendar_today"
+        />
+
+        <!-- Time Picker Input -->
+        <app-timepicker [formField]="demoForm.preferredTime" label="Deployment Time" />
+      </div>
+
+      <!-- Textarea Field Input -->
+      <app-text-field-input
+        [formField]="demoForm.bio"
+        label="Professional Summary / Bio"
+        icon="notes"
+        [minRows]="3"
+        placeholder="Describe user experience or project goals"
+      />
+
+      <!-- File Upload Input -->
+      <app-file-input
+        [formField]="demoForm.file"
+        label="Upload Profile Document / Avatar"
+        accept="image/*"
+      />
+    </div>
+
+    <!-- Live Signal Model State Inspector -->
+    <div
+      class="bg-surface-container-high p-6 rounded-corner-xs border border-outline-variant flex flex-col gap-3"
+    >
+      <div class="flex items-center justify-between">
+        <span class="font-title-sm text-primary flex items-center gap-1.5">
+          <mat-icon name="data_object" size="sm" iconColor="primary" />
+          Live Signal Model
+        </span>
+        <span class="text-xs px-2 py-0.5 rounded bg-primary/20 text-primary font-mono">
+          Reactive
+        </span>
+      </div>
+      <p class="font-body-xs text-on-surface-variant">
+        Values automatically synchronize via Angular 22 Signal Forms:
+      </p>
+      <pre
+        appHorizontalScroll
+        [snapToItems]="false"
+        [wheelSpeed]="2.0"
+        [dragSpeed]="1.5"
+        class="flex-1 p-4 rounded bg-neutral10 text-emerald-400 font-mono text-xs leading-relaxed overflow-x-auto max-h-120 shadow-inner select-none cursor-grab"
+        >{{ formModel() | json }}
+      </pre>
+    </div>
+  </div>
+</section>

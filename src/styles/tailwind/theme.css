@@ -72,5 +72,10 @@
   --radius-corner-md: var(--mat-sys-corner-medium);
   --radius-corner-lg: var(--mat-sys-corner-large);
   --radius-corner-xl: var(--mat-sys-corner-extra-large);
+
+  /* Container & Max-Width Scales */
+  --container-8xl: 90rem;
+  --container-9xl: 100rem;
+
 }
 

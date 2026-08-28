@@ -1,4 +1,4 @@
-export type LoaderHeight = '10' | '20' | '30' | '40' | '50' | '60' | '70' | '80' | '90' | 'full';
+export type LoaderHeight = '10' | '20' | '30' | '40' | '50' | '60' | '70' | '80' | '90' | 'full' | 'parent';
 
 export const LOADER_HEIGHT_CLASSES: Record<LoaderHeight, string> = {
   '10': 'dvh-10',
@@ -11,6 +11,7 @@ export const LOADER_HEIGHT_CLASSES: Record<LoaderHeight, string> = {
   '80': 'dvh-80',
   '90': 'dvh-90',
   full: 'dvh-full',
+  parent: 'h-full min-h-full',
 };
 
 export const LOADER_HEIGHT_CLASSES_PADDED: Record<LoaderHeight, string> = {
@@ -24,4 +25,5 @@ export const LOADER_HEIGHT_CLASSES_PADDED: Record<LoaderHeight, string> = {
   '80': 'dvh-page-80',
   '90': 'dvh-page-90',
   full: 'dvh-page-full',
+  parent: 'h-full min-h-full',
 };

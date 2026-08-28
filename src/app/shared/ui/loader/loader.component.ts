@@ -49,7 +49,7 @@ export class LoaderComponent {
   protected readonly bgClass = computed(() => `bg-${this.bg()}`);
   protected readonly heightClass = computed(() => {
     const height = this.minHeight();
-    const map = this.sectionSpace() ? LOADER_HEIGHT_CLASSES : LOADER_HEIGHT_CLASSES_PADDED;
+    const map = this.sectionSpace() ? LOADER_HEIGHT_CLASSES_PADDED : LOADER_HEIGHT_CLASSES;
     return map[height];
   });
   protected readonly hostClass = computed(() =>

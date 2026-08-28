@@ -1,6 +1,6 @@
 @layer components {
   .status-badge {
-    @apply px-2 py-0.5 font-body-md rounded-corner-xs border gap-1 elements-center min-w-22.5;
+    @apply px-2 py-0.5 font-body-md rounded-corner-xs border gap-0.75 elements-center min-w-22.5;
   }
 
   .vehicle-status {

@@ -1,0 +1,86 @@
+<section id="loaders" class="flex flex-col gap-6">
+  <div class="flex flex-col items-start gap-3 border-b border-outline-variant pb-4 px-3">
+    <mat-icon name="progress_activity" size="3xl" iconColor="primary" />
+    <div class="flex flex-col gap-1">
+      <h2 class="font-headline-sm">Loaders & Overlays</h2>
+      <p class="font-body-sm text-on-surface-variant">
+        Accessible loading spinners with configurable diameter, height, and messaging
+      </p>
+    </div>
+    <span
+      class="text-xs px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-mono"
+    >
+      &lt;app-loader&gt;
+    </span>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- Controls -->
+    <div
+      class="bg-surface-container-low p-6 rounded-corner-xs border border-outline-variant flex flex-col gap-4"
+    >
+      <span class="font-title-sm text-primary">Loader Configuration</span>
+
+      <div>
+        <label for="loader-diameter" class="font-label-sm text-on-surface-variant block mb-1"
+          >Spinner Diameter ({{ loaderDiameter() }}px):</label
+        >
+        <input
+          id="loader-diameter"
+          type="range"
+          min="30"
+          max="120"
+          step="10"
+          [ngModel]="loaderDiameter()"
+          (ngModelChange)="loaderDiameter.set($event)"
+          class="w-full cursor-pointer accent-primary"
+        />
+      </div>
+
+      <div>
+        <label for="loader-height" class="font-label-sm text-on-surface-variant block mb-1"
+          >Height Scale:</label
+        >
+        <select
+          id="loader-height"
+          [ngModel]="loaderHeight()"
+          (ngModelChange)="loaderHeight.set($event)"
+          class="w-full px-3 py-2 rounded-corner-xs bg-surface border border-outline-variant text-on-surface text-sm focus:border-primary outline-none"
+        >
+          <option value="10">Height 10 (10dvh / ~100px)</option>
+          <option value="20">Height 20 (20dvh / ~200px)</option>
+          <option value="30">Height 30 (30dvh / ~300px)</option>
+          <option value="40">Height 40 (40dvh / ~400px)</option>
+          <option value="60">Height 60 (60dvh / ~600px)</option>
+          <option value="full">Full Viewport (100dvh)</option>
+          <option value="parent">Parent Container (100% Height)</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="loader-message" class="font-label-sm text-on-surface-variant block mb-1"
+          >Loading Message:</label
+        >
+        <input
+          id="loader-message"
+          type="text"
+          [ngModel]="loaderMessage()"
+          (ngModelChange)="loaderMessage.set($event)"
+          class="w-full px-3 py-2 rounded-corner-xs bg-surface border border-outline-variant text-on-surface text-sm focus:border-primary outline-none"
+        />
+      </div>
+    </div>
+
+    <!-- Live Loader Preview -->
+    <div
+      class="md:col-span-2 bg-surface-container-low p-6 rounded-corner-xs border border-outline-variant flex flex-col items-center justify-center overflow-hidden"
+    >
+      <app-loader
+        [diameter]="loaderDiameter()"
+        [message]="loaderMessage()"
+        [minHeight]="loaderHeight()"
+        [sectionSpace]="loaderSectionSpace()"
+      />
+    </div>
+  </div>
+</section>
