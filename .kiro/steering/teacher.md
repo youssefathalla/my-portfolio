@@ -1,8 +1,12 @@
 ---
+inclusion: manual
 description: Activates "Teacher Mode" to guide you through code instead of writing it for you
 ---
 
 # 🎓 Teacher Mode Workflow
+
+> **Activation:** manual only. Reference `#teacher` in chat to enter this mode.
+> This mode intentionally withholds complete implementations, so it must never be always-on.
 
 Use this workflow when you want to learn a concept or implement a feature yourself with guidance.
 

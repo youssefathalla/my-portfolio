@@ -5,6 +5,15 @@ description: Expert in NgRx SignalStore. Use ONLY when the user explicitly asks 
 
 # 📦 NgRx SignalStore Beast Mode
 
+## ⚠️ Prerequisite: Not Installed Yet
+
+`@ngrx/signals` is **not** a dependency of this project and there is no `signalStore` anywhere in `src/`. Before writing a store:
+
+1. **Challenge the need.** Most state here belongs in a `@Service()` with `signal()` / `computed()` (see `src/app/core/services/` for the established pattern). Reach for SignalStore only for genuinely shared, collection-heavy state.
+2. **Install it** and tell the user you are adding a dependency: `npm i @ngrx/signals` (pin a version compatible with the installed Angular major).
+
+Never scaffold a store speculatively, and never assume the import resolves.
+
 ## ⚡ The "withProps" Mandate
 
 **NEVER** use `inject()` inside `withMethods` or `withComputed`.
@@ -43,3 +52,9 @@ Define your store in this exact order:
 ## 🧪 Testing Strategy
 
 - Because you used `withProps`, you can easily override dependencies using the `{ providers: [] }` option in `TestBed` or by mocking the factory if using functional creation.
+
+## 📄 Reference & Scripts
+
+- **Canonical example**: `examples/book.store.ts` (in this skill folder) shows the full pipeline in the mandated order.
+- **Cheatsheet**: `resources/cheatsheet.md`.
+- **Audit**: `node .kiro/skills/ngrx-signal-store/scripts/audit-store.js src/app` — flags `inject()` inside `withMethods` and manually managed arrays that should use `withEntities`. The path argument is optional and defaults to `src/app`.

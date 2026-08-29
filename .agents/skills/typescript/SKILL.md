@@ -40,6 +40,20 @@ When generating models, use `valibot` to enforce strict validation with safe def
 2. **Signals**: Public signals must be `Signal<T>` (read-only). Use `.asReadonly()`.
 3. **Methods**: Prefer arrow functions for context safety if passing as callbacks.
 
+## 🔒 Visibility: `#`, `protected`, or `private`?
+
+The rules above are not in conflict — pick by who needs access:
+
+- **`#field`** — internal state nothing else touches. This is the default.
+- **`protected readonly`** — required when the **template** reads the member. Angular templates cannot access `#` fields.
+- **`private`** — avoid. It is compile-time only; use `#` instead.
+
 ## 🛠️ Scripts
 
-- **Audit**: Run `node scripts/audit-ts.js` to check for violations.
+Run from the repository root. The directory argument is **required** — omitting it only prints usage:
+
+```bash
+node .kiro/skills/typescript/scripts/audit-ts.js src/app
+```
+
+It reports `: any`, `private` fields that should be `#`, and publicly writable signals, with file and line numbers.
