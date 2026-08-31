@@ -1,5 +1,6 @@
 export type PlaygroundTab =
   | 'all'
+  | 'gsap'
   | 'gemini-ai'
   | 'colors'
   | 'typography'
@@ -21,6 +22,7 @@ export interface TabItem {
 
 export const PLAYGROUND_TABS: readonly TabItem[] = [
   { id: 'all', label: 'All Components', icon: 'grid_view' },
+  { id: 'gsap', label: 'GSAP', icon: 'animation' },
   { id: 'gemini-ai', label: 'Gemini AI Hub', icon: 'psychology' },
   { id: 'colors', label: 'Colors & Tokens', icon: 'palette' },
   { id: 'typography', label: 'Typography', icon: 'text_fields' },

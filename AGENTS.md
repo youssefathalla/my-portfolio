@@ -97,23 +97,23 @@ The non-negotiables, repeated here because this guide is always in context:
 
 Route requests to the appropriate specialized workspace or plugin skill:
 
-| User Intent & Task Domain                                                                                  | ⏩ Activate Skill       |
-| :--------------------------------------------------------------------------------------------------------- | :---------------------- |
-| **Angular Development**: Components, signals, linkedSignal, resource, HTTP, forms, routing, DI, SSR, tests | **`angular-developer`** |
-| **UI & Design System**: Tailwind v4, Material M3 token overrides, shared UI catalog, styling audits        | **`design-system`**     |
+| User Intent & Task Domain                                                                                       | ⏩ Activate Skill       |
+| :-------------------------------------------------------------------------------------------------------------- | :---------------------- |
+| **Angular Development**: Components, signals, linkedSignal, resource, HTTP, forms, routing, DI, SSR, tests      | **`angular-developer`** |
+| **UI & Design System**: Tailwind v4, Material M3 token overrides, shared UI catalog, styling audits             | **`design-system`**     |
 | **Global State**: SignalStore, deep signal state, global application data _(`@ngrx/signals` not installed yet)_ | **`ngrx-signal-store`** |
-| **TypeScript & Data**: Strict types, Valibot schemas, pure models, logic utils                             | **`typescript`**        |
-| **Code Review & QA**: Beast Mode architectural audits, quality checks, optimization                        | **`code-review`**       |
-| **Internationalization**: Sync translations (`en.json`, `ar.json`)                                         | **`sync-i18n`**         |
+| **TypeScript & Data**: Strict types, Valibot schemas, pure models, logic utils                                  | **`typescript`**        |
+| **Code Review & QA**: Beast Mode architectural audits, quality checks, optimization                             | **`code-review`**       |
+| **Internationalization**: Sync translations (`en.json`, `ar.json`)                                              | **`sync-i18n`**         |
 
 ### Steering & Workflow Modes (`.kiro/steering/`)
 
-| File                | Activation                             | Effect                                                             |
-| :------------------ | :------------------------------------- | :----------------------------------------------------------------- |
-| `design-system.md`  | Auto on `**/*.{html,css,scss}`         | Injects the condensed styling contract while editing UI files.      |
-| `translater.md`     | Auto when the request is a translation | Transloco key extraction + `en.json` / `ar.json` updates.            |
-| `ask.md`            | Manual -> `#ask`                       | Discussion mode: read-only, no file edits.                          |
-| `teacher.md`        | Manual -> `#teacher`                   | Teacher mode: guidance only, no complete implementations.            |
+| File               | Activation                             | Effect                                                         |
+| :----------------- | :------------------------------------- | :------------------------------------------------------------- |
+| `design-system.md` | Auto on `**/*.{html,css,scss}`         | Injects the condensed styling contract while editing UI files. |
+| `translater.md`    | Auto when the request is a translation | Transloco key extraction + `en.json` / `ar.json` updates.      |
+| `ask.md`           | Manual -> `#ask`                       | Discussion mode: read-only, no file edits.                     |
+| `teacher.md`       | Manual -> `#teacher`                   | Teacher mode: guidance only, no complete implementations.      |
 
 > `ask` and `teacher` deliberately suppress code generation. They are **manual-only** and must never be set to always-on inclusion, or they will conflict with the directives above.
 
