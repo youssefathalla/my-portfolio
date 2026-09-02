@@ -29,9 +29,9 @@ app.use((req, res, next) => {
     .catch(next);
 });
 
-/** Starts the Express SSR server on SSR_PORT (default 4000). */
+/** Starts the Express SSR server on PORT (Cloud Run) or SSR_PORT (default 4000). */
 if (isMainModule(import.meta.url) || process.env['pm_id']) {
-  const port = process.env['SSR_PORT'] || 4000;
+  const port = process.env['PORT'] || process.env['SSR_PORT'] || 4000;
   app.listen(port, (error) => {
     if (error) {
       throw error;

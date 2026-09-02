@@ -119,4 +119,4 @@ npm run test:emulator
 - **Website:** [youssefathalla.com](https://youssefathalla.com)
 - **LinkedIn:** [/in/youssefathalla](https://www.linkedin.com/in/youssefathalla)
 - **GitHub:** [@YousseFathalla](https://github.com/YousseFathalla)
-- **Email:** [youssef@youssefathalla.com](mailto:youssef@youssefathalla.com)
+- **Email:** [youssefathalla@gmail.com](mailto:youssefathalla@gmail.com)

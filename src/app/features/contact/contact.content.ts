@@ -14,7 +14,7 @@ export const CONTACT_CONTENT = {
       errorMessage: 'Failed to send message. Please try again or email directly.',
     },
     directContactTitle: 'Direct Communication',
-    email: 'youssef@youssefathalla.com',
+    email: 'youssefathalla@gmail.com',
   },
   ar: {
     hero: {
@@ -31,7 +31,7 @@ export const CONTACT_CONTENT = {
       errorMessage: 'تعذر إرسال الرسالة. يرجى المحاولة مرة أخرى أو التواصل عبر البريد الإلكتروني مباشرة.',
     },
     directContactTitle: 'التواصل المباشر',
-    email: 'youssef@youssefathalla.com',
+    email: 'youssefathalla@gmail.com',
   },
 } as const;
 
