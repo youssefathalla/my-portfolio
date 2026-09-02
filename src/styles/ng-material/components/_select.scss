@@ -1,0 +1,12 @@
+@use '@angular/material' as mat;
+
+:root {
+  @include mat.select-overrides((
+    // panel-background-color: var(--mat-sys-surface-container),
+    // enabled-trigger-text-color: var(--mat-sys-on-surface),
+    // placeholder-text-color: var(--mat-sys-on-surface-variant),
+    // enabled-arrow-color: var(--mat-sys-on-surface-variant),
+    // focused-arrow-color: var(--mat-sys-primary),
+    // invalid-arrow-color: var(--mat-sys-error),
+  ));
+}

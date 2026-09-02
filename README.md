@@ -1,59 +1,122 @@
-# AngularLab
+# Youssef Fathalla — Portfolio & Service Platform
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.3.
+[![Angular](https://img.shields.io/badge/Angular-v22-DD0031?logo=angular&logoColor=white)](https://angular.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-6.0-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-06B6D4?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![Firebase](https://img.shields.io/badge/Firebase-v11-FFCA28?logo=firebase&logoColor=black)](https://firebase.google.com/)
+[![Vitest](https://img.shields.io/badge/Vitest-v4-6E9F18?logo=vitest&logoColor=white)](https://vitest.dev/)
+[![License](https://img.shields.io/badge/license-Private-red)](<>)
 
-## Development server
+Production portfolio, engineering showcase, and client engagement platform for **Youssef Fathalla** (Senior Front-End Engineer & Web Application Specialist).
 
-To start a local development server, run:
+🌐 **Live Website:** [https://youssefathalla.com](https://youssefathalla.com)
 
-```bash
-ng serve
+---
+
+## ⚡ Key Highlights & Architecture
+
+- **Angular v22 (Zoneless & Signal-First):** Built entirely around Angular Signals (`signal()`, `computed()`, `input()`, `output()`), modern template control flow (`@if`, `@for`, `@let`, `@switch`), and zero `Zone.js` overhead.
+- **Server-Side Rendering (SSR) & Prerendering:** Powered by `@angular/ssr` and Express with localized prerendered routes for instant First Contentful Paint and optimal SEO.
+- **Bilingual i18n (EN / AR):** Native English and Arabic language support with complete right-to-left (RTL) layout switching and localized routing (`/` and `/ar/`).
+- **Tailwind CSS v4 + Angular Material M3:** Config-less Tailwind v4 styling paired with Material 3 design tokens and accessible component foundations.
+- **GSAP Animations:** Smooth micro-interactions, page transitions, and interactive visual components.
+- **Zero-Dependency Shared Contracts:** `shared/submission-schema/` provides a pure TypeScript schema shared between the Angular frontend and backend Cloud Functions.
+- **Firebase & Cloud Functions:** Direct Firestore integration, automated transaction notifications, spam heuristics, and rate limiting running on Node.js 22.
+- **Strict Quality Gates:** Automated build guards, secret scanning, zero-`any` enforcement, and production bundle budget verification.
+
+---
+
+## 📂 Project Structure
+
+```text
+├── public/                      # Static assets, fonts, sitemaps, and robots.txt
+├── src/
+│   ├── app/
+│   │   ├── admin/               # Internal management dashboard (auth, submissions, export)
+│   │   ├── core/                # Singleton services (SEO, i18n, Firebase, routing, analytics)
+│   │   ├── features/            # Feature pages (landing, services, case studies, contact, playground)
+│   │   ├── layout/              # Structural shells (site navigation, public shell, footer)
+│   │   └── shared/              # Reusable UI components, directives, pipes, and utility functions
+│   ├── environments/            # Environment configurations (dev vs prod)
+│   ├── styles/                  # Design tokens, typography, and Material 3 overrides
+│   └── main.ts                  # Application entry point
+├── shared/
+│   └── submission-schema/       # Pure TypeScript document schema shared across frontend & backend
+├── functions/                   # Firebase Cloud Functions (notifications, rate limits, webhooks)
+│   └── src/
+├── scripts/                     # Prebuild guards, sitemap generators, and integrity assertions
+├── firestore.rules              # Granular Firestore security rules
+└── angular.json                 # Angular CLI workspace configuration
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## 🚀 Getting Started
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### Prerequisites
 
-```bash
-ng generate component component-name
-```
+- **Node.js**: `v22.x` or higher
+- **npm**: `v11.x` or higher
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Installation
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+Clone the repository and install dependencies:
 
 ```bash
-ng build
+git clone https://github.com/YousseFathalla/angular-lab.git portfolio
+cd portfolio
+npm install
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## 🛠️ Available Scripts
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+| Command                      | Description                                                                                        |
+| :--------------------------- | :------------------------------------------------------------------------------------------------- |
+| `npm start` or `npm run dev` | Starts the Angular development server at `http://localhost:4200/` with hot-reloading               |
+| `npm test`                   | Runs the full unit test suite using the native Angular Vitest builder (`@angular/build:unit-test`) |
+| `npm run build`              | Executes prebuild guards, generates sitemaps, and compiles the production SSR application          |
+| `npm run assert-build`       | Audits the production build directory for prerender integrity, chunk budgets, and SEO output       |
+| `npm run assert-no-any`      | Enforces a strict zero-`any` TypeScript type safety rule across the codebase                       |
+| `npm run lint`               | Runs ESLint checks across TypeScript and HTML files                                                |
+| `npm run test:emulator`      | Tests Cloud Functions and Firestore security rules against local Firebase emulators                |
+| `npm run sync:agents:check`  | Verifies that AI steering documents and `.agents/` rules are in sync                               |
+
+---
+
+## 🧪 Testing
+
+Unit testing is configured with Angular's official Vitest builder and `jsdom`:
 
 ```bash
-ng test
+# Run all unit tests once
+npm test
+
+# Run tests in watch mode
+npm test -- --watch
 ```
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## 🔒 Security & Backend Emulation
+
+Firestore Security Rules and Cloud Functions can be verified locally using the Firebase Emulator Suite:
 
 ```bash
-ng e2e
+# Start local emulators (Firestore on 8180, Auth on 9199, Functions on 5001, UI on 4100)
+npx firebase emulators:start
+
+# Run emulator-backed security test suites
+npm run test:emulator
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+## 📬 Contact & Connect
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+- **Author:** Youssef Fathalla
+- **Website:** [youssefathalla.com](https://youssefathalla.com)
+- **LinkedIn:** [/in/youssefathalla](https://www.linkedin.com/in/youssefathalla)
+- **GitHub:** [@YousseFathalla](https://github.com/YousseFathalla)
+- **Email:** [youssef@youssefathalla.com](mailto:youssef@youssefathalla.com)

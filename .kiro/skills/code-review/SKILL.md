@@ -19,6 +19,10 @@ Audit every file against these 5 pillars. If a rule is broken, flag it with the 
 - [ ] **Signals**: Is `input()` / `output()` / `computed()` / `signal()` used for EVERYTHING? (No `@Input`).
 - [ ] **Route Data**: Do routed components read params / query params / resolver data via `input()`? Flag any `inject(ActivatedRoute)` used just to read the component's own params — `withComponentInputBinding()` is enabled. `ActivatedRoute` is only valid inside resolvers/guards or for parent-route state.
 - [ ] **Optional Route Inputs**: Is `input.required<T>()` used only for params the path guarantees? Optional query params must use `input()` with a default or `transform`, since unmatched keys are set to `undefined`.
+- [ ] **Class & Style Bindings**: Are native `[class]` and `[style]` used instead of `ngClass` / `ngStyle`?
+- [ ] **Visibility & Immutability**: Are template-only members `protected readonly`, internal state `#private`, and signal properties (`input()`, `model()`, `output()`, queries) explicitly `readonly`?
+- [ ] **Intent-Based Handlers**: Are event handlers named for what they do (`saveUserData()`) rather than DOM events (`handleClick()`)?
+- [ ] **Lifecycle Cleanliness**: Do classes implement lifecycle interfaces (`implements OnInit`) and delegate to well-named helper methods?
 - [ ] **Control Flow**: Are `@if`, `@for`, `@let` used? (No `*ngIf`).
 - [ ] **Image LCP**: Is `NgOptimizedImage` used for static images?
 - [ ] **Cleanup**: No `ngOnDestroy`? (Use `DestroyRef` or `takeUntilDestroyed`).

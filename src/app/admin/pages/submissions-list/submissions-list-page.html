@@ -1,0 +1,245 @@
+<!-- Page heading (R11.25 — exactly one h1 per admin page) -->
+<h1 class="font-headline-md text-on-surface mb-6">Submissions</h1>
+
+<!-- Loading progress bar (R8.8) -->
+@if (loading()) {
+  <mat-progress-bar mode="indeterminate" class="list-progress" />
+}
+
+<!-- Disconnected banner (R7.9) -->
+@if (disconnected()) {
+  <output class="disconnected-banner">
+    <mat-icon [name]="ADMIN_ICON_GLYPH['cloud-off']" />
+    <span>Showing cached data — reconnecting...</span>
+  </output>
+}
+
+<!-- Error state -->
+@if (error(); as err) {
+  <div class="error-state" role="alert">
+    <mat-icon [name]="ADMIN_ICON_GLYPH['error-outline']" />
+    <span>An error occurred loading submissions.</span>
+  </div>
+}
+
+<!-- Bulk action toolbar (R9.2) — shown when selection is non-empty -->
+@if (selectedIds().size > 0) {
+  <div class="bulk-toolbar" role="toolbar" aria-label="Bulk actions">
+    <span class="bulk-count">{{ selectedIds().size }} selected</span>
+    <button
+      mat-button
+      color="primary"
+      [disabled]="bulkInFlight()"
+      (click)="archiveSelected()"
+    >
+      <mat-icon [name]="ADMIN_ICON_GLYPH['archive']" />
+      Archive selected
+    </button>
+    <button
+      mat-button
+      [disabled]="bulkInFlight()"
+      (click)="markAsRead()"
+    >
+      <mat-icon [name]="ADMIN_ICON_GLYPH['mark-email-read']" />
+      Mark as read
+    </button>
+    @if (bulkInFlight()) {
+      <mat-progress-bar mode="indeterminate" class="bulk-progress" />
+    }
+  </div>
+}
+
+<!-- Filter toolbar (R8.4) -->
+<div class="filter-toolbar">
+  <!-- Type filter -->
+  <mat-form-field appearance="outline" class="filter-field">
+    <mat-label>Type</mat-label>
+    <mat-select
+      [formControl]="typeFilter"
+      multiple
+      (selectionChange)="onTypeFilterChange($event.value)"
+    >
+      @for (t of allTypes; track t) {
+        <mat-option [value]="t">{{ t }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Status filter -->
+  <mat-form-field appearance="outline" class="filter-field">
+    <mat-label>Status</mat-label>
+    <mat-select
+      [formControl]="statusFilter"
+      multiple
+      (selectionChange)="onStatusFilterChange($event.value)"
+    >
+      @for (s of allStatuses; track s) {
+        <mat-option [value]="s">{{ s }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Tag filter (R8.4 — derived from result set) -->
+  <mat-form-field appearance="outline" class="filter-field">
+    <mat-label>Tags</mat-label>
+    <mat-select
+      [formControl]="tagFilter"
+      multiple
+      (selectionChange)="onTagFilterChange($event.value)"
+    >
+      @for (tag of tagOptions(); track tag) {
+        <mat-option [value]="tag">{{ tag }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Search field (R8.4, R8.5 — debounced 300ms) -->
+  <mat-form-field appearance="outline" class="filter-field search-field">
+    <mat-label>Search</mat-label>
+    <input matInput id="search-submissions" [formControl]="searchControl" placeholder="Search name or email" aria-label="Search submissions by name or email" />
+    <mat-icon matSuffix [name]="ADMIN_ICON_GLYPH['search']" />
+  </mat-form-field>
+
+  <!-- Export menu (R10.1) -->
+  <button mat-icon-button [matMenuTriggerFor]="exportMenu" [disabled]="exporting()" aria-label="Export submissions">
+    <mat-icon [name]="ADMIN_ICON_GLYPH['download']" />
+  </button>
+  <mat-menu #exportMenu="matMenu">
+    <button mat-menu-item (click)="exportAs('csv')">
+      <mat-icon [name]="ADMIN_ICON_GLYPH['table-chart']" />
+      <span>Export as CSV</span>
+    </button>
+    <button mat-menu-item (click)="exportAs('json')">
+      <mat-icon [name]="ADMIN_ICON_GLYPH['data-object']" />
+      <span>Export as JSON</span>
+    </button>
+  </mat-menu>
+</div>
+
+<!-- Live region for accessibility announcements (R8.11) -->
+<div class="sr-only" aria-live="polite" aria-atomic="true">
+  @if (totalCountIsUpperBound()) {
+    About {{ totalCount() }} results
+  } @else {
+    {{ totalCount() }} results
+  }
+</div>
+
+<!-- Table (R8.1) -->
+@if (!loading() && rows().length === 0 && !error()) {
+  <!-- Empty state (R8.9) -->
+  <div class="empty-state">
+    <mat-icon class="empty-icon" [name]="ADMIN_ICON_GLYPH['inbox']" />
+    @if (isDefaultFilter()) {
+      <p>No submissions yet</p>
+    } @else {
+      <p>No submissions match these filters</p>
+    }
+  </div>
+} @else {
+  <div class="table-container">
+    <table
+      mat-table
+      [dataSource]="rows()"
+      matSort
+      (matSortChange)="onSortChange($event)"
+      class="submissions-table"
+    >
+      <!-- Checkbox column (R9.1) -->
+      <ng-container matColumnDef="select">
+        <th mat-header-cell *matHeaderCellDef>
+          <mat-checkbox
+            [checked]="allSelected()"
+            [indeterminate]="indeterminate()"
+            [disabled]="bulkInFlight()"
+            (change)="toggleSelectAll()"
+            aria-label="Select all submissions on this page"
+          />
+        </th>
+        <td mat-cell *matCellDef="let row" (click)="$event.stopPropagation()" (keydown)="$event.stopPropagation()">
+          <mat-checkbox
+            [checked]="isSelected(row.id)"
+            [disabled]="bulkInFlight()"
+            (change)="toggleRow(row.id)"
+            [attr.aria-label]="'Select submission from ' + getName(row)"
+          />
+        </td>
+      </ng-container>
+
+      <!-- Type column (R8.1) -->
+      <ng-container matColumnDef="type">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Type</th>
+        <td mat-cell *matCellDef="let row">
+          <mat-icon
+            class="type-icon"
+            [class]="'type-' + row.document.type"
+            [name]="ADMIN_ICON_GLYPH[getTypeIcon(row)]"
+          />
+        </td>
+      </ng-container>
+
+      <!-- Status column (R8.1) -->
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+        <td mat-cell *matCellDef="let row">
+          <span class="status-chip" [class]="'status-' + row.document.status">
+            {{ row.document.status }}
+          </span>
+        </td>
+      </ng-container>
+
+      <!-- Name column (R8.1) -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Name</th>
+        <td mat-cell *matCellDef="let row">{{ getName(row) }}</td>
+      </ng-container>
+
+      <!-- Email column (R8.1) -->
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef>Email</th>
+        <td mat-cell *matCellDef="let row">{{ getEmail(row) }}</td>
+      </ng-container>
+
+      <!-- Date column (R8.1) -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+        <td mat-cell *matCellDef="let row">{{ row.createdAtMs | date: 'short' }}</td>
+      </ng-container>
+
+      <!-- Read indicator column (R8.1) -->
+      <ng-container matColumnDef="read">
+        <th mat-header-cell *matHeaderCellDef>Read</th>
+        <td mat-cell *matCellDef="let row">
+          @if (!row.document.read) {
+            <span class="unread-dot" aria-label="Unread"></span>
+          }
+        </td>
+      </ng-container>
+
+      <!-- Header and row declarations -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr
+        mat-row
+        *matRowDef="let row; columns: displayedColumns"
+        [class.row-unread]="isUnread(row)"
+        [class.row-recently-added]="isRecentlyAdded(row.id)"
+        (click)="navigateToDetail(row)"
+        class="submission-row"
+        tabindex="0"
+        (keydown.enter)="navigateToDetail(row)"
+        [attr.aria-label]="'Submission from ' + getName(row) + ', ' + row.document.status"
+      ></tr>
+    </table>
+  </div>
+
+  <!-- Paginator (R8.3) -->
+  <mat-paginator
+    [length]="totalCount()"
+    [pageSize]="pageSize()"
+    [pageSizeOptions]="[10, 25, 50]"
+    [pageIndex]="currentPageIndex()"
+    (page)="onPageChange($event)"
+    showFirstLastButtons
+    [attr.aria-label]="paginatorAriaLabel()"
+  />
+}

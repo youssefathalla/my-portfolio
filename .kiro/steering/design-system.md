@@ -25,6 +25,7 @@ This file is deliberately lookup-free: everything here you can use immediately. 
 | `text-2xl font-bold` for headings | `font-headline-md` |
 | `color="primary"` on Material components | `theme="success \| warning \| error \| info"` |
 | `<mat-icon>home</mat-icon>` | `<mat-icon name="home" />` |
+| `[ngClass]="{...}"` / `[ngStyle]="{...}"` | Native property bindings: `[class.x]="..."`, `[class]="{...}"`, `[style.x]="..."`, `[style]="{...}"` |
 | `tailwind.config.js` (does not exist — v4 is config-less) | `@theme` / `@utility` / `@layer components` in `src/styles/tailwind/` |
 
 **Material first**: let Angular Material own structure, text sizes and elevation. Use Tailwind for layout, spacing and page composition.

@@ -18,9 +18,9 @@ describe('App', () => {
     expect(app).toBeTruthy();
   });
 
-  it('should render the playground in the app template', () => {
+  it('should render a router-outlet', () => {
     const fixture = TestBed.createComponent(App);
     fixture.detectChanges();
-    expect(fixture.nativeElement.textContent).toContain('Design System & Component Playground');
+    expect(fixture.nativeElement.querySelector('router-outlet')).toBeTruthy();
   });
 });

@@ -1,44 +1,39 @@
 import { TestBed } from '@angular/core/testing';
-import { TranslocoTestingModule } from '@jsverse/transloco';
 
+import { LOCALE } from '../locale';
 import { LangService } from './lang.service';
 
-describe('LangService', () => {
-  let service: LangService;
+function configure(locale: 'en' | 'ar') {
+  TestBed.configureTestingModule({
+    providers: [{ provide: LOCALE, useValue: locale }],
+  });
+}
 
+describe('LangService', () => {
   beforeEach(() => {
-    localStorage.clear();
     document.documentElement.removeAttribute('lang');
     document.documentElement.removeAttribute('dir');
     document.body.classList.remove('ltr', 'rtl');
-
-    TestBed.configureTestingModule({
-      imports: [
-        TranslocoTestingModule.forRoot({
-          langs: { en: {}, ar: {} },
-          translocoConfig: { availableLangs: ['en', 'ar'], defaultLang: 'en' },
-        }),
-      ],
-    });
-    service = TestBed.inject(LangService);
-  });
-
-  afterEach(() => {
-    localStorage.clear();
   });
 
   it('should be created', () => {
+    configure('en');
+    const service = TestBed.inject(LangService);
     expect(service).toBeTruthy();
   });
 
-  it('defaults to English with left-to-right direction', () => {
+  it('derives English with left-to-right direction from the injected LOCALE token', () => {
+    configure('en');
+    const service = TestBed.inject(LangService);
+    TestBed.flushEffects();
 
     expect(service.currentLang()).toBe('en');
     expect(service.direction()).toBe('ltr');
   });
 
-  it('switches to right-to-left direction and updates the document when Arabic is selected', () => {
-    service.setLanguage('ar');
+  it('derives Arabic with right-to-left direction and updates the document when LOCALE is ar', () => {
+    configure('ar');
+    const service = TestBed.inject(LangService);
     TestBed.flushEffects();
 
     expect(service.currentLang()).toBe('ar');
@@ -49,25 +44,9 @@ describe('LangService', () => {
     expect(document.body.classList.contains('ltr')).toBe(false);
   });
 
-  it('persists the selected language to localStorage', () => {
-    service.setLanguage('ar');
-    TestBed.flushEffects();
-    expect(localStorage.getItem('lang')).toBe('ar');
-  });
+  it('fails loudly when injected outside a Locale_Route_Group (no LOCALE provider)', () => {
+    TestBed.configureTestingModule({});
 
-  it('restores a previously saved language on initialization', () => {
-    localStorage.setItem('lang', 'ar');
-
-    const restored = TestBed.runInInjectionContext(() => new LangService());
-
-    expect(restored.currentLang()).toBe('ar');
-  });
-
-  it('ignores an unsupported saved language and falls back to the default', () => {
-    localStorage.setItem('lang', 'fr');
-
-    const restored = TestBed.runInInjectionContext(() => new LangService());
-
-    expect(restored.currentLang()).toBe('en');
+    expect(() => TestBed.inject(LangService)).toThrow();
   });
 });

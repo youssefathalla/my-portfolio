@@ -1,13 +1,5 @@
 /**
- * Antigravity PostToolUse hook — mirrors `.kiro/` into `.agents/` after any file write.
- *
- * Antigravity has no file-save event, so the closest equivalent to Kiro's PostFileSave is
- * PostToolUse on the write tools. The matcher can only target tool names, and PostToolUse
- * input carries no path, so path filtering lives in the sync script itself: it only ever
- * reads `.kiro/` and is a no-op when nothing changed.
- *
- * PostToolUse must emit `{}` on stdout, so the sync summary goes to stderr instead. This
- * hook never fails the agent loop — a broken mirror is reported, not thrown.
+ * Antigravity PostToolUse hook mirroring `.kiro/` into `.agents/` after file write tool actions.
  */
 import { spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';

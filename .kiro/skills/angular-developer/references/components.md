@@ -133,3 +133,106 @@ state like 'standby' is added }
 - **Standalone**: By default, components are standalone (since Angular 19, `standalone: true` is default). For older versions, `standalone: true` must be explicit or the component must be part of an `NgModule`.
 - **Component Tree**: Angular applications are structured as a tree of components, where each component can host child components.
 - **Component Naming**: Do not add suffixes the `Component` suffix for Component classes (e.g., AppComponent) unless the project has been configured to use that naming configuration.
+
+## Class Body Conventions
+
+### Member Ordering
+
+Group Angular-specific properties together, near the top of the class, before methods: injected dependencies, inputs, outputs, and queries. This makes the component's template API and dependencies easy to find at a glance.
+
+```ts
+export class UserProfile {
+  // 1. Injected dependencies
+  private readonly router = inject(Router);
+
+  // 2. Inputs, outputs, models, queries
+  readonly userId = input.required<string>();
+  readonly userSaved = output<void>();
+
+  // 3. Other properties and computed state
+  protected readonly displayName = computed(() => `User #${this.userId()}`);
+
+  // 4. Methods
+  save() {
+    /* ... */
+  }
+}
+```
+
+### Keep Components Focused on Presentation
+
+Code inside a component or directive should relate to the UI it renders. Refactor logic that makes sense on its own — form validation rules, data transformations, formatting — into separate functions or classes rather than inlining it in the class.
+
+### Avoid Complex Logic in Templates
+
+Templates support JavaScript-like expressions, so straightforward logic (property access, simple conditionals, method calls) belongs directly in the template. When an expression grows too complex to read at a glance, move it into the TypeScript class, typically as a `computed()`:
+
+```ts
+// Avoid: complex boolean logic buried in the template
+// template: `@if (user.role === 'admin' && user.active && !user.suspended) { ... }`
+
+// Prefer: named computed signal
+protected readonly canManage = computed(
+  () => this.user().role === 'admin' && this.user().active && !this.user().suspended,
+);
+```
+
+### `protected` for Template-Only Members
+
+A class's `public` members are its API surface, reachable via DI and queries. Any member that exists only to be read from the component's own template should be `protected`, not `public`:
+
+```ts
+export class UserProfile {
+  readonly firstName = input();
+  readonly lastName = input();
+
+  // Not part of the component's public API, only used in its template.
+  protected readonly fullName = computed(() => `${this.firstName()} ${this.lastName()}`);
+}
+```
+
+### `readonly` for Angular-Assigned Properties
+
+Mark properties that Angular initializes as `readonly` so nothing accidentally overwrites the value Angular sets. This applies to signal-based `input()`, `model()`, `output()`, and queries (`viewChild`, `contentChildren`, etc.):
+
+```ts
+export class UserProfile {
+  readonly userId = input();
+  readonly userSaved = output();
+  readonly userName = model();
+}
+```
+
+**Decorator exception**: for the legacy decorator-based `@Input()`, `@Output()`, and query APIs, this rule applies to `@Output()` properties and query results — **not** to `@Input()` properties, since Angular reassigns those directly rather than through a signal wrapper.
+
+### Naming Event Handlers
+
+Name event handlers for the action they perform, not the DOM event that triggered them:
+
+```html
+<!-- Prefer -->
+<button (click)="saveUserData()">Save</button>
+
+<!-- Avoid -->
+<button (click)="handleClick()">Save</button>
+```
+
+For keyboard events, use Angular's key event modifiers to name the handler after the specific key combination's action:
+
+```html
+<textarea (keydown.control.enter)="commitNotes()" (keydown.control.space)="showSuggestions()"></textarea>
+```
+
+**Exception**: when handling logic is long or branches on multiple keys/modifiers, it's fine to fall back to a generic handler name (e.g. `handleKeydown`) and delegate internally:
+
+```ts
+handleKeydown(event: KeyboardEvent) {
+  if (event.ctrlKey) {
+    if (event.key === 'B') {
+      this.activateBold();
+    } else if (event.key === 'I') {
+      this.activateItalic();
+    }
+  }
+}
+```

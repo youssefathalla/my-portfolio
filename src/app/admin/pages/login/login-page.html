@@ -1,0 +1,27 @@
+<div class="login-container">
+  <h1 class="login-title">Admin Login</h1>
+
+  @if (errorMessage()) {
+    <div class="login-error" role="alert" aria-live="assertive">
+      {{ errorMessage() }}
+    </div>
+  }
+
+  <button
+    mat-flat-button
+    color="primary"
+    class="login-submit google-btn"
+    aria-label="Sign in with Google"
+    [disabled]="submitting()"
+    (click)="signIn()"
+  >
+    @if (submitting()) {
+      <mat-spinner diameter="20" class="login-spinner" />
+    } @else {
+      <img src="/brand/google-g.svg" alt="" aria-hidden="true" width="18" height="18" class="google-icon" />
+      Sign in with Google
+    }
+  </button>
+
+  <p class="login-hint">Only authorized administrators can access this area.</p>
+</div>

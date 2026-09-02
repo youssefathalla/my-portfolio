@@ -1,12 +1,12 @@
 import { Component, signal } from '@angular/core';
-import { PlaygroundComponent } from '@features/playground/playground.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [PlaygroundComponent],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App {
-  protected readonly title = signal('angular-lab');
+  protected readonly title = signal('portfolio');
 }

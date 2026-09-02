@@ -1,0 +1,268 @@
+/**
+ * Submissions List Page styles (admin-dashboard R8, R9, R10).
+ *
+ * Covers:
+ * - Unread row styling (R8.6): bold font weight + leading dot indicator
+ * - Recently added row highlight animation (R8.10): brief flash
+ * - Filter toolbar layout
+ * - Bulk action toolbar
+ * - Status chips with semantic colours
+ * - Empty state
+ * - Loading and error states
+ * - Responsive considerations
+ *
+ * Inherits the obsidian/glass/accent-cyan theme tokens from the admin shell.
+ */
+
+// ─── Screen-reader only utility ─────────────────────────────────────────────
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+// ─── Progress bar (R8.8) ────────────────────────────────────────────────────
+
+.list-progress {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+// ─── Disconnected banner (R7.9) ─────────────────────────────────────────────
+
+.disconnected-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: color-mix(in oklab, var(--mat-sys-tertiary-container) 15%, transparent);
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  color: var(--mat-sys-on-tertiary-container);
+
+  // Inline SVG sprite — size the host box; the svg fills it (R14.2)
+  mat-icon {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+// ─── Error state ────────────────────────────────────────────────────────────
+
+.error-state {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background-color: color-mix(in oklab, var(--mat-sys-error-container) 15%, transparent);
+  border-radius: 6px;
+  margin-bottom: 1rem;
+  color: var(--mat-sys-on-error-container);
+
+  mat-icon {
+    width: 20px;
+    height: 20px;
+    color: var(--mat-sys-error);
+  }
+}
+
+// ─── Bulk action toolbar (R9.2, R9.7) ───────────────────────────────────────
+
+.bulk-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  background-color: color-mix(in oklab, var(--mat-sys-tertiary) 10%, transparent);
+  border: 1px solid color-mix(in oklab, var(--mat-sys-tertiary) 30%, transparent);
+  border-radius: 8px;
+  position: relative;
+  overflow: hidden;
+}
+
+.bulk-count {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--mat-sys-tertiary);
+  margin-inline-end: 0.5rem;
+}
+
+.bulk-progress {
+  position: absolute;
+  bottom: 0;
+  inset-inline-start: 0;
+  inset-inline-end: 0;
+}
+
+// ─── Filter toolbar (R8.4) ──────────────────────────────────────────────────
+
+.filter-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-bottom: 1rem;
+}
+
+.filter-field {
+  min-width: 140px;
+  max-width: 200px;
+
+  // Filter field widths
+}
+
+.search-field {
+  flex: 1;
+  min-width: 200px;
+  max-width: 320px;
+}
+
+// ─── Table container ────────────────────────────────────────────────────────
+
+.table-container {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid var(--mat-sys-outline-variant);
+  background-color: color-mix(in oklab, var(--mat-sys-surface-container) 30%, transparent);
+}
+
+.submissions-table {
+  width: 100%;
+}
+
+// ─── Row styles ─────────────────────────────────────────────────────────────
+
+.submission-row {
+  cursor: pointer;
+  transition: background-color 150ms;
+
+  &:hover {
+    background-color: color-mix(in oklab, var(--mat-sys-surface-container) 50%, transparent);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--mat-sys-tertiary);
+    outline-offset: -2px;
+  }
+}
+
+// ─── Unread row styling (R8.6) ──────────────────────────────────────────────
+
+.row-unread {
+  font-weight: 600;
+}
+
+.unread-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--mat-sys-tertiary);
+}
+
+// ─── Recently added row highlight animation (R8.10) ─────────────────────────
+
+.row-recently-added {
+  animation: highlight-new 200ms ease-out;
+}
+
+@keyframes highlight-new {
+  0% {
+    background-color: color-mix(in oklab, var(--mat-sys-tertiary) 25%, transparent);
+  }
+  100% {
+    background-color: transparent;
+  }
+}
+
+// Collapse animation for reduced-motion (delivered token)
+@media (prefers-reduced-motion: reduce) {
+  .row-recently-added {
+    animation: none;
+  }
+}
+
+// ─── Type icon ──────────────────────────────────────────────────────────────
+
+.type-icon {
+  width: 20px;
+  height: 20px;
+
+  &.type-contact {
+    color: var(--mat-sys-secondary);
+  }
+
+  &.type-intake-wizard {
+    color: var(--mat-sys-tertiary);
+  }
+
+  &.type-booking {
+    color: var(--mat-sys-primary);
+  }
+}
+
+// ─── Status chips (R8.1) ────────────────────────────────────────────────────
+
+.status-chip {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: capitalize;
+
+  &.status-new {
+    background-color: color-mix(in oklab, var(--mat-sys-secondary) 20%, transparent);
+    color: var(--mat-sys-secondary);
+  }
+
+  &.status-in-progress {
+    background-color: color-mix(in oklab, var(--mat-sys-tertiary) 20%, transparent);
+    color: var(--mat-sys-tertiary);
+  }
+
+  &.status-archived {
+    background-color: color-mix(in oklab, var(--mat-sys-surface-variant) 30%, transparent);
+    color: var(--mat-sys-on-surface-variant);
+  }
+
+  &.status-spam {
+    background-color: color-mix(in oklab, var(--mat-sys-error) 20%, transparent);
+    color: var(--mat-sys-error);
+  }
+}
+
+// ─── Empty state (R8.9) ─────────────────────────────────────────────────────
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  padding: 4rem 2rem;
+  text-align: center;
+  color: var(--mat-sys-on-surface-variant);
+
+  .empty-icon {
+    width: 48px;
+    height: 48px;
+    opacity: 0.5;
+  }
+
+  p {
+    font-size: 1rem;
+    margin: 0;
+  }
+}

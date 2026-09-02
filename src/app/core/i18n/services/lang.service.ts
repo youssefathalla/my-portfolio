@@ -1,56 +1,32 @@
-import { Direction } from '@angular/cdk/bidi';
-import { isPlatformBrowser } from '@angular/common';
-import { DOCUMENT, effect, inject, Service, PLATFORM_ID, signal } from '@angular/core';
-import { TranslocoService } from '@jsverse/transloco';
-import { SupportedLanguage } from '../transloco.config';
+import { DOCUMENT, Service, computed, effect, inject, signal } from '@angular/core';
 
+import { Direction, LOCALE, Locale, directionFor } from '../locale';
+
+/**
+ * LangService — derives the active language and reading direction from
+ * the injected `LOCALE` token and keeps document `lang`/`dir` in sync.
+ */
 @Service()
 export class LangService {
-  private readonly transloco = inject(TranslocoService);
-  private readonly document = inject(DOCUMENT);
-  private readonly platformId = inject(PLATFORM_ID);
+  readonly #document = inject(DOCUMENT);
+  readonly #locale = inject(LOCALE);
 
-  readonly currentLang = signal<SupportedLanguage>('en');
-  readonly direction = signal<Direction>('ltr');
+  readonly currentLang = signal<Locale>(this.#locale);
+  readonly direction = computed<Direction>(() => directionFor(this.currentLang()));
 
   constructor() {
-    this.initLanguage();
-
     effect(() => {
       const lang = this.currentLang();
-      const dir = lang === 'ar' ? 'rtl' : 'ltr';
-
-      this.direction.set(dir);
-      this.transloco.setActiveLang(lang);
-
-      this.updateDocumentDirection(lang, dir);
-
-      if (isPlatformBrowser(this.platformId)) {
-        localStorage.setItem('lang', lang);
-      }
+      this.#applyDocumentDirection(lang, this.direction());
     });
   }
 
-  private initLanguage() {
-    if (isPlatformBrowser(this.platformId)) {
-      const savedLang = localStorage.getItem('lang') as SupportedLanguage;
-      const supported: SupportedLanguage[] = ['en', 'ar'];
-      if (savedLang && supported.includes(savedLang)) {
-        this.currentLang.set(savedLang);
-      }
-    }
-  }
-
-  setLanguage(lang: SupportedLanguage) {
-    this.currentLang.set(lang);
-  }
-
-  private updateDocumentDirection(lang: string, dir: Direction) {
-    const html = this.document.documentElement;
+  #applyDocumentDirection(lang: Locale, dir: Direction) {
+    const html = this.#document.documentElement;
     html.lang = lang;
     html.dir = dir;
 
-    this.document.body.classList.remove('rtl', 'ltr');
-    this.document.body.classList.add(dir);
+    this.#document.body.classList.remove('rtl', 'ltr');
+    this.#document.body.classList.add(dir);
   }
 }

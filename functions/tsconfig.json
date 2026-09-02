@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "Node16",
+    "lib": ["ES2022"],
+    "strict": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "moduleResolution": "Node16",
+    "esModuleInterop": true,
+    "declaration": true,
+    "outDir": "./lib",
+    "rootDir": "..",
+    "paths": {
+      "@submission-schema/*": ["../shared/submission-schema/*"]
+    }
+  },
+  "include": ["src/**/*.ts", "../shared/submission-schema/**/*.ts"],
+  "exclude": ["src/**/*.spec.ts", "../shared/submission-schema/**/*.spec.ts"]
+}

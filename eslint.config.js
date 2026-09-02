@@ -6,7 +6,7 @@ import { defineConfig } from 'eslint/config';
 
 export default defineConfig([
   {
-    ignores: ['.agents/**', '.kiro/**', 'dist/**', 'coverage/**'],
+    ignores: ['.agents/**', '.kiro/**', 'dist/**', 'coverage/**', 'functions/lib/**'],
   },
   {
     files: ['**/*.ts'],
@@ -60,6 +60,28 @@ export default defineConfig([
         },
       ],
     },
+  },
+  {
+    files: ['functions/**/*.ts'],
+    languageOptions: {
+      parserOptions: {
+        projectService: false,
+        project: ['./functions/tsconfig.json', './functions/tsconfig.spec.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+    extends: [eslint.configs.recommended, ...tseslint.configs.recommended, ...tseslint.configs.stylistic],
+  },
+  {
+    files: ['scripts/**/*.ts'],
+    languageOptions: {
+      parserOptions: {
+        projectService: false,
+        project: ['./tsconfig.scripts.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+    extends: [eslint.configs.recommended, ...tseslint.configs.recommended, ...tseslint.configs.stylistic],
   },
   {
     files: ['**/*.html'],

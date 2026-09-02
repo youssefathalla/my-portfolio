@@ -1,0 +1,10 @@
+@use '@angular/material' as mat;
+
+:root {
+  @include mat.paginator-overrides((
+    // container-text-color: var(--mat-sys-on-surface),
+    // container-background-color: var(--mat-sys-surface),
+    // enabled-icon-color: var(--mat-sys-on-surface-variant),
+    // disabled-icon-color: var(--mat-sys-outline),
+  ));
+}

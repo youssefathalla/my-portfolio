@@ -1,0 +1,17 @@
+<main class="py-20 md:py-28">
+  <div class="container mx-auto px-4 max-w-4xl space-y-16">
+    <div class="text-center space-y-4">
+      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">{{ t().hero.title }}</h1>
+      <p class="text-lg text-muted-foreground max-w-2xl mx-auto">{{ t().hero.subtitle }}</p>
+    </div>
+
+    <div class="space-y-8">
+      @for (section of t().sections; track section.title) {
+        <section class="p-8 rounded-2xl border border-border bg-card space-y-3">
+          <h2 class="text-2xl font-bold">{{ section.title }}</h2>
+          <p class="text-sm text-muted-foreground leading-relaxed">{{ section.body }}</p>
+        </section>
+      }
+    </div>
+  </div>
+</main>

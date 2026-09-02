@@ -27,34 +27,19 @@ export class HorizontalScrollDirective {
   readonly #destroyRef = inject(DestroyRef);
   readonly #isBrowser = isPlatformBrowser(this.#platformId);
 
-  /**
-   * Scroll by 1 full item per mouse wheel action.
-   * @default true
-   */
+  /** Scroll by 1 full item per mouse wheel action (default: true). */
   readonly snapToItems = input<boolean>(true);
 
-  /**
-   * Speed multiplier for mouse wheel scrolling when not snapping to items.
-   * @default 1.0
-   */
+  /** Speed multiplier for mouse wheel scrolling (default: 1.0). */
   readonly wheelSpeed = input<number>(1.0);
 
-  /**
-   * Speed multiplier for mouse drag scrolling.
-   * @default 1.0
-   */
+  /** Speed multiplier for mouse drag scrolling (default: 1.0). */
   readonly dragSpeed = input<number>(1.0);
 
-  /**
-   * Enable converting vertical mouse wheel to smooth horizontal scroll.
-   * @default true
-   */
+  /** Converts vertical mouse wheel events to horizontal scroll (default: true). */
   readonly enableWheel = input<boolean>(true);
 
-  /**
-   * Enable mouse drag-to-scroll.
-   * @default true
-   */
+  /** Enables mouse drag-to-scroll (default: true). */
   readonly enableDrag = input<boolean>(true);
 
   protected readonly isDragging = signal(false);

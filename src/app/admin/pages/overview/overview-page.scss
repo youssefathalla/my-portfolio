@@ -1,0 +1,156 @@
+/**
+ * Overview Page styles (admin-dashboard R6.6).
+ *
+ * Responsive CSS grid: 4 columns above 1200px, 2 columns between
+ * 768–1200px, single column below 768px. Uses the shared obsidian
+ * theme tokens from the delivered design system.
+ */
+
+// ─── Page heading ───────────────────────────────────────────────────────────
+
+.overview-heading {
+  font: var(--mat-sys-headline-medium);
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0 0 1.5rem;
+  color: var(--mat-sys-on-surface);
+}
+
+// ─── Cards grid (R6.6) ─────────────────────────────────────────────────────
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+@media (max-width: 1200px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+// ─── Individual card ────────────────────────────────────────────────────────
+
+.count-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  min-height: 140px;
+  border-radius: 12px;
+  background-color: color-mix(in oklab, var(--mat-sys-surface-container) 40%, transparent);
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--mat-sys-outline-variant);
+  transition: background-color 150ms;
+}
+
+// ─── Ready state ────────────────────────────────────────────────────────────
+
+// Inline SVG sprite — size the host box; the svg fills it and inherits colour
+// through stroke="currentColor" (R14.2).
+.card-icon {
+  width: 28px;
+  height: 28px;
+  color: var(--mat-sys-tertiary);
+
+  &--error {
+    color: var(--mat-sys-error);
+  }
+}
+
+.card-value {
+  font-family: var(--font-mono);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--mat-sys-on-surface);
+  line-height: 1;
+}
+
+.card-label {
+  font-size: 0.875rem;
+  color: var(--mat-sys-on-surface-variant);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+// ─── Error state (R6.5) ─────────────────────────────────────────────────────
+
+.card-error-text {
+  font-size: 0.875rem;
+  color: var(--mat-sys-error);
+}
+
+.card-retry-btn {
+  color: var(--mat-sys-on-surface-variant);
+
+  &:hover {
+    color: var(--mat-sys-on-surface);
+  }
+}
+
+// ─── Skeleton / Loading state (R6.4) ────────────────────────────────────────
+
+.card-skeleton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+}
+
+.skeleton-icon,
+.skeleton-value,
+.skeleton-label {
+  border-radius: 4px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in oklab, var(--mat-sys-on-surface-variant) 10%, transparent) 25%,
+    color-mix(in oklab, var(--mat-sys-on-surface-variant) 20%, transparent) 50%,
+    color-mix(in oklab, var(--mat-sys-on-surface-variant) 10%, transparent) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.skeleton-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+
+.skeleton-value {
+  width: 60px;
+  height: 2rem;
+}
+
+.skeleton-label {
+  width: 80px;
+  height: 0.875rem;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+// ─── Empty state (R6.2) ─────────────────────────────────────────────────────
+
+.empty-state {
+  margin-top: 2rem;
+  text-align: center;
+  font-size: 1rem;
+  color: var(--mat-sys-on-surface-variant);
+}

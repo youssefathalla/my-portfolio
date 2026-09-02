@@ -26,24 +26,18 @@ import { StatusConfig } from './status.model';
 })
 export class StatusBadgeComponent<T> {
   readonly value = input.required<T>();
-
-  // 1. Unified Config Input
   readonly statusConfig = input<Record<string, StatusConfig>>();
-
-  // 2. Optional Overrides
   readonly icon = input<string>();
-
   readonly bgOpacity = input<number>();
+
   readonly valueString = computed(() => String(this.value()));
 
-  // 3. Computed "Final State"
   readonly visualConfig = computed((): StatusConfig => {
     const key = this.valueString().toLowerCase();
     const config = this.statusConfig()?.[key];
 
-    // Priority: Explicit Input > Config > Fallback
     return {
-      label: config?.label, // Optional label override from config
+      label: config?.label,
       icon: this.icon() ?? config?.icon,
       color: config?.color ?? 'primary',
     };

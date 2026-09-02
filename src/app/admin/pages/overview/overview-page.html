@@ -1,0 +1,45 @@
+<!-- Overview Page — four Count_Cards (admin-dashboard R6) -->
+
+<h1 class="overview-heading">Overview</h1>
+
+<!-- Count_Cards grid (R6.1, R6.4, R6.5, R6.6) -->
+<div class="cards-grid">
+  @for (card of cards; track card.key) {
+    <div class="count-card">
+      @switch (getState(card.key).kind) {
+        @case ('loading') {
+          <!-- Skeleton placeholder (R6.4) -->
+          <div class="card-skeleton">
+            <div class="skeleton-icon"></div>
+            <div class="skeleton-value"></div>
+            <div class="skeleton-label"></div>
+          </div>
+        }
+        @case ('ready') {
+          <!-- Ready state: icon + count value + label -->
+          <mat-icon class="card-icon" [name]="ADMIN_ICON_GLYPH[card.icon]" />
+          <span class="card-value">{{ getValue(card.key) }}</span>
+          <span class="card-label">{{ card.label }}</span>
+        }
+        @case ('error') {
+          <!-- Error state with retry button (R6.5) -->
+          <mat-icon class="card-icon card-icon--error" [name]="ADMIN_ICON_GLYPH['error-outline']" />
+          <span class="card-error-text">Failed to load</span>
+          <button
+            mat-icon-button
+            class="card-retry-btn"
+            [attr.aria-label]="'Retry loading ' + card.label"
+            (click)="retry(card.key)"
+          >
+            <mat-icon [name]="ADMIN_ICON_GLYPH['refresh']" />
+          </button>
+        }
+      }
+    </div>
+  }
+</div>
+
+<!-- Empty state (R6.2) -->
+@if (isEmpty) {
+  <p class="empty-state">{{ emptyMessage }}</p>
+}

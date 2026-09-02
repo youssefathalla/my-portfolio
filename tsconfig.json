@@ -21,7 +21,8 @@
       "@core/*": ["./src/app/core/*"],
       "@features/*": ["./src/app/features/*"],
       "@layout/*": ["./src/app/layout/*"],
-      "@env/*": ["./src/environments/*"]
+      "@env/*": ["./src/environments/*"],
+      "@submission-schema/*": ["./shared/submission-schema/*"]
     }
   },
   "angularCompilerOptions": {
@@ -37,6 +38,9 @@
     },
     {
       "path": "./tsconfig.spec.json"
+    },
+    {
+      "path": "./tsconfig.scripts.json"
     }
   ]
 }

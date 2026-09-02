@@ -2,19 +2,8 @@
 
 :root {
   interpolate-size: allow-keywords;
-
-  //! overrides
-  @include mat.progress-bar-overrides(
-    (
-      track-height: 10px,
-      active-indicator-height: 8px,
-      track-shape: 12px,
-    )
-  );
-  .mdc-linear-progress__bar-inner {
-    border-radius: 12px;
-  }
 }
+
 body {
   height: 100%;
   margin: 0;

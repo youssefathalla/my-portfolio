@@ -56,8 +56,7 @@ src/
     │   ├── cards/                      # BaseCardComponent, InfoCardComponent, ReviewCardComponent
     │   ├── forms/                      # Standardized form controls (text-input, password-input, select-input, date-input, location-input, file-input, text-field-input, timepicker)
     │   ├── reusable-table/             # ReusableTableComponent (data table with sorting, filtering, pagination)
-    │   ├── dialogs/                    # app-base-dialog (BaseDialogComponent), app-confirm-dialog (ConfirmDialogComponent)
-    │   ├── img-preview-dialog/         # Image preview modal
+    │   ├── dialogs/                    # app-base-dialog, app-confirm-dialog, app-img-preview-dialog
     │   ├── loader/                     # App loader / spinner
     │   └── logo/                       # App branding logo
     ├── directives/                     # horizontal-scroll, template-type (read template-type/USAGE.md)
@@ -303,3 +302,4 @@ When generating or editing any template, style, or component, verify:
 9. [ ] **Reusable UI**: Were `src/app/shared/ui/`, `shared/directives/`, and `shared/pipes/` checked before creating any new input, card, badge, chip, table, directive, or pipe?
 10. [ ] **Real Inputs**: Was every shared-component binding confirmed against the component source (e.g. chips is `[(value)]`, tables use `[paginationService]`, form controls use `[formField]`)? Never guess an input name.
 11. [ ] **Aliases**: Are imports using `@shared/*`, `@core/*`, `@features/*`, `@env/*` instead of deep relative paths?
+12. [ ] **Native Bindings**: Are native `[class.name]="..."` / `[class]="{...}"` and `[style.prop]="..."` / `[style]="{...}"` used instead of `[ngClass]` / `[ngStyle]`?

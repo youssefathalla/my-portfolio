@@ -1,8 +1,9 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { LangService } from '../services/lang.service';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { describe, it, expect } from 'vitest';
+
+import { LOCALE } from '../locale';
 import { LangComponent } from './lang.component';
-import { signal } from '@angular/core';
-import { describe, it, expect, vi } from 'vitest';
 
 describe('LangComponent', () => {
   let component: LangComponent;
@@ -11,15 +12,7 @@ describe('LangComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [LangComponent],
-      providers: [
-        {
-          provide: LangService,
-          useValue: {
-            currentLang: signal('en'),
-            setLanguage: vi.fn(),
-          },
-        },
-      ],
+      providers: [provideRouter([], withComponentInputBinding()), { provide: LOCALE, useValue: 'en' }],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LangComponent);
@@ -29,5 +22,9 @@ describe('LangComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('resolves exactly one Language_Switcher target for the active locale', () => {
+    expect(component['targets']()).toEqual([{ locale: 'ar', path: 'ar' }]);
   });
 });

@@ -9,43 +9,23 @@ import { LoaderHeight, LOADER_HEIGHT_CLASSES, LOADER_HEIGHT_CLASSES_PADDED } fro
   host: { '[class]': 'hostClass() + " " + bgClass() + " " + heightClass()' },
 })
 export class LoaderComponent {
-  /**
-   * @param diameter - default value is 100
-   * we can add any number values to diameter
-   * example: diameter="100" or diameter="50" etc.
-   */
+  /** Spinner diameter in pixels (default: 100). */
   readonly diameter = input<number>(100);
 
-  /**
-   * @param message - default value is 'Loading...'
-   */
+  /** Loading text message (default: 'Loading...'). */
   readonly message = input<string>('Loading...');
 
-  /**
-   * @param showMessage - default value is true
-   */
+  /** Whether to display the text message (default: true). */
   readonly showMessage = input<boolean>(true);
 
-  /**
-   * @param sectionSpace - default value is true
-   * Controls whether to apply section-space padding class
-   */
+  /** Applies section-space padding class (default: true). */
   readonly sectionSpace = input<boolean>(true);
 
-  /**
-   * @param bg - default value is 'surface'
-   * we can add any tailwind class values to bg
-   * example: bg="surface" or bg="primary" etc.
-   */
+  /** Background color token name (default: 'surface'). */
   readonly bg = input<string>('surface');
 
-  /**
-   * @param minHeight - default value is '40'
-   * Accepts predefined height values: '10' | '20' | '30' | '40' | '50' | '60' | '70' | '80' | '90' | 'full'
-   */
+  /** Minimum height preset key (default: '40'). */
   readonly minHeight = input<LoaderHeight>('40');
-
-  //! Computed
   protected readonly bgClass = computed(() => `bg-${this.bg()}`);
   protected readonly heightClass = computed(() => {
     const height = this.minHeight();

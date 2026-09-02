@@ -1,0 +1,43 @@
+<!-- Skip-to-content link — first focusable element (R5.6) -->
+<a class="skip-link" href="#admin-content">Skip to content</a>
+
+<div class="admin-layout">
+  <!-- Sidebar navigation (R5.1, R5.3, R5.4) -->
+  <nav class="admin-sidebar" aria-label="Admin navigation">
+    @for (entry of nav; track entry.path) {
+      <a
+        class="nav-link"
+        [routerLink]="entry.path"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: entry.path === '/admin' }"
+        [matTooltip]="entry.label"
+        matTooltipPosition="right"
+        [attr.aria-label]="entry.label"
+      >
+        <mat-icon [name]="ADMIN_ICON_GLYPH[entry.icon]" />
+        <span class="nav-label">{{ entry.label }}</span>
+      </a>
+    }
+  </nav>
+
+  <!-- Main area: header + content -->
+  <div class="admin-main">
+    <!-- Header with email and logout (R5.1, R5.2) -->
+    <header class="admin-header">
+      <span class="header-email">{{ email() }}</span>
+      <button
+        mat-icon-button
+        aria-label="Log out"
+        (click)="logout()"
+        matTooltip="Log out"
+      >
+        <mat-icon [name]="ADMIN_ICON_GLYPH['logout']" />
+      </button>
+    </header>
+
+    <!-- Content area targeted by skip-link (R5.6) -->
+    <main id="admin-content" class="admin-content" tabindex="-1">
+      <router-outlet />
+    </main>
+  </div>
+</div>

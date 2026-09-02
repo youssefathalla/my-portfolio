@@ -1,0 +1,11 @@
+@use '@angular/material' as mat;
+
+:root {
+  @include mat.checkbox-overrides((
+    // selected-icon-color: var(--mat-sys-primary),
+    // selected-checkmark-color: var(--mat-sys-on-primary),
+    // unselected-icon-color: var(--mat-sys-on-surface-variant),
+    // label-text-color: var(--mat-sys-on-surface),
+    // label-text-size: 18px,
+  ));
+}

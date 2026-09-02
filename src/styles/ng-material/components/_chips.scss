@@ -1,0 +1,11 @@
+@use '@angular/material' as mat;
+
+:root {
+  @include mat.chips-overrides((
+    // label-text-color: var(--mat-sys-on-surface-variant),
+    // outline-color: var(--mat-sys-outline),
+    // selected-label-text-color: var(--mat-sys-on-secondary-container),
+    // elevated-selected-container-color: var(--mat-sys-secondary-container),
+    // with-trailing-icon-trailing-icon-color: var(--mat-sys-on-surface-variant),
+  ));
+}

@@ -10,7 +10,7 @@ import {
 import {
   ImgPreviewDialogComponent,
   ImgPreviewData,
-} from '@shared/ui/img-preview-dialog/img-preview-dialog.component';
+} from '@shared/ui/dialogs/img-preview-dialog/img-preview-dialog.component';
 
 @Component({
   selector: 'app-dialogs-tab',
@@ -39,7 +39,7 @@ export class DialogsTabComponent {
     this.#dialog.open<ImgPreviewDialogComponent, ImgPreviewData>(ImgPreviewDialogComponent, {
       data: {
         title: 'System Architecture & Token Map',
-        imageSrc: 'images/architecture_preview.jpg',
+        imageSrc: 'public/',
       },
       width: '90vw',
       maxWidth: '1200px',

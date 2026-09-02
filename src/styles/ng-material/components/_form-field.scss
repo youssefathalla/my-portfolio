@@ -1,0 +1,13 @@
+@use '@angular/material' as mat;
+
+:root {
+  @include mat.form-field-overrides((
+    // outlined-outline-color: var(--mat-sys-outline),
+    // outlined-focus-outline-color: var(--mat-sys-primary),
+    // outlined-label-text-color: var(--mat-sys-on-surface-variant),
+    // outlined-focus-label-text-color: var(--mat-sys-primary),
+    // filled-container-color: var(--mat-sys-surface-container-highest),
+    // filled-active-indicator-color: var(--mat-sys-outline),
+    // error-text-color: var(--mat-sys-error),
+  ));
+}

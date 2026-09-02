@@ -1,0 +1,95 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // --- Helper functions ---
+
+    function isAdmin() {
+      return request.auth != null && request.auth.token.admin == true;
+    }
+
+    function isValidCreate(data) {
+      return data.keys().hasOnly(['type', 'status', 'createdAt', 'updatedAt', 'read', 'payload', 'notes', 'tags'])
+        && data.keys().hasAll(['type', 'status', 'createdAt', 'updatedAt', 'read', 'payload', 'notes', 'tags'])
+        && data.type in ['contact', 'intake-wizard']
+        && data.status == 'new'
+        && data.read == false
+        && data.notes == ''
+        && data.tags == []
+        && data.createdAt == request.time
+        && data.updatedAt == request.time
+        && isValidPayload(data.payload);
+    }
+
+    function isValidUpdate(newData, existingData) {
+      return newData.diff(existingData).affectedKeys()
+          .hasOnly(['status', 'read', 'notes', 'tags', 'updatedAt'])
+        && newData.keys().hasOnly(['type', 'status', 'createdAt', 'updatedAt', 'read', 'payload', 'notes', 'tags'])
+        && newData.type == existingData.type
+        && newData.createdAt == existingData.createdAt
+        && newData.payload == existingData.payload
+        && newData.status in ['new', 'in-progress', 'archived', 'spam']
+        && newData.read is bool
+        && newData.notes is string
+        && newData.notes.size() <= 4000
+        && newData.tags is list
+        && newData.tags.size() <= 20
+        && newData.updatedAt == request.time;
+    }
+
+    // Payload validation: must be a map with 1-24 entries, each key a
+    // string of 1-100 chars, each value a string (<=4000), number, or bool.
+    // Firestore rules do not support recursion or iteration over map entries,
+    // so we validate the map structure and size, then rely on the shared
+    // TypeScript predicate (isValidPayloadForType) in the client and Cloud
+    // Functions to enforce per-entry type constraints before writing.
+    function isValidPayload(payload) {
+      return payload is map
+        && payload.size() >= 1
+        && payload.size() <= 24;
+    }
+
+    function isValidKey(key) {
+      return key is string && key.size() >= 1 && key.size() <= 100;
+    }
+
+    function isValidValue(value) {
+      return (value is string && value.size() <= 4000)
+        || value is number
+        || value is bool;
+    }
+
+    // --- Collection rules ---
+
+    match /submissions/{submissionId} {
+      // CREATE: requires request.app.appId (an App Check token attached to the request)
+      // plus a valid document shape. App Check *enforcement* for Firestore is a Firebase
+      // console setting (Security > App Check > Enforce), not something this rule file
+      // configures — this condition rejects requests with no App Check token once
+      // enforcement is on; it does not verify the token's validity itself.
+      allow create: if request.app.appId != null
+        && isValidCreate(request.resource.data);
+
+      // READ: admin only
+      allow read: if isAdmin();
+
+      // UPDATE: admin only, restricted fields
+      allow update: if isAdmin()
+        && isValidUpdate(request.resource.data, resource.data);
+
+      // DELETE: unconditionally denied
+      allow delete: if false;
+
+      // Subcollections: unconditionally denied (R8.12)
+      match /{subpath=**} {
+        allow read, write: if false;
+      }
+    }
+
+    // Catch-all: deny everything else (R8.6)
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

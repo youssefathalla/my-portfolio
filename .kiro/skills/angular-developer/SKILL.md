@@ -9,6 +9,8 @@ metadata:
 
 # Angular Developer Guidelines
 
+0. **When in doubt, prefer consistency.** If these guidelines contradict the style already established in a specific file, match that file's existing style rather than mixing conventions. Consistency within a file matters more than strict adherence to any single rule below.
+
 1. Always analyze the project's Angular version before providing guidance, as best practices and available features can vary significantly between versions. If creating a new project with Angular CLI, do not specify a version unless prompted by the user.
 
 2. When generating code, follow Angular's style guide and best practices for maintainability and performance. Use the Angular CLI for scaffolding components, services, directives, pipes, and routes to ensure consistency.
@@ -50,6 +52,7 @@ When working with Angular components, consult the following references based on 
 - **Outputs**: Signal-based outputs and custom event best practices. Read [outputs.md](references/outputs.md)
 - **Host Elements**: Host bindings and attribute injection. Read [host-elements.md](references/host-elements.md)
 - **Naming Conventions**: Modern Angular v20+ naming style ("Intent over Role") for files, components, services, directives, pipes, and models. Read [naming-conventions.md](references/naming-conventions.md)
+- **Lifecycle Hooks**: Keeping `ngOnInit`/`ngOnDestroy` simple and implementing lifecycle interfaces. Read [lifecycle-hooks.md](references/lifecycle-hooks.md)
 
 If you require deeper documentation not found in the references above, read the documentation at `https://angular.dev/guide/components`.
 

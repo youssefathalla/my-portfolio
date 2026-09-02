@@ -9,13 +9,21 @@ Adhere strictly to these core directives to ensure maximum performance, clean ar
 
 ### 🅰️ Angular & Signals (Strict Modern Standards)
 
+- **The 3-Point Evaluation Rubric (Anti-Overengineering)**:
+  1. _Is this over-engineered?_ Favor direct, simple code over speculative wrappers.
+  2. _Is it actually needed in this app?_ Build strictly what is needed today.
+  3. _Is it in the right place/folder?_ Colocate by feature (`features/[feature-name]/`).
+- **Component Host Element**: Never create an `.scss` file just for `:host { display: block; }`. Use `host: { class: 'block' }` in `@Component` decorator.
 - **Signal-First Reactivity**: Use `signal()`, `computed()`, and `effect()`. Zero Zone.js dependencies (`fakeAsync`, `tick` are forbidden).
 - **Inputs & Outputs**: Use `input()` / `input.required()` and `output()`. No legacy `@Input` or `@Output`.
-- **Control Flow**: Modern template syntax only (`@if`, `@for`, `@let`, `@switch`). No `*ngIf` or `*ngFor`.
+- **Immutability & Visibility**: `input()`, `model()`, `output()`, and queries are `readonly`. Template-only members are `protected readonly`; internal state is `#private`.
+- **Event Handlers**: Name methods for what they do (`saveUserData()`), not the trigger (`handleClick()`).
+- **Control Flow**: Modern template syntax only (`@if`, `@for`, `@let`, `@switch`). No `*ngIf` or `*ngFor`. Self-closing tags on empty elements (`<app-nav />`).
+- **Lifecycle**: Implement lifecycle interfaces (`implements OnInit`) and keep hooks delegation-only.
 - **Standalone by Default**: Do not write `standalone: true` or `changeDetection: ChangeDetectionStrategy.OnPush` (these are default).
 - **Services**: Use `@Service()` from `@angular/core` instead of legacy `@Injectable({ providedIn: 'root' })`.
 - **Forms**: Prefer Signal Forms for modern state management.
-- **Deep Reference**: Activate the **`angular-developer`** skill for detailed code generation, directives, and HTTP/Signals workflows.
+- **Upstream Separation**: The **`angular-developer`** skill is Google's official upstream reference. Project-specific rules and component patterns are defined in `.kiro/steering/project-standards.md`.
 
 ### 🧭 Routing & Route Data
 
@@ -44,6 +52,7 @@ Two layers, no overlap:
 The non-negotiables, repeated here because this guide is always in context:
 
 - **Tailwind v4**: config-less. Suffix `hidden!` (never prefix `!hidden`), `bg-black/50` (never `bg-opacity-50`), `size-{N}` (never `w-N h-N`), semantic tokens only (never `bg-red-500` / `text-white`).
+- **Bindings**: Native property bindings `[class.name]="..."` / `[class]="{...}"` and `[style.prop]="..."` / `[style]="{...}"` (never `[ngClass]` / `[ngStyle]`).
 - **Material 3 Overrides**: `@include mat.<component>-overrides(( ... ))` under `src/styles/ng-material/components/`. No `::ng-deep`, no component CSS on Material internals.
 - **Icons**: `<mat-icon name="home" />` plus `SharedIconModule` (from `@shared/ui/mat-icon`) in the component `imports` — without it the icon renders nothing. Content projection is forbidden.
 - **Reuse First**: check `src/app/shared/ui|directives|pipes/` and verify inputs against the component source before writing anything new.
@@ -80,9 +89,9 @@ The non-negotiables, repeated here because this guide is always in context:
   - `src/app/shared/ui/` -> components & directives (icons, cards, forms, chips, badges, table, dialogs, loader, logo)
   - `src/app/shared/directives/` -> `horizontal-scroll`, `template-type`
   - `src/app/shared/pipes/` -> `pence-to-pounds`, `timestamp-date`
-  - `src/app/shared/utils/` -> `date`, `id`, `injection`, `stepper-orientation`, `firebase/`
+  - `src/app/shared/utils/` -> `date`, `id`, `injection`, `stepper-orientation`
   - `src/app/core/services/` -> app-wide services (seo, theme, logger, snack-bar, loading, maps, icons, i18n)
-- **Path Aliases**: Import via `@shared/*`, `@core/*`, `@features/*`, `@env/*` (defined in `tsconfig.json`). NEVER use deep relative paths (`../../../`).
+- **Path Aliases**: Import via `@shared/*`, `@core/*`, `@features/*`, `@layout/*`, `@env/*` (defined in `tsconfig.json`). NEVER use deep relative paths (`../../../`).
 - **Verify Inputs Against Source**: Before binding to any shared component, open it and read its `input()` / `model()` declarations. Do not infer input names from similar libraries.
 - **LIFT Structure**: Feature modules live in `src/app/features/[feature-name]/`. Co-locate template, style, and spec files inside `<name>/<name>.component.*`.
 - **SEO Metadata**: Inject and configure `SeoService` ONLY inside top-level Route/Page components in `ngOnInit()`.
@@ -108,13 +117,16 @@ Route requests to the appropriate specialized workspace or plugin skill:
 
 ### Steering & Workflow Modes (`.kiro/steering/`)
 
-| File               | Activation                             | Effect                                                         |
-| :----------------- | :------------------------------------- | :------------------------------------------------------------- |
-| `design-system.md` | Auto on `**/*.{html,css,scss}`         | Injects the condensed styling contract while editing UI files. |
-| `translater.md`    | Auto when the request is a translation | Transloco key extraction + `en.json` / `ar.json` updates.      |
-| `ask.md`           | Manual -> `#ask`                       | Discussion mode: read-only, no file edits.                     |
-| `teacher.md`       | Manual -> `#teacher`                   | Teacher mode: guidance only, no complete implementations.      |
+| File                   | Activation                             | Effect                                                             |
+| :--------------------- | :------------------------------------- | :----------------------------------------------------------------- |
+| `project-standards.md` | Always on                              | Project architecture, 3-point rubric, host class, component rules. |
+| `design-system.md`     | Auto on `**/*.{html,css,scss}`         | Injects the condensed styling contract while editing UI files.     |
+| `i18n-architecture.md` | Auto when the request concerns locales | Single standard: colocated `<feature>.content.ts` dictionaries.    |
+| `translater.md`        | Auto when the request is a translation | Step-by-step workflow for updating `<feature>.content.ts`.         |
+| `ask.md`               | Manual -> `#ask`                       | Discussion mode: read-only, no file edits.                         |
+| `teacher.md`           | Manual -> `#teacher`                   | Teacher mode: guidance only, no complete implementations.          |
 
+> `i18n-architecture.md` decides **where** a string belongs; `translater.md` is the workflow once that decision lands on JSON. Do not restate one in the other.
 > `ask` and `teacher` deliberately suppress code generation. They are **manual-only** and must never be set to always-on inclusion, or they will conflict with the directives above.
 
 ### Editing Agent Documentation

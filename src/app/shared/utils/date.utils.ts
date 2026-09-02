@@ -1,13 +1,9 @@
-// Interface matching Firestore Timestamp
+/** Minimal Firestore Timestamp interface shape. */
 export interface FirestoreTimestamp {
   toDate(): Date;
 }
 
-/**
- * Formats a Date object or string into a HH:mm time string.
- * @param time Date object or string
- * @returns Time string in 'HH:mm' format
- */
+/** Formats a Date or string into an HH:mm time string. */
 export function formatTime(time: Date | string): string {
   if (typeof time === 'string') return time;
   return time.toLocaleTimeString('en-GB', {
@@ -17,12 +13,7 @@ export function formatTime(time: Date | string): string {
   });
 }
 
-/**
- * Parses a time string (HH:mm) into a Date object for today.
- * If the input is already a Date, returns it as is.
- * @param time Time string 'HH:mm' or Date object
- * @returns Date object with the time set
- */
+/** Parses an HH:mm time string into a today Date object. */
 export function parseTime(time: string | Date): Date {
   if (time instanceof Date) return time;
   const [hours, minutes] = time.split(':').map(Number);

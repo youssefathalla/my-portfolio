@@ -1,0 +1,20 @@
+@use '@angular/material' as mat;
+
+:root {
+  @include mat.progress-bar-overrides((
+      track-height: 10px,
+      active-indicator-height: 8px,
+      track-shape: 12px,
+  ));
+
+  .mdc-linear-progress__bar-inner {
+    border-radius: 12px;
+  }
+}
+
+// Ported from admin's submission-detail-page.scss loading skeleton (R11.18).
+.detail-skeleton {
+  mat-progress-bar {
+    margin-bottom: 1.5rem;
+  }
+}

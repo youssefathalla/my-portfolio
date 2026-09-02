@@ -1,18 +1,10 @@
 /**
- * Mirrors the agent documentation in `.kiro/` into `.agents/`.
+ * Mirrors agent documentation from `.kiro/` into `.agents/`.
+ * Copies skills verbatim and syncs rules/workflows while preserving tool-specific front matter.
  *
- *   node scripts/sync-agent-docs.mjs           # write
- *   node scripts/sync-agent-docs.mjs --check   # report drift, exit 1 if any (CI)
- *
- * Why this exists: Kiro reads `.kiro/`, other agents read `.agents/`. The two trees must
- * carry the same instructions, but NOT the same front matter — each tool has its own
- * dialect (`inclusion: fileMatch` vs `trigger: glob`, etc.). So:
- *
- *   - skills/**            copied verbatim (identical format in both trees)
- *   - steering -> rules    body synced, destination front matter preserved
- *   - steering -> workflows  body synced, destination front matter preserved
- *
- * `.kiro/` is always the source of truth. Never edit `.agents/` by hand.
+ * Usage:
+ *   node scripts/sync-agent-docs.mjs           # sync
+ *   node scripts/sync-agent-docs.mjs --check   # check for drift (CI)
  */
 import { readdirSync, readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { dirname, join, relative, sep } from 'node:path';
@@ -21,10 +13,12 @@ const CHECK_ONLY = process.argv.includes('--check');
 
 /** Files whose body is mirrored but whose front matter belongs to the destination tool. */
 const BODY_ONLY = [
+  { from: '.kiro/steering/project-standards.md', to: '.agents/rules/project-standards.md' },
   { from: '.kiro/steering/design-system.md', to: '.agents/rules/design-system.md' },
   { from: '.kiro/steering/ask.md', to: '.agents/workflows/ask.md' },
   { from: '.kiro/steering/teacher.md', to: '.agents/workflows/teacher.md' },
   { from: '.kiro/steering/translater.md', to: '.agents/workflows/translater.md' },
+  { from: '.kiro/steering/i18n-architecture.md', to: '.agents/workflows/i18n-architecture.md' },
 ];
 
 /** Directories mirrored verbatim, front matter included. */

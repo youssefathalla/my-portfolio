@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { SharedIconModule, IconSize, IconColor } from '@shared/ui/mat-icon';
 
 export interface IconSizeOption {
-  key: string;
+  key: IconSize;
   label: string;
   isDefault?: boolean;
 }

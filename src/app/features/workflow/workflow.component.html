@@ -1,0 +1,28 @@
+<main class="py-20 md:py-28">
+  <div class="container mx-auto px-4 max-w-4xl space-y-16">
+    <div class="text-center space-y-4">
+      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">{{ t().hero.title }}</h1>
+      <p class="text-lg text-muted-foreground max-w-2xl mx-auto">{{ t().hero.subtitle }}</p>
+    </div>
+
+    <div class="space-y-8">
+      @for (stage of t().stages; track stage.number) {
+        <div class="p-8 rounded-2xl border border-border bg-card flex flex-col md:flex-row gap-6 items-start">
+          <div class="size-12 rounded-xl bg-primary/10 text-primary flex items-center justify-center font-mono font-bold text-xl shrink-0">
+            {{ stage.number }}
+          </div>
+          <div class="space-y-2">
+            <h2 class="text-xl font-bold">{{ stage.title }}</h2>
+            <p class="text-sm text-muted-foreground leading-relaxed">{{ stage.description }}</p>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div class="text-center pt-8">
+      <a routerLink="/contact" mat-flat-button class="h-12 px-8">
+        {{ t().cta }}
+      </a>
+    </div>
+  </div>
+</main>

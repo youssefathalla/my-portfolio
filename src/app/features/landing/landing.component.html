@@ -1,0 +1,60 @@
+<main class="min-h-screen">
+  <!-- Hero Section -->
+  <section class="relative py-20 md:py-32 overflow-hidden">
+    <div class="container mx-auto px-4 max-w-5xl text-center space-y-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-primary/10 text-primary border border-primary/20">
+        {{ t().hero.badge }}
+      </div>
+      <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-balance">
+        {{ t().hero.title }}
+      </h1>
+      <p class="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto text-balance">
+        {{ t().hero.subtitle }}
+      </p>
+      <div class="flex flex-wrap items-center justify-center gap-4 pt-4">
+        <a routerLink="/services" mat-flat-button class="h-12 px-6">
+          {{ t().hero.primaryCta }}
+        </a>
+        <a routerLink="/case-studies" mat-stroked-button class="h-12 px-6">
+          {{ t().hero.secondaryCta }}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Metrics Grid -->
+  <section class="border-y border-border bg-card/50 py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        @for (metric of t().metrics; track metric.label) {
+          <div class="space-y-1">
+            <div class="text-3xl md:text-4xl font-black text-primary font-mono">{{ metric.value }}</div>
+            <div class="text-xs md:text-sm text-muted-foreground">{{ metric.label }}</div>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Pillars Section -->
+  <section class="py-20">
+    <div class="container mx-auto px-4 max-w-5xl">
+      <div class="text-center space-y-3 mb-12">
+        <h2 class="text-3xl font-bold tracking-tight">{{ t().pillars.title }}</h2>
+        <p class="text-muted-foreground">{{ t().pillars.subtitle }}</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        @for (pillar of t().pillars.items; track pillar.title) {
+          <div class="p-6 rounded-2xl border border-border bg-card hover:border-primary/50 transition-all space-y-4">
+            <h3 class="text-xl font-bold">{{ pillar.title }}</h3>
+            <p class="text-sm text-muted-foreground leading-relaxed">{{ pillar.description }}</p>
+            <a [routerLink]="pillar.link" class="inline-flex items-center text-sm font-medium text-primary hover:underline">
+              Learn more &rarr;
+            </a>
+          </div>
+        }
+      </div>
+    </div>
+  </section>
+</main>

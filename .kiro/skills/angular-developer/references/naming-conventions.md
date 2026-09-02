@@ -20,11 +20,24 @@ This skill enforces Angular naming conventions for components, services, directi
 
 - **Hyphens in Filenames**: Continue using kebab-case (hyphens) to separate words in filenames (e.g., `product-list.ts`).
 - **Identifier Matching**: Filenames must align directly with the primary TypeScript class/identifier (e.g., `product-list.ts` contains `class ProductList`).
+- **Avoid Generic File Names**: Never name a file `utils.ts`, `helpers.ts`, or `common.ts`. If a file's contents don't share a common theme or feature area, split it into multiple files named for what each one actually contains.
+- **One Concept Per File**: Prefer one component, directive, or service per file. A file may contain more than one small, tightly-related class if they form a single concept, but when in doubt, split into smaller files.
 - **Unified Filenames**: If using split template or style files, keep names identical to the main TypeScript file:
   - `product-list.ts`
   - `product-list.html`
   - `product-list.css`
 - **Test Files**: Continue to use the same base name with the `.spec.ts` suffix (e.g., `product-list.spec.ts` for `product-list.ts`).
+
+### 1a. Project Structure Fundamentals
+
+- **`src/` Owns All UI Code**: All TypeScript, HTML, and style files belong under `src/`. Non-UI code (config files, build scripts) lives outside `src/`.
+- **Bootstrap in `main.ts`**: The application's bootstrap code always lives in `src/main.ts` — the single, primary entry point.
+
+### 1b. Selector Naming
+
+- **App-Specific Prefix**: Use a short, consistent, project-specific prefix for every component selector (the Angular CLI defaults to `app-`). Directives use the same prefix as components.
+- **Never Use `ng` as a Prefix**: The `ng` prefix is reserved for Angular's own framework APIs. Never apply it to a custom component or directive.
+- **Attribute Selectors**: When a directive uses an attribute selector, use a camelCase attribute name prefixed the same way as components (e.g. `[mrTooltip]` for an app prefixed `mr`).
 
 ### 2. Core Directory (Application Foundation)
 
@@ -67,9 +80,9 @@ Store pure, presentational elements and helpers with zero business logic in a sh
 ## Best Practices & Coexistence Rules
 
 - **How to Determine the Style in Use**:
-  1.  Inspect adjacent files in the target directory (do they end in `.component.ts` or `.ts`?).
-  2.  Check `angular.json` for custom schematics options that might configure suffix behaviors.
-  3.  If unsure, use the traditional role suffix style (`.component.ts`, `.service.ts`) as it is the safest default in the Angular ecosystem.
+  1. Inspect adjacent files in the target directory (do they end in `.component.ts` or `.ts`?).
+  2. Check `angular.json` for custom schematics options that might configure suffix behaviors.
+  3. If unsure, use the traditional role suffix style (`.component.ts`, `.service.ts`) as it is the safest default in the Angular ecosystem.
 - **Avoid Namespace Collisions**: Without role suffixes, files like `user.ts` (component) and `user.model.ts` (model) can collide if they both declare a class/interface named `User`.
   - To prevent this use more specific, intent-based names for components (e.g. `class UserProfile` in `user-profile.ts` or `class UserDetail` in `user-detail.ts`) while keeping the simple domain name for the interface (`interface User` in `user.model.ts`).
 - **Consistency Check**: Do not mix old suffix styles and new suffixless styles in the same feature folder or module. Keep existing legacy code as-is unless migrating the entire module to the modern structure.

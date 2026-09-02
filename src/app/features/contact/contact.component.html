@@ -1,0 +1,76 @@
+<main class="py-20 md:py-28">
+  <div class="container mx-auto px-4 max-w-3xl space-y-12">
+    <div class="text-center space-y-4">
+      <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight">{{ t().hero.title }}</h1>
+      <p class="text-lg text-muted-foreground leading-relaxed">{{ t().hero.subtitle }}</p>
+    </div>
+
+    <div class="p-8 rounded-2xl border border-border bg-card space-y-6">
+      @if (submitSuccess()) {
+        <div class="p-6 rounded-xl bg-primary/10 border border-primary/20 text-center space-y-3" role="status">
+          <p class="text-lg font-semibold text-primary">{{ t().form.successMessage }}</p>
+          <button
+            mat-stroked-button
+            type="button"
+            (click)="submitSuccess.set(false)"
+          >
+            {{ t().form.submitButton }}
+          </button>
+        </div>
+      } @else {
+        <form (ngSubmit)="submitEnquiry()" class="space-y-4">
+          @if (submitError()) {
+            <div class="p-4 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-sm" role="alert">
+              {{ t().form.errorMessage }}
+            </div>
+          }
+
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>{{ t().form.nameLabel }}</mat-label>
+            <input
+              matInput
+              type="text"
+              name="name"
+              [(ngModel)]="name"
+              required
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>{{ t().form.emailLabel }}</mat-label>
+            <input
+              matInput
+              type="email"
+              name="email"
+              [ngModel]="email()"
+              (ngModelChange)="email.set($event)"
+              required
+            />
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="w-full">
+            <mat-label>{{ t().form.messageLabel }}</mat-label>
+            <textarea
+              matInput
+              name="message"
+              rows="4"
+              [ngModel]="message()"
+              (ngModelChange)="message.set($event)"
+              required
+            ></textarea>
+          </mat-form-field>
+
+          <button
+            mat-flat-button
+            type="submit"
+            class="w-full h-12"
+            [disabled]="submitting() || !name().trim() || !email().trim() || !message().trim()"
+          >
+            {{ submitting() ? t().form.submittingButton : t().form.submitButton }}
+          </button>
+        </form>
+      }
+    </div>
+  </div>
+</main>
+

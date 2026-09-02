@@ -1,0 +1,168 @@
+<!-- R11.8 — Back-to-list link preserving filter/page state via queryParamsHandling. -->
+<div class="detail-header">
+  <a mat-button [routerLink]="['../..']" queryParamsHandling="preserve" class="back-link">
+    <mat-icon [name]="ADMIN_ICON_GLYPH['arrow-back']" />
+    Back to list
+  </a>
+  <!-- Page heading (R11.25 — exactly one h1 per admin page) -->
+  <h1 class="font-headline-md text-on-surface mt-2">Submission Detail</h1>
+</div>
+
+<!-- R11.7 — Loading skeleton with 3-second timeout. -->
+@if (state().kind === 'loading') {
+  <div class="detail-skeleton" aria-label="Loading submission details">
+    <mat-progress-bar mode="indeterminate" />
+    <div class="skeleton-block skeleton-title"></div>
+    <div class="skeleton-block skeleton-body"></div>
+    <div class="skeleton-block skeleton-body"></div>
+    <div class="skeleton-block skeleton-short"></div>
+  </div>
+}
+
+<!-- R11.4 — Missing state: "Submission not found" with link back, zero writes. -->
+@if (state().kind === 'missing') {
+  <div class="detail-missing">
+    <mat-icon class="missing-icon" [name]="ADMIN_ICON_GLYPH['search-off']" />
+    <h2>Submission not found</h2>
+    <p>The submission you're looking for doesn't exist or has been removed.</p>
+    <a mat-button color="primary" [routerLink]="['../..']" queryParamsHandling="preserve">
+      Return to submissions list
+    </a>
+  </div>
+}
+
+<!-- R11.7 — Error state with retry action. -->
+@if (state().kind === 'error') {
+  <div class="detail-error">
+    <mat-icon class="error-icon" [name]="ADMIN_ICON_GLYPH['error-outline']" />
+    <h2>Failed to load submission</h2>
+    <p>{{ errorMessage() }}</p>
+    <button mat-button color="primary" (click)="retry()">Retry</button>
+  </div>
+}
+
+<!-- R11.2 — Ready state: display all eight fields. -->
+@if (record(); as record) {
+  @let doc = record.document;
+
+  <div class="detail-content">
+    <!-- Row: type chip + creation date -->
+    <div class="detail-meta">
+      <!-- R11.6 — Type chip styled by submission type. -->
+      <span class="type-chip" [attr.data-type]="doc.type">
+        {{ doc.type }}
+      </span>
+
+      <!-- R11.6 — Relative creation date with tooltip showing full ISO date. -->
+      <span class="detail-date" [matTooltip]="fullDate(record.createdAtMs)">
+        Created {{ relativeTime(record.createdAtMs) }}
+      </span>
+
+      <span class="detail-date" [matTooltip]="fullDate(record.updatedAtMs)">
+        Updated {{ relativeTime(record.updatedAtMs) }}
+      </span>
+
+      <!-- Read indicator -->
+      @if (!doc.read) {
+        <span class="unread-badge">Unread</span>
+      }
+    </div>
+
+    <!-- ─── Status Workflow (R12) ──────────────────────────────────────────── -->
+    <section class="detail-section">
+      <h3 class="section-heading">Status</h3>
+      <mat-form-field appearance="outline" class="status-field">
+        <mat-label>Status</mat-label>
+        <mat-select
+          [value]="pendingStatus()"
+          (selectionChange)="onStatusChange($event.value)"
+          [disabled]="statusUpdating()"
+        >
+          @for (status of allStatuses; track status) {
+            <mat-option [value]="status">{{ status }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      @if (statusUpdating()) {
+        <mat-progress-bar mode="indeterminate" class="status-progress" />
+      }
+    </section>
+
+    <!-- ─── Payload (R11.5) ────────────────────────────────────────────────── -->
+    <section class="detail-section">
+      <h3 class="section-heading">Details</h3>
+      <dl class="payload-list">
+        @for (entry of payloadEntries(); track entry[0]) {
+          <div class="payload-entry">
+            <dt class="payload-key">{{ toHumanLabel(entry[0]) }}</dt>
+            <dd class="payload-value">{{ entry[1] }}</dd>
+          </div>
+        }
+      </dl>
+    </section>
+
+    <!-- ─── Notes Editor (R13.1–R13.3) ─────────────────────────────────────── -->
+    <section class="detail-section">
+      <h3 class="section-heading">Notes</h3>
+      <mat-form-field appearance="outline" class="notes-field">
+        <mat-label>Internal notes</mat-label>
+        <textarea
+          matInput
+          id="notes-input"
+          aria-label="Internal notes"
+          [ngModel]="notesDraft()"
+          (ngModelChange)="onNotesDraftChange($event)"
+          maxlength="4000"
+          rows="4"
+          placeholder="Add internal notes..."
+        ></textarea>
+        <mat-hint align="end">{{ notesDraft().length }} / 4000</mat-hint>
+      </mat-form-field>
+      <button
+        mat-flat-button
+        color="primary"
+        class="notes-save-btn"
+        [disabled]="!notesDirty() || notesSaving()"
+        (click)="saveNotes()"
+      >
+        @if (notesSaving()) {
+          Saving...
+        } @else {
+          Save notes
+        }
+      </button>
+    </section>
+
+    <!-- ─── Tag Manager (R13.4–R13.9) ──────────────────────────────────────── -->
+    <section class="detail-section">
+      <h3 class="section-heading">Tags</h3>
+      <mat-form-field appearance="outline" class="tags-field">
+        <mat-label>Tags</mat-label>
+        <mat-chip-grid #chipGrid aria-label="Tag list">
+          @for (tag of tags(); track tag) {
+            <mat-chip-row (removed)="onRemoveTag(tag)">
+              {{ tag }}
+              <button matChipRemove [attr.aria-label]="'Remove tag ' + tag">
+                <mat-icon [name]="ADMIN_ICON_GLYPH['cancel']" />
+              </button>
+            </mat-chip-row>
+          }
+        </mat-chip-grid>
+        <input
+          id="tag-input"
+          aria-label="Add a tag"
+          [matChipInputFor]="chipGrid"
+          [matChipInputSeparatorKeyCodes]="separatorKeyCodes"
+          (matChipInputTokenEnd)="onAddTag($event)"
+          [matChipInputAddOnBlur]="true"
+          placeholder="Add a tag..."
+          [disabled]="tagUpdating()"
+        />
+      </mat-form-field>
+      <p class="tags-hint">
+        {{ tags().length }} / {{ tagConstraints.maxTags }} tags
+        (max {{ tagConstraints.maxLength }} characters each)
+      </p>
+    </section>
+  </div>
+}

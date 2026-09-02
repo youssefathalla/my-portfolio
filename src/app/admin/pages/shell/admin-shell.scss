@@ -1,0 +1,151 @@
+/**
+ * Admin Shell styles (admin-dashboard R5.4, R5.5).
+ *
+ * Uses the shared obsidian/glass/accent-cyan theme tokens from the
+ * delivered design system. CSS-only responsive: the sidebar collapses
+ * to an icon-only rail below 1024px viewport width.
+ */
+
+// ─── Skip link (R5.6) ──────────────────────────────────────────────────────
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  inset-inline-start: 0;
+  z-index: 1000;
+  padding: 0.5rem 1rem;
+  background: var(--mat-sys-tertiary);
+  color: var(--mat-sys-surface-container-lowest);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: 0 0 4px 0;
+
+  &:focus {
+    top: 0;
+  }
+}
+
+// ─── Layout grid ────────────────────────────────────────────────────────────
+
+.admin-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  min-height: 100vh;
+  background-color: var(--mat-sys-surface-container-lowest);
+  color: var(--mat-sys-on-surface);
+}
+
+// ─── Sidebar (R5.1, R5.3, R5.4, R5.5) ──────────────────────────────────────
+
+.admin-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1.5rem 0.75rem;
+  background-color: color-mix(in oklab, var(--mat-sys-surface-container) 40%, transparent);
+  backdrop-filter: blur(12px);
+  border-inline-end: 1px solid var(--mat-sys-outline-variant);
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  color: var(--mat-sys-on-surface-variant);
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 150ms, color 150ms;
+
+  &:hover {
+    background-color: color-mix(in oklab, var(--mat-sys-surface-container) 60%, transparent);
+    color: var(--mat-sys-on-surface);
+  }
+
+  // Active link styling (R5.3)
+  &.active {
+    background-color: color-mix(in oklab, var(--mat-sys-tertiary) 15%, transparent);
+    color: var(--mat-sys-tertiary);
+
+    mat-icon {
+      color: var(--mat-sys-tertiary);
+    }
+  }
+
+  // Inline SVG sprite — size the host box; the svg fills it (R14.2)
+  mat-icon {
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+  }
+}
+
+.nav-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+// ─── Main area ──────────────────────────────────────────────────────────────
+
+.admin-main {
+  display: flex;
+  flex-direction: column;
+  min-width: 0; // prevent grid blowout
+}
+
+// ─── Header (R5.1, R5.2, R5.5) ─────────────────────────────────────────────
+
+.admin-header {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 0.75rem 1.5rem;
+  background-color: color-mix(in oklab, var(--mat-sys-surface-container) 40%, transparent);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--mat-sys-outline-variant);
+}
+
+.header-email {
+  font-size: 0.875rem;
+  color: var(--mat-sys-on-surface-variant);
+}
+
+// ─── Content area (R5.6) ────────────────────────────────────────────────────
+
+.admin-content {
+  flex: 1;
+  padding: 2rem 1.5rem;
+  outline: none; // skip-link focus target — no visible focus ring on main
+
+  &:focus {
+    outline: none;
+  }
+}
+
+// ─── Responsive: icon-rail collapse below 1024px (R5.4) ─────────────────────
+
+@media (max-width: 1023px) {
+  .admin-layout {
+    grid-template-columns: 60px 1fr;
+  }
+
+  .admin-sidebar {
+    padding: 1.5rem 0.5rem;
+    align-items: center;
+  }
+
+  .nav-link {
+    justify-content: center;
+    padding: 0.75rem;
+    gap: 0;
+  }
+
+  .nav-label {
+    // Hide text labels — icon-only rail; matTooltip provides the label
+    display: none;
+  }
+}

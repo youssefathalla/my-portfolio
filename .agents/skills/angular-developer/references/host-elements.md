@@ -56,6 +56,28 @@ If both the component (host binding) and the consumer (template binding) bind to
 2. **Static vs Dynamic**: The dynamic binding wins.
 3. **Dynamic vs Dynamic**: The component's host binding wins.
 
+## Prefer `class`/`style` Bindings Over `NgClass`/`NgStyle`
+
+In component templates (not just host bindings), prefer the built-in `class` and `style` binding syntax over the `NgClass` and `NgStyle` directives:
+
+```html
+<!-- Prefer -->
+<div [class.admin]="isAdmin" [class.dense]="density === 'high'">
+  <div [style.color]="textColor" [style.background-color]="backgroundColor"></div>
+</div>
+<!-- OR -->
+<div [class]="{admin: isAdmin, dense: density === 'high'}">
+  <div [style]="{'color': textColor, 'background-color': backgroundColor}"></div>
+</div>
+
+<!-- Avoid -->
+<div [ngClass]="{admin: isAdmin, dense: density === 'high'}">
+  <div [ngStyle]="{'color': textColor, 'background-color': backgroundColor}"></div>
+</div>
+```
+
+The built-in bindings read closer to standard HTML attributes and avoid the extra runtime cost of the `NgClass`/`NgStyle` directives.
+
 ## Injecting Host Attributes
 
 Use `HostAttributeToken` with the `inject` function to read static attributes from the host element at construction time.
