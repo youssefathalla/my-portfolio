@@ -118,5 +118,5 @@ npm run test:emulator
 - **Author:** Youssef Fathalla
 - **Website:** [youssefathalla.com](https://youssefathalla.com)
 - **LinkedIn:** [/in/youssefathalla](https://www.linkedin.com/in/youssefathalla)
-- **GitHub:** [@YousseFathalla](https://github.com/YousseFathalla)
+- **GitHub:** [@youssefathalla](https://github.com/youssefathalla)
 - **Email:** [youssefathalla@gmail.com](mailto:youssefathalla@gmail.com)
