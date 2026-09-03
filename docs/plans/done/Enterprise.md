@@ -12,7 +12,7 @@ Home ➔ Services ➔ Enterprise Team Augmentation & Architecture
 
 ### **Headline**
 
-# **Senior Angular Architecture Specialist & AI-Accelerated Engineering Contractor**
+## **Senior Angular Architecture Specialist & AI-Accelerated Engineering Contractor**
 
 ### **Subheadline**
 
@@ -37,7 +37,7 @@ Plaintext
 | 🏛️ Enterprise Engineering Capabilities |  
 | Built for high-security, high-concurrency corporate systems. |  
 | |  
-| • Modern Angular (v16-v22+) • NgRx SignalStore & RxJS |  
+| • Modern Angular (v16-v22+) • Angular Signals & RxJS |  
 | • Standalone Architecture • Strict TypeScript & Vitest |  
 | • Enterprise AI Context Rules • WCAG 2.1 AA Compliance |  
 └─────────────────────────────────────────────────────────────┘
@@ -45,7 +45,7 @@ Plaintext
 ### **1\. Modern Angular Architecture & State Management**
 
 - **Architecture:** Standalone Architecture, Micro-frontends, Dependency Injection, Repository Pattern, and modular domain-driven design.
-- **Reactivity & State:** Angular Signals, input() / output() APIs, computed() derived state, NgRx SignalStore, and clean RxJS stream orchestration.
+- **Reactivity & State:** Angular Signals, input() / output() APIs, computed() derived state, and clean RxJS stream orchestration.
 - **Rendering & Performance:** OnPush Change Detection enforced across all components to eliminate redundant rendering cycles and minimize bundle overhead.
 
 ### **2\. Enterprise Code Quality & Accessibility**
@@ -66,19 +66,19 @@ High-performing enterprise teams require more than just technical syntax—they 
 
 - **Asynchronous Communication:** Clear, structured updates via Slack/Teams, detailed GitLab merge request descriptions, and Loom video walkthroughs for complex refactoring pipelines.
 - **Proactive Problem-Solving:** A positive, solution-driven mindset that identifies architectural bottlenecks, memory leaks, or state issues before they reach staging environments.
-- **Mentorship & Knowledge Transfer:** Actively guiding mid/junior team members through the transition from legacy NgModules and RxJS patterns to modern Angular Signals and SignalStore.
+- **Mentorship & Knowledge Transfer:** Actively guiding mid/junior team members through the transition from legacy NgModules and RxJS patterns to modern Angular Signals.
 - **Enterprise Process Compliance:** Seasoned in corporate Agile/Scrum workflows, sprint planning, Jira tracking, and strict multi-peer review processes.
 
 ## **📊 Section 4: Enterprise Track Record**
 
-#### **Corporate Banking Platform — eSpace**
+### **Corporate Banking Platform — eSpace**
 
 - **Role:** Front-End Developer (Angular v22+, TypeScript, RxJS, Kiro IDE, GitLab).
 - **Impact:** Engineered multi-tenant corporate banking platforms for Tier-1 financial institutions in the GCC region. Migrated legacy modules into modern Angular standalone structures driven by Signals while adhering to strict corporate code review standards.
 
 #### **Tashil Multi-Tenant SaaS Platform — Switch Point**
 
-- **Role:** Full Stack Developer (Angular v22+, Firebase, NgRx SignalStore, TailwindCSS).
+- **Role:** Full Stack Developer (Angular v22+, Firebase, Signals, TailwindCSS).
 - **Impact:** Architected a multi-tenant SaaS platform featuring granular Role-Based Access Control (RBAC), real-time bi-directional (Arabic/English) layout switching, and sub-second rendering performance.
 
 ## **⚙️ Section 5: Engagement Models & Availability**
@@ -93,7 +93,7 @@ High-performing enterprise teams require more than just technical syntax—they 
 
 ## **❓ Section 6: Frequently Asked Questions (FAQ)**
 
-#### **Q: How quickly can you onboard into our repository and workflow?**
+### **Q: How quickly can you onboard into our repository and workflow?**
 
 **A:** Within 24 to 48 hours. I am fully familiar with GitLab/GitHub workflows, Jira boards, and enterprise CI/CD pipelines. Once repository access and environment variables are granted, I can pick up sprint tasks immediately with minimal hand-holding.
 
@@ -103,7 +103,7 @@ High-performing enterprise teams require more than just technical syntax—they 
 
 #### **Q: Can you help our existing team migrate from older Angular versions to v20+ Signals?**
 
-**A:** Yes. I specialize in incremental, non-breaking refactoring strategies. I can migrate legacy NgModules to Standalone components, replace complex RxJS state setups with NgRx SignalStore, and establish modern coding standards for your team.
+**A:** Yes. I specialize in incremental, non-breaking refactoring strategies. I can migrate legacy NgModules to Standalone components, replace complex RxJS state setups with modern Angular Signals, and establish modern coding standards for your team.
 
 ## **🎯 Section 7: Final Call to Action**
 

@@ -4,7 +4,7 @@
 
 * **Target Title:** Senior Angular Architecture Specialist & Full-Stack Firebase Engineer  
 * **Core Value Proposition:** Building high-performance enterprise platforms, multi-tenant SaaS architectures, and production-grade web applications using modern Angular (v22+), Signals, and robust serverless backends.  
-* **Primary Tech Stack:** Angular (v16–v22+), TypeScript (Strict), NgRx SignalStore, Firebase (Auth, Firestore, Cloud Functions), Tailwind CSS, and Angular Material.
+* **Primary Tech Stack:** Angular (v16–v22+), TypeScript (Strict), Angular Signals, Firebase (Auth, Firestore, Cloud Functions), Tailwind CSS, and Angular Material.
 
 ## **2\. Multi-Page Site Architecture**
 
@@ -37,7 +37,7 @@ youssefathalla.com
 #### **3\. Modern Angular Front-End Engineering**
 
 * **Scope:** Enterprise-grade front-end development for existing backends.  
-* **Tech:** Angular Standalone Architecture, Signals/SignalStore state management, RxJS streams, and REST/GraphQL API wiring.  
+* **Tech:** Angular Standalone Architecture, Angular Signals state management, RxJS streams, and REST/GraphQL API wiring.  
 * **Best For:** Engineering teams needing high-performance UI layers over Node, ASP.NET, or Java microservices.
 
 #### **4\. Multi-Tenant SaaS & Enterprise Dashboards**

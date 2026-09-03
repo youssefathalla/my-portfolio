@@ -94,7 +94,7 @@
      - Value: `100/100 Performance & Accessibility` (`100/100 في الأداء وسهولة الوصول`)
   3. **Architecture**:
      - Label: `Arch` (`البنية`)
-     - Value: `SignalStore & Reactive Architecture` (`SignalStore والبنية التفاعلية`)
+     - Value: `Signal-First & Reactive Architecture` (`البنية التفاعلية المعتمدة على Signals`)
   4. **Work Model**:
      - Label: `Model` (`النموذج`)
      - Value: `100% White-Label & NDA Compliant` (`100% تطوير خاص (White-Label) والتزام بالسرية`)
@@ -116,7 +116,7 @@
      - Metric: `100% WCAG accessible, zero-latency UI`
   3. **Logistics & E-Commerce POS System**:
      - Problem: `High-frequency state synchronization and dynamic client-side workflows were causing UI lags in real-time order processing.`
-     - Solution: `Engineered reactive state pipelines with SignalStore to handle live order tracking and seamless API integration.`
+     - Solution: `Engineered reactive state pipelines with Angular Signals to handle live order tracking and seamless API integration.`
      - Metric: `Real-time sync across multi-user UI`
 
 ---
@@ -126,7 +126,7 @@
 - **Section Heading (`<h2>`)**: `Technical Stack` (`التقنيات وحلول البناء`)
 - **5 Technology Groups (`<h3>`)**:
   1. **Core & Frameworks**: `Angular (v16-v21+)`, `TypeScript`, `Signals`, `RxJS`
-  2. **State & Architecture**: `NgRx / SignalStore`, `Standalone Architecture`, `Clean Architecture`
+  2. **State & Architecture**: `Angular Signals / Reactive State`, `Standalone Architecture`, `Clean Architecture`
   3. **Backend & Integrations**: `Firebase`, `Cloud Firestore`, `Role-Based Access Control (RBAC)`, `REST APIs`
   4. **Quality & Testing**: `Vitest`, `Unit & Integration Testing`, `Web Performance`, `Accessibility (a11y)`
   5. **Styling & UI**: `Tailwind CSS`, `Custom Design Systems`, `Angular Material`

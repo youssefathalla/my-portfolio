@@ -34,6 +34,7 @@ export const onSubmissionCreated = onDocumentCreated(
     region: 'europe-west1',
     secrets: [MAIL_CREDENTIAL, NOTIFICATION_ADDRESS],
     timeoutSeconds: 60,
+    maxInstances: 10,
   },
   async (event) => {
     const db = getFirestore();
@@ -152,7 +153,7 @@ function isWordBoundary(key: string, i: number): boolean {
 
   const prev = key[i - 1];
   const next = key[i + 1];
-  return (isLowerChar(prev) || isDigitChar(prev)) || (isUpperChar(prev) && isLowerChar(next));
+  return isLowerChar(prev) || isDigitChar(prev) || (isUpperChar(prev) && isLowerChar(next));
 }
 
 /**

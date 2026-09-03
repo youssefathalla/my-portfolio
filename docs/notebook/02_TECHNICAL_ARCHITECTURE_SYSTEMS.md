@@ -8,7 +8,7 @@
 ├─────────────────────────────────────────────────────────────────────────────┤
 │ • Front-End Framework:   Angular v22 (Standalone Components, Signals Core)  │
 │ • Server Engine & SSR:   @angular/ssr v22 + Express 5 Prerendering Engine   │
-│ • State Management:      Angular Signals + NgRx SignalStore + RxJS Streams  │
+│ • State Management:      Angular Signals (Signal-First) + RxJS Streams      │
 │ • Styling & Design:      TailwindCSS v4 (@tailwindcss/postcss) + Material   │
 │ • Animations & UX:       GSAP 3.15 + Native CSS Logical Transitions         │
 │ • Cloud & Backend:       Firebase 11 (Firestore NoSQL, Cloud Functions,    │
@@ -29,11 +29,11 @@
 - Every component, directive, and pipe is an isolated Standalone entity with direct `imports: [...]`.
 - Route trees are configured with granular lazy loading via `loadComponent` and `loadChildren` to maintain minimal initial bundle sizes (< 100KB gzip for initial core shell).
 
-### 2.2 Reactivity Model: Angular Signals & NgRx SignalStore
+### 2.2 Reactivity Model: Angular Signals & Zoneless Architecture
 
 - **Signal-First Primitive:** Reactive state is driven by native Angular Signals (`signal()`, `computed()`, and `effect()`).
 - **Component Inputs/Outputs:** Enforces the modern `input()`, `input.required()`, `output()`, and `model()` signal APIs, eliminating legacy `@Input()`/`@Output()` decorators.
-- **NgRx SignalStore Integration:** For complex domain state (such as the interactive project planner, form wizards, and multi-language routing state), state is encapsulated in dedicated SignalStores with computed selectors and immutable patch methods.
+- **Signal Services Integration:** For complex domain state (such as the interactive project planner, form wizards, and multi-language routing state), state is encapsulated in dedicated signal-based services with computed selectors and immutable update methods.
 - **OnPush Change Detection:** All components strictly declare `changeDetection: ChangeDetectionStrategy.OnPush`. Zone.js overhead is minimized, avoiding unnecessary re-renders across the component tree.
 
 ### 2.3 SSR & Static Site Generation (SSG / Prerendering)

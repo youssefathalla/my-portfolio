@@ -110,9 +110,10 @@ Route requests to the appropriate specialized workspace or plugin skill:
 | :-------------------------------------------------------------------------------------------------------------- | :---------------------- |
 | **Angular Development**: Components, signals, linkedSignal, resource, HTTP, forms, routing, DI, SSR, tests      | **`angular-developer`** |
 | **UI & Design System**: Tailwind v4, Material M3 token overrides, shared UI catalog, styling audits             | **`design-system`**     |
-| **Global State**: SignalStore, deep signal state, global application data _(`@ngrx/signals` not installed yet)_ | **`ngrx-signal-store`** |
 | **TypeScript & Data**: Strict types, Valibot schemas, pure models, logic utils                                  | **`typescript`**        |
 | **Code Review & QA**: Beast Mode architectural audits, quality checks, optimization                             | **`code-review`**       |
+| **Post-Feature Audit**: Automated pre-commit diff audit (hygiene, diff security, performance)                    | **`clean-up`**           |
+| **Firebase & Cloud Security**: Rules hardening, App Check, API key locks, billing protection                     | **`firebase-security`**  |
 | **Internationalization**: Sync translations (`en.json`, `ar.json`)                                              | **`sync-i18n`**         |
 
 ### Steering & Workflow Modes (`.kiro/steering/`)
@@ -135,7 +136,7 @@ Route requests to the appropriate specialized workspace or plugin skill:
 
 - **Never hand-edit `.agents/rules|workflows|skills`** — the next sync overwrites it. (`.agents/hooks.json` is not generated and stays editable.)
 - Edit `.kiro/steering/*` or `.kiro/skills/**`, then run `npm run sync:agents`.
-- `npm run sync:agents:check` exits non-zero on drift and runs as part of `setup.sh`.
+- `npm run sync:agents:check` exits non-zero on drift.
 - **Enforced in both IDEs:**
   - Kiro — `.kiro/hooks/sync-agent-docs.json`, a `PostFileSave` hook on `.kiro/steering|skills`.
   - Antigravity — `.agents/hooks.json`: a `PreToolUse` guard that blocks writes into the generated mirror and names the correct source file, plus a `PostToolUse` sync. Antigravity has no file-save event, so these fire on the agent's write tools; human edits still need `npm run sync:agents`.

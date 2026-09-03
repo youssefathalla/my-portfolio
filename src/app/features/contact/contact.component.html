@@ -7,33 +7,29 @@
 
     <div class="p-8 rounded-2xl border border-border bg-card space-y-6">
       @if (submitSuccess()) {
-        <div class="p-6 rounded-xl bg-primary/10 border border-primary/20 text-center space-y-3" role="status">
+        <div
+          class="p-6 rounded-xl bg-primary/10 border border-primary/20 text-center space-y-3"
+          role="status"
+        >
           <p class="text-lg font-semibold text-primary">{{ t().form.successMessage }}</p>
-          <button
-            mat-stroked-button
-            type="button"
-            (click)="submitSuccess.set(false)"
-          >
+          <button mat-stroked-button type="button" (click)="submitSuccess.set(false)">
             {{ t().form.submitButton }}
           </button>
         </div>
       } @else {
         <form (ngSubmit)="submitEnquiry()" class="space-y-4">
           @if (submitError()) {
-            <div class="p-4 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-sm" role="alert">
+            <div
+              class="p-4 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-sm"
+              role="alert"
+            >
               {{ t().form.errorMessage }}
             </div>
           }
 
           <mat-form-field appearance="outline" class="w-full">
             <mat-label>{{ t().form.nameLabel }}</mat-label>
-            <input
-              matInput
-              type="text"
-              name="name"
-              [(ngModel)]="name"
-              required
-            />
+            <input matInput type="text" name="name" [(ngModel)]="name" required />
           </mat-form-field>
 
           <mat-form-field appearance="outline" class="w-full">
@@ -56,6 +52,7 @@
               rows="4"
               [ngModel]="message()"
               (ngModelChange)="message.set($event)"
+              [disabled]="true"
               required
             ></textarea>
           </mat-form-field>
@@ -73,4 +70,3 @@
     </div>
   </div>
 </main>
-

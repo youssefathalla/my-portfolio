@@ -61,7 +61,7 @@ _Why it works:_ Promises a **24–48 hour emergency fix SLA** and deep memory/re
 To drive organic, inbound leads over the coming weeks:
 
 - **Publish a Free Lead Magnet:** Create a downloadable guide or GitHub repo, such as _"My Enterprise .kiro / .cursorrules Steering Template for Angular v22"_.
-- **Write Technical Micro-Articles:** Share quick posts on LinkedIn/X showcasing before-and-after Angular refactoring examples (e.g., converting a heavy RxJS store to NgRx SignalStore).
+- **Write Technical Micro-Articles:** Share quick posts on LinkedIn/X showcasing before-and-after Angular refactoring examples (e.g., converting a heavy RxJS store to modern Angular Signals).
 - **Collect Client Testimonials:** As you complete sprints under your new 60-day warranty policy, ask happy clients for 2-sentence quotes to feature on your case study sections.
 
 Which area would you like to focus on next—setting up your **LinkedIn outreach links**, drafting a **technical article/lead magnet**, or preparing your **cold-outreach message templates**?

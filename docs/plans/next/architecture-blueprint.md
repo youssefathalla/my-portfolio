@@ -71,7 +71,7 @@ Turn your Figma mockups and product vision into an airtight engineering roadmap.
 #### 1. Reactive State & Component Hierarchy Tree
 
 - Complete visual diagram and specification of components, route guards, and lazy-loaded module boundaries.
-- Reactive state management design using modern **Angular Signals** and **NgRx SignalStore** to avoid memory leaks and state drift.
+- Reactive state management design using modern **Angular Signals** to avoid memory leaks and state drift.
 
 #### 2. Database Schema & Security Rule Models
 
@@ -193,7 +193,7 @@ When fulfilling this service for a client, produce a document containing:
 - **Part 1: Executive Summary & System Constraints**
   - Target audience, SLA expectations, device matrix, and localization boundaries.
 - **Part 2: UI & Reactive State Tree**
-  - Visual component hierarchy, route graph, and SignalStore/Signals state architecture.
+  - Visual component hierarchy, route graph, and Signals reactive state architecture.
 - **Part 3: Data Model & Security Schema**
   - Firestore collection models, field types, validation rules, and indexing requirements.
 - **Part 4: API & Integration Matrix**

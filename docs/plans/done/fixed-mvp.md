@@ -15,7 +15,7 @@ Home ➔ Services ➔ Turnkey Web App & MVP Engineering
 
 ### **Headline**
 
-# **Launch Your Web Application with Speed, Predictability, and Zero Technical Debt**
+## **Launch Your Web Application with Speed, Predictability, and Zero Technical Debt**
 
 ## **Subheadline**
 
@@ -86,7 +86,7 @@ Plaintext
 ### **Tashil — Enterprise Multi-Tenant SaaS Platform**
 
 - **Scope:** Multi-tenant administration portal with isolated client environments, granular RBAC permissions, and real-time Arabic/English layout switching.
-- **Tech:** Angular, Firebase, Tailwind CSS, NgRx SignalStore.
+- **Tech:** Angular, Firebase, Tailwind CSS, Angular Signals.
 - **Outcome:** Sub-second multi-tenant rendering and seamless cross-region performance.
 
 #### **Drop-Delivery — Logistics & Fleet Engine**

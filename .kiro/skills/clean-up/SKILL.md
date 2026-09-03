@@ -23,7 +23,11 @@ Strictly analyze modified or newly created files in the working directory / acti
 
 ### 2. Security & Resilience
 
-- **Security Verification:** Ensure input validation/sanitization is robust against injection/XSS. Verify authentication and authorization guards on new routes/endpoints. Check that no secrets, API keys, or sensitive data are exposed in client-side bundles or logs.
+- **Secrets & Credentials (Universal):** Ensure no private keys (`*.pem`, `serviceAccount*.json`, credentials, `.env`) or un-hashed tokens are committed in the diff or leaked into client-side bundles/logs.
+- **Input & Route Protection (Universal):** Ensure input validation/sanitization is robust against injection/XSS. Verify authentication and authorization guards on new routes/endpoints.
+- **Database & Storage Rules (Conditional):** If database/storage rules (`*.rules`, Postgres RLS, etc.) are in the diff, verify default-deny is intact, no open `allow read, write: if true;`, and public writes enforce size/schema validation.
+- **Serverless & Endpoints (Conditional):** If new cloud functions or backend endpoints are in the diff, verify concurrency/instance limits (`maxInstances`) are set, secrets are injected via secret managers, and webhooks verify signatures in constant time.
+- **Query Cost & Scalability (Conditional):** Verify new collection queries include `.limit(n)` or pagination to prevent unbounded cost spikes.
 - → Reported under 🔴 **BLOCKER**.
 
 ### 3. Performance & Efficiency

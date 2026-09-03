@@ -36,7 +36,7 @@
 ### Persona 2: Enterprise CTOs, VPs of Engineering & Tech Leads
 
 - **Pain Points:** Architectural drift, sluggish performance from legacy NgModules/RxJS state, lack of strict typing, difficulty scaling complex multi-tenant systems.
-- **Pitch:** Tier-1 GCC banking platform experience, 100% strict TypeScript (Zero-Any policy), Angular Signals & NgRx SignalStore specialization, Vitest unit test coverage, and strict local AI privacy governance (`.kiro` / `.cursorrules`).
+- **Pitch:** Tier-1 GCC banking platform experience, 100% strict TypeScript (Zero-Any policy), Angular Signals & Zoneless Architecture specialization, Vitest unit test coverage, and strict local AI privacy governance (`.kiro` / `.cursorrules`).
 
 ### Persona 3: Product Managers & Digital Design Agencies
 

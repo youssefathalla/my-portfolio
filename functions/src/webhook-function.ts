@@ -23,9 +23,7 @@ const CALCOM_WEBHOOK_SECRET = defineSecret('CALCOM_WEBHOOK_SECRET');
 const MAX_BODY_BYTES = 65_536; // R12.1
 const MAX_CLOCK_SKEW_MS = 300_000; // 300 seconds — R12.15
 
-if (getApps().length === 0) {
-  initializeApp();
-}
+if (getApps().length === 0) initializeApp();
 
 // ---------------------------------------------------------------------------
 // Signature verification (R12.2, R12.4)
@@ -201,6 +199,7 @@ export const onCalcomWebhook = onRequest(
     region: 'europe-west1',
     secrets: [CALCOM_WEBHOOK_SECRET],
     timeoutSeconds: 60,
+    maxInstances: 10,
   },
   async (req, res) => {
     // Method guard: only POST allowed (R12.1)
@@ -245,7 +244,9 @@ export const onCalcomWebhook = onRequest(
 
     // Freshness check (R12.15)
     if (!isFresh(parseResult.value.eventTimestamp)) {
-      const skewSeconds = Math.round(Math.abs(Date.now() - parseResult.value.eventTimestamp.getTime()) / 1000);
+      const skewSeconds = Math.round(
+        Math.abs(Date.now() - parseResult.value.eventTimestamp.getTime()) / 1000,
+      );
       console.warn(`[webhook-function] rejected: stale event, ${skewSeconds}s skew`);
       res.status(401).send('Stale request');
       return;
