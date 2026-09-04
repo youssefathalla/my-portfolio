@@ -1,4 +1,6 @@
 @use '@angular/material' as mat;
+@use '../themes/frost-fairy' as ff;
+@use '../themes/purple-illusion' as pi;
 @use 'ng-material';
 @use 'base';
 @use 'fonts';
@@ -10,8 +12,8 @@ html {
     (
       color: (
         theme-type: color-scheme,
-        primary: mat.$azure-palette,
-        tertiary: mat.$blue-palette,
+        primary: pi.$primary-palette,
+        tertiary: pi.$tertiary-palette,
       ),
       typography: 'Google Sans Flex',
       density: 0,

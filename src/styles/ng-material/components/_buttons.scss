@@ -1,19 +1,30 @@
 @use '@angular/material' as mat;
 
+// effect all buttons
 :root {
   //* Global Button Shape (M3)
   @include mat.button-overrides((
-    filled-container-shape: 4px,
-    outlined-container-shape: 4px,
-    protected-container-shape: 4px, // elevated
-    text-container-shape: 4px,
-    tonal-container-shape: 4px
+    // filled-container-shape: 4px,
+    // outlined-container-shape: 4px,
+    // protected-container-shape: 4px, // elevated
+    // text-container-shape: 4px,
+    // tonal-container-shape: 4px
   ));
     @include mat.fab-overrides((
-    extended-container-shape: 4px,
+    // extended-container-shape: 4px,
   ));
 }
-
+// for navbar items only
+.nav-items {
+    @include mat.button-overrides((
+      tonal-label-text-size: 18px,
+      text-label-text-size: 18px,
+    ));
+    // Draws the 1px border when active/tonal:
+    &.mat-tonal-button {
+      border: 1px solid var(--mat-sys-outline-variant);
+    }
+}
 /* Target the label ONLY when the button contains a spinner */
 button:has(mat-spinner) .mdc-button__label,
 button.twoIcons .mdc-button__label {

@@ -13,7 +13,7 @@ import { PlaygroundTab, PLAYGROUND_TABS } from '../../playground.model';
   imports: [MatButtonModule, MatTooltipModule, SharedIconModule, HorizontalScrollDirective],
 })
 export class PlaygroundHeaderComponent {
-  readonly activeTab = model<PlaygroundTab>('all');
+  readonly activeTab = model<PlaygroundTab>('colors');
 
   protected readonly themeService = inject(ThemeService);
   protected readonly snackbarService = inject(SnackbarService);

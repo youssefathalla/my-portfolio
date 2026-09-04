@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { SharedIconModule } from '@shared/ui/mat-icon';
 import { BaseCardComponent } from '@shared/ui/cards/base-card/base-card.component';
@@ -19,6 +19,12 @@ import { Review } from '@shared/ui/cards/review-card/review.model';
   templateUrl: './cards-tab.component.html',
 })
 export class CardsTabComponent {
+  protected readonly testCount = signal(0);
+
+  protected incrementCount(): void {
+    this.testCount.update((count) => count + 1);
+  }
+
   protected readonly infoCardFeature: InfoCardData = {
     title: 'Modern Zoneless Architecture',
     iconName: 'bolt',

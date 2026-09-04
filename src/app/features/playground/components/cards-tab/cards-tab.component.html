@@ -52,4 +52,112 @@
     <!-- Review Card (Testimonial with Stars) -->
     <app-review-card [review]="sampleReview" />
   </div>
+
+  <!-- Section Divider: Textured Surfaces & Noise Overlays -->
+  <div class="flex flex-col items-start gap-3 border-b border-outline-variant pb-4 px-3 pt-6">
+    <mat-icon name="grain" size="3xl" iconColor="primary" />
+    <div class="flex flex-col gap-1">
+      <h2 class="font-headline-sm">Textured Dark Surfaces (Noise Overlay)</h2>
+      <p class="font-body-sm text-on-surface-variant">
+        Layered 256x256 repeating noise texture over #111111 with pointer-events-none for tactile depth
+      </p>
+    </div>
+    <span
+      class="text-xs px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-mono"
+    >
+      .textured-surface | .noise-overlay
+    </span>
+  </div>
+
+  <!-- Comparison & Interactivity Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Card 1: Flat Dark Container (Without Texture) -->
+    <div
+      class="relative rounded-corner-md border border-outline-variant/40 bg-[#111111] p-6 flex flex-col justify-between gap-6"
+    >
+      <div class="flex flex-col gap-3">
+        <div class="flex items-center justify-between">
+          <span
+            class="text-xs px-2.5 py-1 rounded bg-surface-container-highest text-on-surface-variant font-mono"
+          >
+            Standard Flat Surface
+          </span>
+          <span class="text-xs text-on-surface-variant font-mono">bg-[#111111]</span>
+        </div>
+        <h3 class="font-title-md text-on-surface font-semibold">Flat #111111 (No Grain)</h3>
+        <p class="font-body-sm text-on-surface-variant">
+          Standard single-color dark background without depth or layering. Notice the uniform flat digital appearance.
+        </p>
+      </div>
+
+      <div class="pt-4 border-t border-outline-variant/20 flex items-center justify-between">
+        <span class="text-xs text-on-surface-variant">Texture: None</span>
+        <button matButton="outlined" disabled>Flat State</button>
+      </div>
+    </div>
+
+    <!-- Card 2: Textured Container with Noise Overlay -->
+    <div
+      class="relative overflow-hidden rounded-corner-md border border-primary/30 bg-[#111111] p-6 flex flex-col justify-between gap-6 shadow-mat-2"
+    >
+      <!-- Decorative Grain Overlay -->
+      <div aria-hidden="true" class="noise-overlay"></div>
+
+      <!-- Foreground Interactive Layer -->
+      <div class="relative z-10 flex flex-col gap-3">
+        <div class="flex items-center justify-between">
+          <span
+            class="text-xs px-2.5 py-1 rounded bg-primary/20 text-primary font-mono font-semibold"
+          >
+            Active Noise Overlay
+          </span>
+          <span class="text-xs text-primary/80 font-mono">opacity: 5%</span>
+        </div>
+        <h3 class="font-title-md text-on-surface font-semibold flex items-center gap-2">
+          Textured Dark (#service)
+          <mat-icon name="check_circle" size="sm" iconColor="primary" />
+        </h3>
+        <p class="font-body-sm text-on-surface-variant">
+          Layered with repeating 256x256 noise at 5% opacity. Notice the tactile film-grain texture and depth.
+        </p>
+      </div>
+
+      <!-- Live pointer-events-none validation -->
+      <div
+        class="relative z-10 pt-4 border-t border-outline-variant/20 flex items-center justify-between"
+      >
+        <div class="flex items-center gap-2">
+          <mat-icon name="touch_app" size="sm" iconColor="primary" />
+          <span class="text-xs text-on-surface-variant">pointer-events: none verified</span>
+        </div>
+        <button matButton="filled" (click)="incrementCount()">
+          Test Click ({{ testCount() }})
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Full-Width Mockup of Service Section with .textured-surface -->
+  <div
+    class="textured-surface rounded-corner-lg border border-outline-variant/40 p-8 flex flex-col gap-6 shadow-mat-3"
+  >
+    <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+      <div class="flex flex-col gap-2">
+        <div class="flex items-center gap-2">
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-primary/15 text-primary">
+            Pattern Showcase
+          </span>
+          <span class="text-xs text-on-surface-variant font-mono">class="textured-surface"</span>
+        </div>
+        <h3 class="font-headline-sm text-on-surface">Service Section Background Simulation</h3>
+        <p class="font-body-sm text-on-surface-variant max-w-2xl">
+          Simulating how #service renders in production. The subtle noise layer creates an organic, premium feel while keeping text contrast crisp and interactive buttons responsive.
+        </p>
+      </div>
+      <div class="flex items-center gap-3">
+        <button matButton="outlined">Inspect Token</button>
+        <button matButton="filled">Try Service Flow</button>
+      </div>
+    </div>
+  </div>
 </section>

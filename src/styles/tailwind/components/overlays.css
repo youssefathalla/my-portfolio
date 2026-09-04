@@ -11,4 +11,231 @@
   .icon-overlay {
     @apply absolute p-2 rounded-corner-xs elements-center bg-secondary-container border border-outline/50 shadow-mat-2;
   }
+
+  /*! textured noise overlays */
+  .noise-overlay {
+    @apply pointer-events-none absolute inset-0 z-0 bg-repeat opacity-5;
+    background-image: url('/textures/noise.png');
+  }
+
+  .textured-surface {
+    @apply relative overflow-hidden bg-[#111111];
+
+    &::before {
+      content: "";
+      @apply pointer-events-none absolute inset-0 z-0 bg-repeat opacity-5;
+      background-image: url('/textures/noise.png');
+    }
+  }
+
+  /*! framer obsidian plum texture */
+  .framer-noise-overlay {
+    @apply pointer-events-none absolute inset-0 z-0 bg-repeat;
+    background-image: url('/textures/framer-noise.jpg');
+    opacity: var(--framer-grain-opacity, 0.4);
+    filter: blur(var(--framer-grain-blur, 0.6px));
+  }
+
+  .framer-surface,
+  .textured-plum {
+    @apply relative overflow-hidden bg-[#120d14];
+
+    &::before {
+      content: "";
+      @apply pointer-events-none absolute inset-0 z-0 bg-repeat;
+      background-image: url('/textures/framer-noise.jpg');
+      opacity: var(--framer-grain-opacity, 0.4);
+      filter: blur(var(--framer-grain-blur, 0.6px));
+      transition: opacity 0.2s ease, filter 0.2s ease;
+    }
+  }
+
+  .btn-framer {
+    position: relative;
+    overflow: hidden !important;
+    isolation: isolate;
+    border-radius: inherit;
+    background-color: #1a141d;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+
+    &::before {
+      content: "";
+      @apply pointer-events-none absolute inset-0 bg-repeat;
+      background-image: url('/textures/framer-noise.jpg');
+      border-radius: inherit;
+      opacity: 0.4;
+      filter: blur(0.5px);
+      z-index: 0;
+    }
+
+    > * {
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  /*! textured buttons */
+  .textured-button,
+  .btn-noise {
+    position: relative;
+    overflow: hidden !important;
+    isolation: isolate;
+    border-radius: inherit;
+
+    &::before {
+      content: "";
+      @apply pointer-events-none absolute inset-0 bg-repeat opacity-10;
+      background-image: url('/textures/noise.png');
+      border-radius: inherit;
+      z-index: 0;
+    }
+
+    > * {
+      position: relative;
+      z-index: 1;
+    }
+  }
+
+  /*! Background Patterns */
+  .bg-tech-grid {
+    background-size: 24px 24px;
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    mask-image: radial-gradient(ellipse 75% 65% at 50% 50%, #000 50%, transparent 100%);
+  }
+
+  .bg-dot-matrix {
+    background-size: 18px 18px;
+    background-image: radial-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+    mask-image: radial-gradient(ellipse 75% 65% at 50% 50%, #000 50%, transparent 100%);
+  }
+
+  .bg-pinstripe {
+    background-image: repeating-linear-gradient(
+      -45deg,
+      rgba(255, 255, 255, 0.04) 0px,
+      rgba(255, 255, 255, 0.04) 1px,
+      transparent 1px,
+      transparent 6px
+    );
+  }
+
+  .bg-topography {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400' viewBox='0 0 400 400'%3E%3Cpath d='M0,40 Q100,10 200,40 T400,40 M0,90 Q120,60 200,90 T400,90 M0,140 Q80,110 200,140 T400,140 M0,190 Q150,160 200,190 T400,190 M0,240 Q100,210 200,240 T400,240 M0,290 Q130,260 200,290 T400,290 M0,340 Q90,310 200,340 T400,340' fill='none' stroke='rgba(255,255,255,0.07)' stroke-width='1.2'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+  }
+
+  /*! Button FX & Micro-treatments */
+  .btn-hardware {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.22),
+      inset 0 -1px 0 rgba(0, 0, 0, 0.4),
+      0 4px 14px rgba(0, 0, 0, 0.4);
+  }
+
+  .btn-shimmer-sweep {
+    position: relative;
+    overflow: hidden !important;
+    isolation: isolate;
+    border-radius: inherit;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      transform: translateX(-100%);
+      background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(255, 255, 255, 0.18) 50%,
+        transparent 100%
+      );
+      animation: shimmer-sweep 2.6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      pointer-events: none;
+      border-radius: inherit;
+      z-index: 1;
+    }
+  }
+
+  .btn-spotlight {
+    position: relative;
+    overflow: hidden !important;
+    isolation: isolate;
+    border-radius: inherit;
+
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: radial-gradient(
+        circle 90px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+        rgba(255, 255, 255, 0.18),
+        transparent 100%
+      );
+      opacity: var(--spotlight-opacity, 0);
+      transition: opacity 0.2s ease;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    &:hover {
+      --spotlight-opacity: 1;
+    }
+  }
+
+  @keyframes shimmer-sweep {
+    0% {
+      transform: translateX(-100%);
+    }
+    60%,
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  /*! Interactive Card Aurora & Spotlight */
+  .card-spotlight-aurora {
+    position: relative;
+    overflow: hidden !important;
+    isolation: isolate;
+
+    .orb-cursor-green {
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      left: var(--mouse-x, 80%);
+      top: var(--mouse-y, 80%);
+      transform: translate(-50%, -50%);
+      border-radius: 9999px;
+      background: radial-gradient(circle, rgba(0, 228, 114, 0.45) 0%, transparent 70%);
+      filter: blur(40px);
+      pointer-events: none;
+      transition: transform 0.08s ease-out;
+      z-index: 0;
+    }
+
+    .orb-opposite-blue {
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      left: var(--opp-x, 20%);
+      top: var(--opp-y, 20%);
+      transform: translate(-50%, -50%);
+      border-radius: 9999px;
+      background: radial-gradient(circle, rgba(0, 92, 187, 0.5) 0%, transparent 70%);
+      filter: blur(45px);
+      pointer-events: none;
+      transition: transform 0.08s ease-out;
+      z-index: 0;
+    }
+
+    > * {
+      position: relative;
+      z-index: 1;
+    }
+  }
 }

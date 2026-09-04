@@ -1,20 +1,162 @@
 <section id="typography" class="flex flex-col gap-6">
+  <!-- Header -->
   <div class="flex flex-col items-start gap-3 border-b border-outline-variant pb-4 px-3">
     <mat-icon name="text_fields" size="3xl" iconColor="primary" />
     <div class="flex flex-col gap-1">
-      <h2 class="font-headline-sm">Semantic Typography</h2>
+      <h2 class="font-headline-sm">Typography Lab & Font Tester</h2>
       <p class="font-body-sm text-on-surface-variant">
-        Strict M3 Typography scale classes mapped to Google Sans Flex
+        Interactive specimen playground — click any font to preview across all scales or numbers in real-time
       </p>
     </div>
-    <span
-      class="text-xs px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-mono"
-    >
-      No generic text-3xl / font-bold
-    </span>
+    <div class="flex flex-wrap gap-2">
+      <span
+        class="text-xs px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-mono"
+      >
+        Strict M3 Typography Scale
+      </span>
+      <span
+        class="text-xs px-2.5 py-1 rounded bg-primary-container text-on-primary-container font-mono"
+      >
+        Active Font: {{ activeFont().name }} ({{ activeFont().category }})
+      </span>
+    </div>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+  <!-- Interactive Font Switcher Toolbar -->
+  <div
+    class="p-5 rounded-corner-xs bg-surface-container-low border border-outline-variant flex flex-col gap-4"
+  >
+    <!-- Top Row: Font Selector Buttons -->
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      <div class="flex items-center gap-2">
+        <mat-icon name="font_download" size="sm" iconColor="primary" />
+        <span class="font-label-md font-semibold text-on-surface">Select Font to Test:</span>
+      </div>
+
+      <!-- Buttons for every font in config -->
+      <div class="flex flex-wrap items-center gap-2">
+        @for (font of fonts; track font.id) {
+          <button
+            type="button"
+            (click)="selectFont(font)"
+            class="px-3 py-2 rounded-corner-xs font-label-md transition-all flex items-center gap-2 cursor-pointer shadow-mat-1"
+            [class.bg-primary]="activeFontId() === font.id"
+            [class.text-on-primary]="activeFontId() === font.id"
+            [class.bg-surface-container]="activeFontId() !== font.id"
+            [class.text-on-surface-variant]="activeFontId() !== font.id"
+            [class.hover:bg-surface-container-high]="activeFontId() !== font.id"
+            [class.hover:text-on-surface]="activeFontId() !== font.id"
+          >
+            <span class="font-semibold">{{ font.name }}</span>
+            <span
+              class="text-[10px] px-1.5 py-0.5 rounded font-mono uppercase tracking-wider"
+              [class.bg-on-primary/20]="activeFontId() === font.id"
+              [class.bg-surface-container-highest]="activeFontId() !== font.id"
+            >
+              {{ font.category }}
+            </span>
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Middle Row: Scope & Weight Controls -->
+    <div
+      class="flex flex-col md:flex-row md:items-center justify-between gap-4 pt-3 border-t border-outline-variant/50"
+    >
+      <!-- Scope Selection -->
+      <div class="flex items-center gap-2">
+        <span class="font-label-sm text-on-surface-variant">Preview Scope:</span>
+        <div class="inline-flex p-1 rounded-corner-xs bg-surface-container border border-outline-variant">
+          <button
+            type="button"
+            (click)="selectScope('all')"
+            class="px-3 py-1.5 rounded-corner-xs font-label-sm transition-colors cursor-pointer flex items-center gap-1.5"
+            [class.bg-secondary]="targetScope() === 'all'"
+            [class.text-on-secondary]="targetScope() === 'all'"
+            [class.text-on-surface-variant]="targetScope() !== 'all'"
+          >
+            <mat-icon name="view_quilt" size="xs" />
+            <span>All Scales (Entire Page)</span>
+          </button>
+          <button
+            type="button"
+            (click)="selectScope('numbers')"
+            class="px-3 py-1.5 rounded-corner-xs font-label-sm transition-colors cursor-pointer flex items-center gap-1.5"
+            [class.bg-secondary]="targetScope() === 'numbers'"
+            [class.text-on-secondary]="targetScope() === 'numbers'"
+            [class.text-on-surface-variant]="targetScope() !== 'numbers'"
+          >
+            <mat-icon name="tag" size="xs" />
+            <span>Numbers & Metrics Only</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Weight Selection -->
+      <div class="flex items-center gap-2">
+        <span class="font-label-sm text-on-surface-variant">Weight:</span>
+        <div class="inline-flex p-1 rounded-corner-xs bg-surface-container border border-outline-variant">
+          @for (w of weightOptions; track w) {
+            <button
+              type="button"
+              (click)="selectWeight(w)"
+              class="px-2 py-1 rounded-corner-xs font-label-xs font-mono transition-colors cursor-pointer"
+              [class.bg-tertiary]="activeWeight() === w"
+              [class.text-on-tertiary]="activeWeight() === w"
+              [class.text-on-surface-variant]="activeWeight() !== w"
+            >
+              {{ w }}
+            </button>
+          }
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Font Info & Extension Guide -->
+    <div
+      class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs bg-surface-container/60 p-3 rounded-corner-xs text-on-surface-variant"
+    >
+      <div class="flex items-center gap-2">
+        <mat-icon name="info" size="xs" iconColor="primary" />
+        <span>
+          <strong class="text-on-surface">{{ activeFont().name }}</strong> ({{ activeFont().weightRange }}):
+          {{ activeFont().notes }}
+        </span>
+      </div>
+      <span class="font-mono text-[11px] opacity-80">
+        Add new fonts in typography-fonts.config.ts
+      </span>
+    </div>
+  </div>
+
+  <!-- Custom Specimen Input -->
+  <div class="p-4 rounded-corner-xs bg-surface-container-low border border-outline-variant flex flex-col gap-2">
+    <div class="flex items-center justify-between">
+      <span class="font-label-sm text-primary font-semibold tracking-wider">LIVE SPECIMEN TESTER</span>
+      <span class="font-body-xs text-on-surface-variant font-mono">Type any custom text or numbers to test</span>
+    </div>
+    <input
+      type="text"
+      [ngModel]="customSample()"
+      (ngModelChange)="customSample.set($event)"
+      class="w-full bg-surface-container border border-outline-variant rounded-corner-xs px-3 py-2 text-on-surface font-body-md focus:outline-none focus:border-primary"
+      placeholder="Type custom text or numbers..."
+    />
+    <div
+      class="pt-3 border-t border-outline-variant/40 font-display-md text-on-surface truncate"
+      [style.fontFamily]="activeFont().family"
+      [style.fontWeight]="activeWeight()"
+    >
+      {{ customSample() || 'The quick brown fox jumps over 100% lazy dogs' }}
+    </div>
+  </div>
+
+  <!-- Typography Scale Cards Grid -->
+  <div
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 transition-all"
+    [style]="containerStyles()"
+  >
     <!-- Display Scale -->
     <div
       class="bg-surface-container-low p-6 rounded-corner-xs border border-outline-variant flex flex-col gap-4"
@@ -23,15 +165,15 @@
       <div class="flex flex-col gap-3">
         <div class="border-b border-outline-variant/40 pb-2">
           <div class="font-display-lg text-on-surface">Display Large</div>
-          <span class="font-body-xs text-on-surface-variant font-mono">.font-display-lg</span>
+          <span class="font-body-xs text-on-surface-variant font-mono">.font-display-lg (57px)</span>
         </div>
         <div class="border-b border-outline-variant/40 pb-2">
           <div class="font-display-md text-on-surface">Display Medium</div>
-          <span class="font-body-xs text-on-surface-variant font-mono">.font-display-md</span>
+          <span class="font-body-xs text-on-surface-variant font-mono">.font-display-md (45px)</span>
         </div>
         <div>
           <div class="font-display-sm text-on-surface">Display Small</div>
-          <span class="font-body-xs text-on-surface-variant font-mono">.font-display-sm</span>
+          <span class="font-body-xs text-on-surface-variant font-mono">.font-display-sm (36px)</span>
         </div>
       </div>
     </div>
@@ -44,15 +186,15 @@
       <div class="flex flex-col gap-3">
         <div class="border-b border-outline-variant/40 pb-2">
           <div class="font-headline-lg text-on-surface">Headline Large</div>
-          <span class="font-body-xs text-on-surface-variant font-mono">.font-headline-lg</span>
+          <span class="font-body-xs text-on-surface-variant font-mono">.font-headline-lg (32px)</span>
         </div>
         <div class="border-b border-outline-variant/40 pb-2">
           <div class="font-headline-md text-on-surface">Headline Medium</div>
-          <span class="font-body-xs text-on-surface-variant font-mono">.font-headline-md</span>
+          <span class="font-body-xs text-on-surface-variant font-mono">.font-headline-md (28px)</span>
         </div>
         <div>
           <div class="font-headline-sm text-on-surface">Headline Small</div>
-          <span class="font-body-xs text-on-surface-variant font-mono">.font-headline-sm</span>
+          <span class="font-body-xs text-on-surface-variant font-mono">.font-headline-sm (24px)</span>
         </div>
       </div>
     </div>
@@ -65,15 +207,15 @@
       <div class="flex flex-col gap-3">
         <div class="border-b border-outline-variant/40 pb-2">
           <div class="font-title-lg text-on-surface">Title Large - Section Header</div>
-          <span class="font-body-xs text-on-surface-variant font-mono">.font-title-lg</span>
+          <span class="font-body-xs text-on-surface-variant font-mono">.font-title-lg (22px)</span>
         </div>
         <div class="border-b border-outline-variant/40 pb-2">
           <div class="font-title-md text-on-surface">Title Medium - Card Header</div>
-          <span class="font-body-xs text-on-surface-variant font-mono">.font-title-md</span>
+          <span class="font-body-xs text-on-surface-variant font-mono">.font-title-md (16px)</span>
         </div>
         <div>
           <div class="font-title-sm text-on-surface">Title Small - Subsection Header</div>
-          <span class="font-body-xs text-on-surface-variant font-mono">.font-title-sm</span>
+          <span class="font-body-xs text-on-surface-variant font-mono">.font-title-sm (14px)</span>
         </div>
       </div>
     </div>
@@ -85,20 +227,22 @@
       <span class="font-label-md text-primary font-semibold tracking-wider">BODY SCALES</span>
       <div class="flex flex-col gap-3">
         <div class="border-b border-outline-variant/40 pb-2">
-          <p class="font-body-lg text-on-surface">Body Large: Extended reading & intro passages.</p>
-          <span class="font-body-xs text-on-surface-variant font-mono">.font-body-lg</span>
+          <p class="font-body-lg text-on-surface">
+            Body Large: Extended reading & intro passages across product pages.
+          </p>
+          <span class="font-body-xs text-on-surface-variant font-mono">.font-body-lg (16px)</span>
         </div>
         <div class="border-b border-outline-variant/40 pb-2">
-          <p class="font-body-md text-on-surface-variant">
-            Body Medium: Default body text for paragraphs & forms.
+          <p class="font-body-md text-on-surface">
+            Body Medium: Default body text for paragraphs, descriptions & forms.
           </p>
-          <span class="font-body-xs text-on-surface-variant font-mono">.font-body-md</span>
+          <span class="font-body-xs text-on-surface-variant font-mono">.font-body-md (14px)</span>
         </div>
         <div>
-          <p class="font-body-sm text-on-surface-variant">
+          <p class="font-body-sm text-on-surface">
             Body Small: Helper text, descriptions & small captions.
           </p>
-          <span class="font-body-xs text-on-surface-variant font-mono">.font-body-sm</span>
+          <span class="font-body-xs text-on-surface-variant font-mono">.font-body-sm (12px)</span>
         </div>
       </div>
     </div>
@@ -111,17 +255,49 @@
       <div class="flex flex-col gap-3">
         <div class="border-b border-outline-variant/40 pb-2">
           <div class="font-label-lg text-primary">Label Large: Buttons, Tabs & Primary Actions</div>
-          <span class="font-body-xs text-on-surface-variant font-mono">.font-label-lg</span>
+          <span class="font-body-xs text-on-surface-variant font-mono">.font-label-lg (14px)</span>
         </div>
         <div class="border-b border-outline-variant/40 pb-2">
           <div class="font-label-md text-on-surface">Label Medium: Badges, Chips & Form Labels</div>
-          <span class="font-body-xs text-on-surface-variant font-mono">.font-label-md</span>
+          <span class="font-body-xs text-on-surface-variant font-mono">.font-label-md (12px)</span>
         </div>
         <div>
           <div class="font-label-sm text-on-surface-variant">
             Label Small: Captions, Metadata & Overline Text
           </div>
-          <span class="font-body-xs text-on-surface-variant font-mono">.font-label-sm</span>
+          <span class="font-body-xs text-on-surface-variant font-mono">.font-label-sm (11px)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Numeric & Metrics Scale -->
+    <div
+      class="bg-surface-container-low p-6 rounded-corner-xs border border-outline-variant flex flex-col gap-4"
+    >
+      <div class="flex items-center justify-between">
+        <span class="font-label-md text-tertiary font-semibold tracking-wider">
+          NUMERIC & METRICS
+        </span>
+        <span class="text-xs px-2 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-mono">
+          .font-numeric
+        </span>
+      </div>
+      <div class="flex flex-col gap-3">
+        <div class="border-b border-outline-variant/40 pb-2 flex items-baseline justify-between">
+          <div class="font-display-lg font-numeric text-primary">100%</div>
+          <span class="font-body-xs text-on-surface-variant font-mono">.font-display-lg .font-numeric</span>
+        </div>
+        <div class="border-b border-outline-variant/40 pb-2 flex items-baseline justify-between">
+          <div class="font-headline-md font-numeric text-on-surface">60 days</div>
+          <span class="font-body-xs text-on-surface-variant font-mono">.font-headline-md .font-numeric</span>
+        </div>
+        <div class="border-b border-outline-variant/40 pb-2 flex items-baseline justify-between">
+          <div class="font-title-lg font-numeric text-tertiary">+24.8% YoY</div>
+          <span class="font-body-xs text-on-surface-variant font-mono">.font-title-lg .font-numeric</span>
+        </div>
+        <div class="flex items-baseline justify-between">
+          <div class="font-body-md font-numeric text-on-surface-variant">$14,250.00</div>
+          <span class="font-body-xs text-on-surface-variant font-mono">.font-body-md .font-numeric</span>
         </div>
       </div>
     </div>

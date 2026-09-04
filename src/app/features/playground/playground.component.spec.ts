@@ -23,4 +23,8 @@ describe('PlaygroundComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should have "colors" as the default active tab', () => {
+    expect(component['activeTab']()).toBe('colors');
+  });
 });

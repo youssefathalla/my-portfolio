@@ -1,6 +1,5 @@
-<button matButton [matMenuTriggerFor]="menu">
+<button mat-icon-button [matMenuTriggerFor]="menu" [attr.aria-label]="content().language">
   <mat-icon name="language" />
-  <span class="ml-2">{{ content().language }}</span>
 </button>
 <mat-menu #menu="matMenu">
   @for (target of targets(); track target.locale) {

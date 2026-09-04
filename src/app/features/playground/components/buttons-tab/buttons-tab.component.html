@@ -149,4 +149,106 @@
       <mat-checkbox disabled [checked]="true">Disabled Checked</mat-checkbox>
     </div>
   </div>
+
+  <!-- Textured Buttons Row (Experimental / Noise Background) -->
+  <div
+    class="bg-surface-container-low p-6 rounded-corner-xs border border-outline-variant flex flex-col gap-6"
+  >
+    <div
+      class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-outline-variant/40 pb-4"
+    >
+      <div class="flex items-center gap-3">
+        <mat-icon name="grain" iconColor="primary" size="2xl" />
+        <div class="flex flex-col">
+          <span class="font-title-sm text-primary">Textured Buttons (.textured-button / .btn-noise)</span>
+          <span class="font-body-xs text-on-surface-variant">
+            Layered 256x256 repeating noise texture over button fills for tactile depth
+          </span>
+        </div>
+      </div>
+      <span
+        class="text-xs px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-mono self-start sm:self-auto"
+      >
+        class="textured-button"
+      </span>
+    </div>
+
+    <!-- Live Comparison & Click Interactivity -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <!-- Standard Smooth Filled vs Textured Filled -->
+      <div class="p-4 rounded-corner-xs border border-outline-variant/30 flex flex-col gap-3">
+        <span class="text-xs font-mono text-on-surface-variant">Primary: Smooth vs Textured</span>
+        <button matButton="filled" class="flex items-center justify-center gap-2">
+          <mat-icon name="send" />
+          <span>Smooth Standard</span>
+        </button>
+        <button
+          matButton="filled"
+          class="textured-button flex items-center justify-center gap-2 shadow-mat-1"
+          (click)="incrementClicks()"
+        >
+          <mat-icon name="grain" />
+          <span>Textured Primary</span>
+        </button>
+      </div>
+
+      <!-- Tactical Dark #111111 Textured Button -->
+      <div class="p-4 rounded-corner-xs border border-outline-variant/30 flex flex-col gap-3">
+        <span class="text-xs font-mono text-on-surface-variant">Dark #111111 (#service)</span>
+        <button
+          matButton="filled"
+          class="bg-[#111111]! text-on-surface! border border-outline-variant/40 flex items-center justify-center gap-2"
+        >
+          <mat-icon name="dark_mode" />
+          <span>Flat Dark</span>
+        </button>
+        <button
+          matButton="filled"
+          class="textured-button bg-[#111111]! text-on-surface! border border-outline-variant/40 flex items-center justify-center gap-2 shadow-mat-1"
+          (click)="incrementClicks()"
+        >
+          <mat-icon name="texture" />
+          <span>Textured Dark</span>
+        </button>
+      </div>
+
+      <!-- Tonal & Status with Texture -->
+      <div class="p-4 rounded-corner-xs border border-outline-variant/30 flex flex-col gap-3">
+        <span class="text-xs font-mono text-on-surface-variant">Tonal & Status Themes</span>
+        <button
+          matButton="tonal"
+          class="textured-button flex items-center justify-center gap-2"
+          (click)="incrementClicks()"
+        >
+          <mat-icon name="bookmark" />
+          <span>Textured Tonal</span>
+        </button>
+        <button
+          matButton="filled"
+          theme="success"
+          class="textured-button flex items-center justify-center gap-2"
+          (click)="incrementClicks()"
+        >
+          <mat-icon name="check_circle" />
+          <span>Textured Success</span>
+        </button>
+      </div>
+
+      <!-- Interactive Verification Box -->
+      <div
+        class="p-4 rounded-corner-xs border border-primary/30 bg-surface-container flex flex-col justify-between gap-3"
+      >
+        <div class="flex flex-col gap-1">
+          <span class="text-xs font-mono text-primary font-semibold">Hit-Testing & Ripple Test</span>
+          <p class="font-body-xs text-on-surface-variant">
+            Click any textured button to confirm pointer events, ripple animations, and reactive signal state.
+          </p>
+        </div>
+        <div class="flex items-center justify-between pt-2 border-t border-outline-variant/30">
+          <span class="text-xs text-on-surface-variant">Total Clicks:</span>
+          <span class="font-mono text-sm font-bold text-primary">{{ buttonClicks() }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>

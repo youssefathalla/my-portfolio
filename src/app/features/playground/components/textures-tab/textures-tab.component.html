@@ -1,0 +1,490 @@
+<section id="textures" class="flex flex-col gap-8">
+  <!-- Tab Header Banner -->
+  <div class="flex flex-col items-start gap-3 border-b border-outline-variant pb-4 px-3">
+    <mat-icon name="grain" size="3xl" iconColor="primary" />
+    <div class="flex flex-col gap-1">
+      <h2 class="font-headline-sm">Textures, Backgrounds & Button Micro-Optics</h2>
+      <p class="font-body-sm text-on-surface-variant">
+        Explore and compare textures beyond standard noise: engineering coordinate grids, dot matrix arrays, topography, chromatic glows, and hardware-styled buttons.
+      </p>
+    </div>
+    <div class="flex flex-wrap gap-2 pt-1">
+      <span class="text-xs px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-mono">
+        .noise-overlay
+      </span>
+      <span class="text-xs px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-mono">
+        .bg-tech-grid
+      </span>
+      <span class="text-xs px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-mono">
+        .bg-dot-matrix
+      </span>
+      <span class="text-xs px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-mono">
+        .bg-topography
+      </span>
+      <span class="text-xs px-2.5 py-1 rounded bg-surface-container-high text-on-surface-variant font-mono">
+        .bg-pinstripe
+      </span>
+      <span class="text-xs px-2.5 py-1 rounded bg-primary/20 text-primary font-mono font-semibold">
+        .btn-hardware | .btn-spotlight
+      </span>
+    </div>
+  </div>
+
+  <!-- Part 1: Background Textures Showcase (6 Types) -->
+  <div class="flex flex-col gap-4">
+    <h3 class="font-title-md text-primary flex items-center gap-2">
+      <mat-icon name="layers" size="sm" iconColor="primary" />
+      Background Texture Gallery (Rendered over #111111)
+    </h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <!-- 1. Film Grain Noise -->
+      <div class="relative overflow-hidden bg-[#111111] p-6 rounded-corner-md border border-outline-variant/40 flex flex-col justify-between gap-6 shadow-mat-1 min-h-64">
+        <div aria-hidden="true" class="noise-overlay"></div>
+        <div class="relative z-10 flex flex-col gap-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs px-2.5 py-0.5 rounded bg-primary/20 text-primary font-mono font-semibold">
+              Film Grain (PNG Tile)
+            </span>
+            <span class="text-xs text-on-surface-variant font-mono">opacity: 5%</span>
+          </div>
+          <h4 class="font-title-sm text-on-surface font-semibold flex items-center gap-2">
+            Organic Noise Grain
+            <mat-icon name="check_circle" size="xs" iconColor="primary" />
+          </h4>
+          <p class="font-body-xs text-on-surface-variant leading-relaxed">
+            Eliminates digital color banding, adds a tactile paper/matte finish, and grounds dark mode with physical depth.
+          </p>
+        </div>
+        <div class="relative z-10 pt-3 border-t border-outline-variant/20 flex items-center justify-between">
+          <span class="text-xs text-on-surface-variant font-mono">.noise-overlay</span>
+          <button matButton="outlined" class="h-8 text-xs">Inspect</button>
+        </div>
+      </div>
+
+      <!-- 2. Technical Coordinate Grid -->
+      <div class="relative overflow-hidden bg-[#111111] p-6 rounded-corner-md border border-outline-variant/40 flex flex-col justify-between gap-6 shadow-mat-1 min-h-64">
+        <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0 bg-tech-grid"></div>
+        <div class="relative z-10 flex flex-col gap-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs px-2.5 py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-mono font-semibold">
+              Cartesian Grid (CSS)
+            </span>
+            <span class="text-xs text-on-surface-variant font-mono">24px grid</span>
+          </div>
+          <h4 class="font-title-sm text-on-surface font-semibold flex items-center gap-2">
+            Architectural Coordinate Grid
+            <mat-icon name="grid_view" size="xs" iconColor="primary" />
+          </h4>
+          <p class="font-body-xs text-on-surface-variant leading-relaxed">
+            Ultra-fine 1px coordinate lines with elliptical radial mask. Communicates developer precision and architectural structure.
+          </p>
+        </div>
+        <div class="relative z-10 pt-3 border-t border-outline-variant/20 flex items-center justify-between">
+          <span class="text-xs text-on-surface-variant font-mono">.bg-tech-grid</span>
+          <button matButton="outlined" class="h-8 text-xs">Inspect</button>
+        </div>
+      </div>
+
+      <!-- 3. Dot Matrix Array -->
+      <div class="relative overflow-hidden bg-[#111111] p-6 rounded-corner-md border border-outline-variant/40 flex flex-col justify-between gap-6 shadow-mat-1 min-h-64">
+        <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0 bg-dot-matrix"></div>
+        <div class="relative z-10 flex flex-col gap-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs px-2.5 py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-mono font-semibold">
+              Stipple Matrix (CSS)
+            </span>
+            <span class="text-xs text-on-surface-variant font-mono">18px pitch</span>
+          </div>
+          <h4 class="font-title-sm text-on-surface font-semibold flex items-center gap-2">
+            Geometric Dot Matrix
+            <mat-icon name="apps" size="xs" iconColor="primary" />
+          </h4>
+          <p class="font-body-xs text-on-surface-variant leading-relaxed">
+            High-tech stipple array fading softly toward the perimeter. Clean, subtle, and lighter than solid lines.
+          </p>
+        </div>
+        <div class="relative z-10 pt-3 border-t border-outline-variant/20 flex items-center justify-between">
+          <span class="text-xs text-on-surface-variant font-mono">.bg-dot-matrix</span>
+          <button matButton="outlined" class="h-8 text-xs">Inspect</button>
+        </div>
+      </div>
+
+      <!-- 4. Topographic Contour Elevation -->
+      <div class="relative overflow-hidden bg-[#111111] p-6 rounded-corner-md border border-outline-variant/40 flex flex-col justify-between gap-6 shadow-mat-1 min-h-64">
+        <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0 bg-topography"></div>
+        <div class="relative z-10 flex flex-col gap-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs px-2.5 py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-mono font-semibold">
+              Contour Map (SVG)
+            </span>
+            <span class="text-xs text-on-surface-variant font-mono">Vector Curvature</span>
+          </div>
+          <h4 class="font-title-sm text-on-surface font-semibold flex items-center gap-2">
+            Topographic Elevation
+            <mat-icon name="terrain" size="xs" iconColor="primary" />
+          </h4>
+          <p class="font-body-xs text-on-surface-variant leading-relaxed">
+            Undulating topographic elevation curves at 7% opacity. Creates an organic sense of scale and spatial exploration.
+          </p>
+        </div>
+        <div class="relative z-10 pt-3 border-t border-outline-variant/20 flex items-center justify-between">
+          <span class="text-xs text-on-surface-variant font-mono">.bg-topography</span>
+          <button matButton="outlined" class="h-8 text-xs">Inspect</button>
+        </div>
+      </div>
+
+      <!-- 5. Diagonal Carbon Micro-Pinstripe -->
+      <div class="relative overflow-hidden bg-[#111111] p-6 rounded-corner-md border border-outline-variant/40 flex flex-col justify-between gap-6 shadow-mat-1 min-h-64">
+        <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0 bg-pinstripe"></div>
+        <div class="relative z-10 flex flex-col gap-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs px-2.5 py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-mono font-semibold">
+              Micro-Hatch (CSS)
+            </span>
+            <span class="text-xs text-on-surface-variant font-mono">-45deg pinstripe</span>
+          </div>
+          <h4 class="font-title-sm text-on-surface font-semibold flex items-center gap-2">
+            Tactile Carbon Pinstripe
+            <mat-icon name="menu" size="xs" iconColor="primary" />
+          </h4>
+          <p class="font-body-xs text-on-surface-variant leading-relaxed">
+            Industrial diagonal micro-stripes. Excellent for accent zones, card sidebars, and high-contrast callout blocks.
+          </p>
+        </div>
+        <div class="relative z-10 pt-3 border-t border-outline-variant/20 flex items-center justify-between">
+          <span class="text-xs text-on-surface-variant font-mono">.bg-pinstripe</span>
+          <button matButton="outlined" class="h-8 text-xs">Inspect</button>
+        </div>
+      </div>
+
+      <!-- 6. Interactive Ambient Aurora Mesh Glow -->
+      <div
+        (mousemove)="onCardSpotlightMove($event)"
+        class="card-spotlight-aurora relative overflow-hidden bg-[#111111] p-6 rounded-corner-md border border-primary/40 flex flex-col justify-between gap-6 shadow-mat-3 min-h-64 cursor-crosshair"
+      >
+        <!-- 1. Cursor-Tracking Green Light Orb -->
+        <div aria-hidden="true" class="orb-cursor-green"></div>
+
+        <!-- 2. Counterpoint Azure Light Orb (Opposite Movement) -->
+        @if (lightMode() === 'opposite') {
+          <div aria-hidden="true" class="orb-opposite-blue"></div>
+        }
+
+        <!-- 3. Film Grain Noise Overlay (Matte frosted luminescence) -->
+        <div aria-hidden="true" class="noise-overlay"></div>
+
+        <div class="relative z-10 flex flex-col gap-2">
+          <div class="flex items-center justify-between">
+            <span class="text-xs px-2.5 py-0.5 rounded bg-success/20 text-success font-mono font-semibold">
+              Live Spotlight Mesh
+            </span>
+            <span class="text-xs text-on-surface-variant font-mono flex items-center gap-1">
+              <mat-icon name="radar" size="xs" iconColor="primary" />
+              Hover & Move
+            </span>
+          </div>
+          <h4 class="font-title-sm text-on-surface font-semibold flex items-center gap-2">
+            Dynamic Aurora Card
+            <mat-icon name="flare" size="xs" iconColor="primary" />
+          </h4>
+          <p class="font-body-xs text-on-surface-variant leading-relaxed">
+            Move your mouse inside! The <strong>green orb</strong> follows your cursor, while the <strong>blue orb</strong> glides in the opposite direction.
+          </p>
+        </div>
+
+        <div class="relative z-10 pt-3 border-t border-outline-variant/20 flex items-center justify-between">
+          <button
+            matButton="tonal"
+            class="h-8 text-xs flex items-center gap-1"
+            (click)="toggleLightMode()"
+          >
+            <mat-icon [name]="lightMode() === 'opposite' ? 'sync_alt' : 'circle'" size="xs" />
+            <span>Mode: {{ lightMode() === 'opposite' ? 'Opposite Dual' : 'Single Cursor' }}</span>
+          </button>
+          <button matButton="filled" class="h-8 text-xs" (click)="incrementClicks()">
+            Interact ({{ testClicks() }})
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Atmosphere Comparison: Charcoal (#111111) vs Framer Obsidian Plum (#120d14) -->
+  <div class="flex flex-col gap-4 pt-2">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-outline-variant/40 pb-3">
+      <div class="flex items-center gap-2">
+        <mat-icon name="palette" size="sm" iconColor="primary" />
+        <h3 class="font-title-md text-primary">
+          Dark Atmosphere Head-to-Head: Charcoal #111111 vs. Framer Plum #120d14
+        </h3>
+      </div>
+      <span class="text-xs font-mono text-on-surface-variant">
+        Base: rgb(18, 13, 20) + 400x400 JPG Grain
+      </span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Card A: Neutral Charcoal (#111111 + PNG Noise) -->
+      <div class="textured-surface p-8 rounded-corner-lg border border-outline-variant/40 flex flex-col justify-between gap-6 shadow-mat-2 min-h-72">
+        <div class="relative z-10 flex flex-col gap-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs px-2.5 py-0.5 rounded bg-surface-container-highest text-on-surface-variant font-mono">
+              Base: rgb(17, 17, 17) / #111111
+            </span>
+            <span class="text-xs text-on-surface-variant font-mono">256x256 PNG Tile</span>
+          </div>
+          <h4 class="font-title-lg text-on-surface font-bold">
+            Charcoal Matte (#111111)
+          </h4>
+          <p class="font-body-sm text-on-surface-variant leading-relaxed">
+            Neutral, cold-cast grayscale dark mode. High visual neutrality ideal for developer tooling, engineering dashboards, and clean typography with zero hue bias.
+          </p>
+        </div>
+
+        <div class="relative z-10 pt-4 border-t border-outline-variant/20 flex items-center justify-between">
+          <span class="text-xs font-mono text-on-surface-variant">class="textured-surface"</span>
+          <button matButton="filled" class="textured-button">
+            <span>Charcoal Button</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Card B: Framer Obsidian Plum (#120d14 + JPG Noise) -->
+      <div
+        class="framer-surface p-8 rounded-corner-lg border border-[#3b2a42]/70 flex flex-col justify-between gap-6 shadow-mat-3 min-h-72"
+        [style.--framer-grain-opacity]="framerGrainOpacity()"
+        [style.--framer-grain-blur]="framerBlur() + 'px'"
+      >
+        <div class="relative z-10 flex flex-col gap-3">
+          <div class="flex items-center justify-between">
+            <span class="text-xs px-2.5 py-0.5 rounded bg-[#3b2a42]/70 text-[#e9c6f5] font-mono font-semibold">
+              Base: rgb(18, 13, 20) / #120d14
+            </span>
+            <span class="text-xs text-[#d1b0de] font-mono">400x400 JPG Tile</span>
+          </div>
+          <h4 class="font-title-lg text-[#f5edfa] font-bold flex items-center gap-2">
+            Framer Obsidian Plum
+            <span class="px-2 py-0.5 rounded-full text-xs font-normal bg-[#9c27b0]/20 text-[#e1bee7] border border-[#ba68c8]/30">
+              Framer Spec
+            </span>
+          </h4>
+          <p class="font-body-sm text-[#cebed6] leading-relaxed">
+            Velvety warm dark-purple base directly sourced from Framer landing page architecture. Tiled with <strong>framer-noise.jpg</strong>.
+          </p>
+
+          <!-- Grain Intensity & Softness Controller -->
+          <div class="flex flex-col gap-2 pt-2">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="text-xs text-[#cebed6] font-mono">Intensity & Blur:</span>
+              <button
+                type="button"
+                class="px-2.5 py-1 rounded text-xs font-mono cursor-pointer transition-colors"
+                [class]="framerGrainOpacity() === 0.2 && framerBlur() === 0.8 ? 'bg-[#9c27b0] text-white font-bold' : 'bg-[#291b30] text-[#d1b0de] hover:bg-[#3b2a42]'"
+                (click)="setFramerGrain(0.2, 0.8)"
+              >
+                Subtle (20%, Soft)
+              </button>
+              <button
+                type="button"
+                class="px-2.5 py-1 rounded text-xs font-mono cursor-pointer transition-colors"
+                [class]="framerGrainOpacity() === 0.35 && framerBlur() === 0.6 ? 'bg-[#9c27b0] text-white font-bold' : 'bg-[#291b30] text-[#d1b0de] hover:bg-[#3b2a42]'"
+                (click)="setFramerGrain(0.35, 0.6)"
+              >
+                Velvety (35%, Defused)
+              </button>
+              <button
+                type="button"
+                class="px-2.5 py-1 rounded text-xs font-mono cursor-pointer transition-colors"
+                [class]="framerGrainOpacity() === 0.6 && framerBlur() === 0.4 ? 'bg-[#9c27b0] text-white font-bold' : 'bg-[#291b30] text-[#d1b0de] hover:bg-[#3b2a42]'"
+                (click)="setFramerGrain(0.6, 0.4)"
+              >
+                Medium (60%)
+              </button>
+              <button
+                type="button"
+                class="px-2.5 py-1 rounded text-xs font-mono cursor-pointer transition-colors"
+                [class]="framerGrainOpacity() === 0.85 && framerBlur() === 0 ? 'bg-[#9c27b0] text-white font-bold' : 'bg-[#291b30] text-[#d1b0de] hover:bg-[#3b2a42]'"
+                (click)="setFramerGrain(0.85, 0)"
+              >
+                Raw Sharp (85%)
+              </button>
+            </div>
+            <span class="text-xs text-[#b39bbd] font-mono">
+              Current: {{ (framerGrainOpacity() * 100).toFixed(0) }}% opacity · {{ framerBlur() }}px blur
+            </span>
+          </div>
+        </div>
+
+        <div class="relative z-10 pt-4 border-t border-[#3b2a42]/50 flex items-center justify-between">
+          <span class="text-xs font-mono text-[#cebed6]">class="framer-surface"</span>
+          <button matButton="filled" class="btn-framer text-[#f5edfa]!">
+            <span>Plum Button</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Part 2: Bespoke Button Micro-Treatments -->
+  <div class="flex flex-col gap-4 pt-4">
+    <h3 class="font-title-md text-primary flex items-center gap-2">
+      <mat-icon name="smart_button" size="sm" iconColor="primary" />
+      Bespoke Button Micro-Optics (Tactile & Interactive)
+    </h3>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <!-- Button 1: Hardware Chamfer Glass -->
+      <div class="bg-surface-container-low p-5 rounded-corner-xs border border-outline-variant flex flex-col justify-between gap-4 overflow-hidden">
+        <div class="flex flex-col gap-1">
+          <span class="font-title-xs text-on-surface font-semibold">1. Hardware Chamfer</span>
+          <p class="font-body-xs text-on-surface-variant">
+            1px top inset specular highlight mimicking physical beveled aluminum.
+          </p>
+        </div>
+        <button
+          matButton="filled"
+          class="textured-button btn-hardware bg-[#161616]! text-on-surface! border border-white/10 flex items-center justify-center gap-2"
+          (click)="incrementClicks()"
+        >
+          <mat-icon name="memory" />
+          <span>Hardware CTA</span>
+        </button>
+        <span class="text-xs text-on-surface-variant font-mono">.btn-hardware</span>
+      </div>
+
+      <!-- Button 2: Interactive Mouse Spotlight Radar -->
+      <div class="bg-surface-container-low p-5 rounded-corner-xs border border-outline-variant flex flex-col justify-between gap-4 overflow-hidden">
+        <div class="flex flex-col gap-1">
+          <span class="font-title-xs text-on-surface font-semibold">2. Dynamic Spotlight</span>
+          <p class="font-body-xs text-on-surface-variant">
+            A luminous radial sheen that follows the exact cursor coordinates.
+          </p>
+        </div>
+        <button
+          matButton="filled"
+          class="textured-button btn-spotlight bg-[#161616]! text-on-surface! border border-outline-variant/50 flex items-center justify-center gap-2 cursor-crosshair"
+          (mousemove)="onSpotlightMove($event)"
+          (click)="incrementClicks()"
+        >
+          <mat-icon name="radar" />
+          <span>Move Mouse Here</span>
+        </button>
+        <span class="text-xs text-on-surface-variant font-mono">.btn-spotlight</span>
+      </div>
+
+      <!-- Button 3: Animated Shimmer Sweep -->
+      <div class="bg-surface-container-low p-5 rounded-corner-xs border border-outline-variant flex flex-col justify-between gap-4 overflow-hidden">
+        <div class="flex flex-col gap-1">
+          <span class="font-title-xs text-on-surface font-semibold">3. Shimmer Sweep</span>
+          <p class="font-body-xs text-on-surface-variant">
+            Continuous subtle light beam gliding across the button surface.
+          </p>
+        </div>
+        <button
+          matButton="filled"
+          class="textured-button btn-shimmer-sweep flex items-center justify-center gap-2 shadow-mat-1"
+          (click)="incrementClicks()"
+        >
+          <mat-icon name="auto_awesome" />
+          <span>Shimmer Action</span>
+        </button>
+        <span class="text-xs text-on-surface-variant font-mono">.btn-shimmer-sweep</span>
+      </div>
+
+      <!-- Button 4: Pinstripe Tactile Pill -->
+      <div class="bg-surface-container-low p-5 rounded-corner-xs border border-outline-variant flex flex-col justify-between gap-4 overflow-hidden">
+        <div class="flex flex-col gap-1">
+          <span class="font-title-xs text-on-surface font-semibold">4. Carbon Micro-Hatch</span>
+          <p class="font-body-xs text-on-surface-variant">
+            Tactile 45° diagonal pinstripe texture on dark button.
+          </p>
+        </div>
+        <button
+          matButton="filled"
+          class="bg-pinstripe bg-[#161616]! text-on-surface! border border-outline-variant/60 flex items-center justify-center gap-2"
+          (click)="incrementClicks()"
+        >
+          <mat-icon name="security" />
+          <span>Industrial Pill</span>
+        </button>
+        <span class="text-xs text-on-surface-variant font-mono">.bg-pinstripe</span>
+      </div>
+    </div>
+
+    <!-- Live Interactivity Verification Bar -->
+    <div class="p-4 rounded-corner-xs border border-primary/30 bg-surface-container flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <mat-icon name="touch_app" iconColor="primary" size="sm" />
+        <span class="text-xs text-on-surface-variant">
+          Click any button above to verify hit-testing, ripple animations, and reactive signal state:
+        </span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="text-xs text-on-surface-variant font-mono">Clicks:</span>
+        <span class="font-mono text-base font-bold text-primary px-3 py-0.5 rounded bg-primary/10">
+          {{ testClicks() }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Part 3: Composite Master Section Simulation (The Complete Recipe) -->
+  <div class="flex flex-col gap-4 pt-4">
+    <h3 class="font-title-md text-primary flex items-center gap-2">
+      <mat-icon name="diamond" size="sm" iconColor="primary" />
+      Composite Section Prototype (Aurora + Tech Grid + Noise Overlay + Hardware Button)
+    </h3>
+
+    <div
+      (mousemove)="onCardSpotlightMove($event)"
+      class="card-spotlight-aurora relative overflow-hidden rounded-corner-lg border border-primary/40 bg-[#111111] p-8 md:p-12 flex flex-col gap-8 shadow-mat-4 cursor-crosshair"
+    >
+      <!-- 1. Ambient Moving Aurora Orbs -->
+      <div aria-hidden="true" class="orb-cursor-green size-72! opacity-30!"></div>
+      <div aria-hidden="true" class="orb-opposite-blue size-80! opacity-35!"></div>
+
+      <!-- 2. Technical Coordinate Grid -->
+      <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0 bg-tech-grid"></div>
+
+      <!-- 3. Film Grain Noise Overlay -->
+      <div aria-hidden="true" class="noise-overlay"></div>
+
+      <!-- Foreground Content -->
+      <div class="relative z-10 flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div class="flex flex-col gap-3 max-w-2xl">
+          <div class="flex items-center gap-2">
+            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-primary/15 text-primary border border-primary/25">
+              Production Architecture
+            </span>
+            <span class="text-xs text-on-surface-variant font-mono">#service composite style</span>
+          </div>
+          <h4 class="font-headline-md text-on-surface font-bold tracking-tight">
+            Tactile, Layered & Bespoke UI Atmosphere
+          </h4>
+          <p class="font-body-sm text-on-surface-variant leading-relaxed">
+            By layering <strong>Ambient Aurora Orbs</strong> + <strong>Tech Coordinate Grid</strong> + <strong>Film Grain Noise</strong>, the background achieves deep physical presence without feeling noisy or distracting. All text remains sharp, high-contrast, and fully accessible.
+          </p>
+        </div>
+
+        <div class="flex flex-col sm:flex-row items-center gap-3">
+          <button
+            matButton="filled"
+            class="textured-button btn-hardware bg-[#181818]! text-on-surface! border border-white/15 h-12 px-6 shadow-mat-2"
+            (click)="incrementClicks()"
+          >
+            <mat-icon name="rocket_launch" />
+            <span>Apply To Service</span>
+          </button>
+          <button
+            matButton="filled"
+            class="textured-button btn-shimmer-sweep h-12 px-6 shadow-mat-1"
+            (click)="incrementClicks()"
+          >
+            <span>Explore Details &rarr;</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

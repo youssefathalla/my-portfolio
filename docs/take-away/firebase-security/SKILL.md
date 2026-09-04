@@ -232,7 +232,7 @@ Firebase Blaze plan auto-scales infinitely. Without proactive guardrails, attack
 
 - 👤 **Human Responsibility**:
   1. In [Google Cloud Billing](https://console.cloud.google.com/billing), configure budget alerts with email notifications (e.g., 50%, 90%, 100% thresholds).
-  2. In Identity Platform / Firebase Auth settings, enable **Email enumeration protection** to prevent attackers from scraping user accounts.
+     _(Note: Email enumeration protection is enabled by default on all modern Firebase projects since September 2023 via `enableImprovedEmailPrivacy: true` — zero manual configuration needed)._
 - 🤖 **AI Responsibility**:
   1. Ensure every client-side Firestore query specifies `.limit(n)` or uses cursor pagination. Never emit unbounded queries.
   2. Enforce transaction timeouts and rate-limit counters in Cloud Functions.
@@ -252,7 +252,6 @@ Use these checklists to track completion across both human operations and codeba
 |  [ ]   | **Billing Protection** | Configure Budget Threshold Alerts                 | [Google Cloud Billing > Budgets](https://console.cloud.google.com/billing)<br>Set alert thresholds at 50%, 90%, and 100% with email notifications.                                   |
 |  [ ]   | **App Check**          | Register Web App & reCAPTCHA Key                  | [Firebase Console > App Check](https://console.firebase.google.com/)<br>Register web app with reCAPTCHA v3 or Enterprise site key.                                                   |
 |  [ ]   | **App Check**          | Enforce App Check for Firestore & Functions       | After monitoring traffic and confirming valid tokens, switch Firestore from "Monitor" to **"Enforce"**.                                                                              |
-|  [ ]   | **Auth Protection**    | Enable Email Enumeration Protection               | [Google Cloud Console > Identity Platform > Settings](https://console.cloud.google.com/customer-identity/settings) or Firebase Auth settings.                                        |
 |  [ ]   | **Secret Manager**     | Set Production Secret Values                      | Run `firebase functions:secrets:set <KEY>` via CLI or set in [Cloud Secret Manager](https://console.cloud.google.com/security/secret-manager).                                       |
 |  [ ]   | **Webhooks**           | Configure External Webhook Secret & URL           | In provider dashboard (e.g. Cal.com, Stripe), register function HTTPS URL and matching secret.                                                                                       |
 

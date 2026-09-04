@@ -18,8 +18,12 @@
   --color-on-tertiary-container: var(--mat-sys-on-tertiary-container);
 
   /*- warning Colors */
-  --color-warning: light-dark(#626200, #cdcd00);
-  --color-on-warning: light-dark(#e7e4bf, #49482d);
+  --color-warning: light-dark(#d1d10e, #cdcd00);
+  --color-on-warning: light-dark(#3a3700, #49482d);
+
+  /* old values for warning colors */
+  /*` --color-warning: light-dark(#626200, #cdcd00); */
+  /*` --color-on-warning: light-dark(#e7e4bf, #49482d); */
 
   /*- info Colors */
   --color-info: light-dark(#005cbb, #abc7ff);
@@ -77,5 +81,8 @@
   --container-8xl: 90rem;
   --container-9xl: 100rem;
 
+  /* Tri-Font System Architecture */
+  --font-display: 'Chillax', sans-serif;
+  --font-body: 'Google Sans Flex', sans-serif;
+  --font-numeric: 'Melodrama', serif;
 }
-
