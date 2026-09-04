@@ -1,5 +1,9 @@
 @use '@angular/material' as mat;
 
+html {
+  scrollbar-gutter: stable;
+}
+
 :root {
   interpolate-size: allow-keywords;
 }

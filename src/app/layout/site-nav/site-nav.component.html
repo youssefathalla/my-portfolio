@@ -1,16 +1,27 @@
-<header class="w-full pointer-events-none relative h-full">
+<header class="relative w-full h-full pointer-events-none">
+  <!-- Backdrop dimmer when mobile menu is open (tap outside to close) -->
+  @if (isMobileMenuOpen()) {
+    <div
+      class="fixed inset-0 z-[-1] bg-black/50 backdrop-blur-xs lg:hidden pointer-events-auto transition-opacity"
+      (click)="closeMobileMenu()"
+      (keydown.escape)="closeMobileMenu()"
+      tabindex="-1"
+      aria-hidden="true"
+    ></div>
+  }
+
   <div
-    class="relative mx-auto flex flex-col pointer-events-auto border border-solid transition-all duration-300 ease-out h-full backdrop-blur-sm"
+    class="relative flex flex-col mx-auto border border-solid pointer-events-auto backdrop-blur-md transition-[background-color,border-color,box-shadow,border-radius] duration-200"
     [class]="
       isMobileMenuOpen()
-        ? 'max-w-md md:max-w-4xl lg:max-w-5xl px-4 sm:px-6 py-2 rounded-3xl border-outline-variant/40 bg-surface dark:bg-surface-container-high shadow-mat-3 translate-y-2'
+        ? 'w-full px-4 sm:px-6 py-1 rounded-t-none rounded-b-3xl border-x-0 border-t-0 border-b border-outline-variant/40 shadow-mat-4 bg-surface-container-high h-auto overflow-hidden'
         : isScrolled()
-          ? 'max-w-4xl lg:max-w-5xl px-4 sm:px-6 rounded-full border-outline-variant/30 bg-surface dark:bg-surface-container-high/90 shadow-md translate-y-2 py-1'
-          : 'container px-4  sm:px-6 md:px-8 py-1 rounded-none border-transparent bg-transparent shadow-none translate-y-0'
+          ? 'lg:max-w-5xl px-4 sm:px-6 lg:rounded-full border-outline-variant/30 bg-surface-container-high/90 shadow-md lg:translate-y-2 py-1 h-full'
+          : 'lg:container px-4 sm:px-6 md:px-6 py-1 rounded-none border-transparent bg-transparent shadow-none translate-y-0 h-full'
     "
   >
     <!-- Top Bar Row -->
-    <div class="flex h-full items-center justify-between w-full">
+    <div class="flex items-center justify-between w-full h-16 shrink-0">
       <!-- Brand: Youssef <Logo> Fathalla -->
       <a
         routerLink="/"
@@ -20,32 +31,40 @@
       >
         <!-- First Name: Youssef -->
         <span
-          class="hidden sm:inline-block whitespace-nowrap font-headline-sm font-bold min-w-0 select-none overflow-hidden"
-          [class]="isScrolled() ? 'max-w-0 opacity-0 me-0' : 'max-w-24 opacity-100 me-1'"
+          class="hidden min-w-0 overflow-hidden font-bold transition-all select-none 2xl:inline-block lg:hidden sm:inline-block whitespace-nowrap font-headline-sm"
+          [class]="
+            isScrolled()
+              ? 'max-w-24 opacity-100 me-1 2xl:max-w-0 2xl:opacity-0 2xl:me-0'
+              : 'max-w-24 opacity-100 me-1'
+          "
         >
           Youssef
         </span>
 
         <!-- Center Circular Logo Emblem (32px on mobile/tablet, 48px on desktop) -->
-        <div class="relative size-8 md:size-12">
+        <div class="relative size-10 md:size-12">
           <img
             src="/brand/favicon.png"
             alt="Youssef Fathalla Logo"
-            class="size-full object-cover"
+            class="object-cover size-full"
           />
         </div>
 
         <!-- Last Name: Fathalla -->
         <span
-          class="hidden sm:inline-block whitespace-nowrap font-headline-sm font-bold min-w-0 select-none overflow-hidden"
-          [class]="isScrolled() ? 'max-w-0 opacity-0 ms-0' : 'max-w-28 opacity-100 ms-1'"
+          class="hidden min-w-0 overflow-hidden font-bold transition-all select-none 2xl:inline-block lg:hidden sm:inline-block whitespace-nowrap font-headline-sm"
+          [class]="
+            isScrolled()
+              ? 'max-w-28 opacity-100 ms-1 2xl:max-w-0 2xl:opacity-0 2xl:ms-0'
+              : 'max-w-28 opacity-100 ms-1'
+          "
         >
           Fathalla
         </span>
       </a>
 
       <!-- Center Navigation Links: Desktop Only (>= md) -->
-      <nav class="hidden md:flex items-center gap-2" aria-label="Main navigation">
+      <nav class="items-center hidden gap-2 lg:flex" aria-label="Main navigation">
         @for (link of t().links; track link.path) {
           <a
             class="nav-items"
@@ -68,10 +87,13 @@
           routerLink="/contact"
           (click)="closeMobileMenu()"
           matIconButton
+          matTooltip="Book a call"
+          matTooltipPosition="below"
           class="md:hidden!"
+          [class.hidden!]="isMobileMenuOpen()"
           aria-label="Book a call"
         >
-          <mat-icon name="call" />
+          <mat-icon name="event" iconColor="info" type="fill" />
         </a>
 
         <!-- Theme toggle button -->
@@ -88,7 +110,12 @@
         <app-lang />
 
         <!-- Book a Call Full Button: Desktop Only (>= md) -->
-        <a routerLink="/contact" matButton="filled" class="hidden! md:inline-flex!">
+        <a
+          routerLink="/contact"
+          matButton="filled"
+          class="hidden! md:inline-flex!"
+          [class.md:hidden!]="isMobileMenuOpen()"
+        >
           <span>{{ t().cta }}</span>
           <mat-icon name="arrow_forward" size="base" iconPositionEnd />
         </a>
@@ -97,7 +124,7 @@
         <button
           type="button"
           matIconButton
-          class="md:hidden! text-foreground"
+          class="lg:hidden! text-foreground"
           (click)="toggleMobileMenu()"
           [attr.aria-expanded]="isMobileMenuOpen()"
           [attr.aria-label]="isMobileMenuOpen() ? 'Close navigation menu' : 'Open navigation menu'"
@@ -110,18 +137,18 @@
     <!-- Mobile Expanded Dropdown Section -->
     @if (isMobileMenuOpen()) {
       <div
-        class="md:hidden flex flex-col pt-3 pb-2 border-t border-outline-variant/30 w-full animate-in fade-in slide-in-from-top-2 duration-200"
+        class="flex flex-col w-full pt-3 pb-2 duration-200 border-t lg:hidden border-outline-variant/30 animate-in fade-in slide-in-from-top-2"
       >
         <!-- Vertical Navigation Links -->
         <nav class="flex flex-col gap-1 py-1" aria-label="Mobile navigation">
           @for (link of t().links; track link.path) {
             <a
               [routerLink]="link.path"
-              (click)="closeMobileMenu()"
               routerLinkActive="bg-primary/10 text-primary font-semibold"
               [routerLinkActiveOptions]="{ exact: link.path === '/' }"
+              (click)="closeMobileMenu()"
               matButton
-              class="flex items-center px-4 py-2.5 rounded-xl text-base font-medium text-foreground hover:bg-surface-variant/40 transition-colors"
+              class="flex items-center justify-start! w-full! px-4 py-2.5 rounded-xl text-base font-medium text-foreground hover:bg-surface-variant/40 transition-colors"
             >
               {{ link.label }}
             </a>
@@ -129,10 +156,15 @@
         </nav>
 
         <!-- Mobile Expanded CTA Button -->
-        <div class="pt-3 pb-1 px-1">
-          <a routerLink="/contact" (click)="closeMobileMenu()" matButton="filled">
+        <div class="px-1 pt-3 pb-1">
+          <a
+            routerLink="/contact"
+            (click)="closeMobileMenu()"
+            matButton="filled"
+            class="w-full! justify-center! py-2.5!"
+          >
             <span>{{ t().cta }}</span>
-            <mat-icon name="arrow_forward" size="base" />
+            <mat-icon name="arrow_forward" size="base" iconPositionEnd />
           </a>
         </div>
       </div>

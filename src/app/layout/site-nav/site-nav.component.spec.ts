@@ -41,7 +41,7 @@ describe('SiteNavComponent', () => {
     await fixture.whenStable();
 
     const innerDiv: HTMLElement | null = fixture.nativeElement.querySelector('header > div.mx-auto');
-    expect(innerDiv?.classList.contains('rounded-full')).toBe(true);
+    expect(innerDiv?.classList.contains('lg:rounded-full')).toBe(true);
 
     Object.defineProperty(window, 'scrollY', { value: 0, writable: true, configurable: true });
     window.dispatchEvent(new Event('scroll'));
